@@ -1,0 +1,77 @@
+/* Global Design Tokens & Reset */
+:root {
+  /* Color Palette - STRICTLY followed */
+  --color-primary-green: #4CAF50;    /* Light Soft Green - Trust & Growth */
+  --color-primary-hover: #43A047;
+  --color-accent-yellow: #FFEB3B;    /* Highlights/Alerts - Attention */
+  --color-bg-beige: #F5F5DC;         /* Calm Background - Paper/Earth feel */
+  --color-card-brown: #FFF8E1;       /* Light Brownish Yellow - Card backgrounds */
+  --color-accent-ochre: #D9A54C;     /* Mustard/Ochre from designs */
+  
+  --color-text-dark: #2E3B2E;        /* Soft Black/Dark Green - Readable */
+  --color-text-muted: #5C6B5C;       /* Secondary text */
+  --color-border: #E0E0E0;
+  
+  --color-alert-red: #E53935;
+  --color-alert-orange: #FB8C00;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* Layout */
+  --sidebar-width: 280px;
+  --header-height: 60px;
+  --radius-card: 16px;
+  --radius-btn: 8px;
+  
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-beige);
+  color: var(--color-text-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utility to ensure main content takes available space */
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Class Utility */
+.card {
+  background-color: var(--color-card-brown);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.02);
+}

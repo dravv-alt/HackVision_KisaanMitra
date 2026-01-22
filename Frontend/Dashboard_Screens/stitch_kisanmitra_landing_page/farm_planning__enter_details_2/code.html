@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Crop Status - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D96C4C", // Muted terracotta for attention
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown (Soft alternative to black)
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown (Not black)
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Rentals</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-8 rounded-full bg-card-beige border border-card-border overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<div class="flex items-center gap-2 text-text-secondary dark:text-gray-400 mb-2">
+<span class="material-symbols-outlined text-sm">home</span>
+<span class="text-sm">/</span>
+<span class="text-sm font-medium">Dashboard</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100 mb-2">Active Crops</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Monitor growth stages and upcoming tasks.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] px-4 py-2 rounded-lg text-text-main dark:text-gray-200 hover:bg-card-beige transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg shadow-sm hover:bg-primary-dark transition-colors">
+<span class="material-symbols-outlined">add</span>
+<span>Add New Crop</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="group flex flex-col h-full bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+<div class="h-48 bg-[#EBE5D5] dark:bg-[#4A4036] relative overflow-hidden">
+<img alt="Wheat Field" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoYVt76YGAwzGDCdp05ZWqspBkvj9bB65I7_PbNK6FkL_r5Z9Q8A3zYJOnaRTWAtK4qybhNoLAUuMAuFPiG9aqezeAvojli4gX0gIp2hS1oKj6Mi8re-Ufafqr1uxG7kaE4IOStlak6ofrmflcI90SpB1GQSCBpNUL25WdD9WjdK2Wuh_D07C9G8_eW7EUo_qvAH4hKNL45UQSvM09drK23GtPNaeeGRI-epSr84jBUBMtpYVXd7eHl2DK0FLYkE-v5Jrc7o4MxHw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h3 class="text-2xl font-bold">Wheat (Rabi)</h3>
+<p class="text-white/90 font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">square_foot</span> 5 Acres
+                    </p>
+</div>
+<div class="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                    Healthy
+                </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Growth Stage</span>
+<span class="text-sm font-bold text-primary">Day 45 of 120</span>
+</div>
+<div class="text-lg font-bold text-text-main dark:text-gray-200 mb-2">Tillering Stage</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 38%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-black/20 rounded-xl p-4 border border-card-border dark:border-[#4A4036] mb-6">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-accent-ochre/10 rounded-lg text-accent-ochre">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-text-main dark:text-gray-200">Next Action</h4>
+<p class="text-text-secondary dark:text-gray-400 text-sm mt-0.5">Irrigation required tomorrow morning.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-2 gap-4">
+<button class="w-full bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] border border-card-border dark:border-[#5C5046] text-text-main dark:text-gray-200 font-medium py-2.5 px-4 rounded-xl transition-all text-sm">
+                        Details
+                    </button>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] text-sm">
+                        Log Activity
+                    </button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col h-full bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+<div class="h-48 bg-[#EBE5D5] dark:bg-[#4A4036] relative overflow-hidden">
+<img alt="Mustard Field" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAUqi3mLg4DAMwknkr0iM0SYuQ92brczfaUA1sbXn-Ht2BidsM_VZ3VdfBHHcZMjUpHAmmxrs-JkRmHCbtqJKqH1EyhigfKgpuSazlIH3ROjdXjVkkg5V0UOEvnNxLn3XGrXB2WxStLsF8tZv-pkFs10K8066DcRqingwUB3XxnSmjPZgw9G7GWNqO9R6rdPQ68B3NuQPKJ_DyTPFjYVvIXYGsnXE-9SX7na42ovkr2v2A2o5K8lJ90ekPlYAADEtX3O-RN-rTmVI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h3 class="text-2xl font-bold">Mustard</h3>
+<p class="text-white/90 font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">square_foot</span> 2.5 Acres
+                    </p>
+</div>
+<div class="absolute top-4 right-4 bg-accent-alert/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+                    Needs Attention
+                </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Growth Stage</span>
+<span class="text-sm font-bold text-accent-ochre">Day 65 of 110</span>
+</div>
+<div class="text-lg font-bold text-text-main dark:text-gray-200 mb-2">Flowering Stage</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-accent-ochre h-2.5 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-black/20 rounded-xl p-4 border border-card-border dark:border-[#4A4036] mb-6">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-accent-alert/10 rounded-lg text-accent-alert">
+<span class="material-symbols-outlined">pest_control</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-text-main dark:text-gray-200">Next Action</h4>
+<p class="text-text-secondary dark:text-gray-400 text-sm mt-0.5">Check for Aphids infestation immediately.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-2 gap-4">
+<button class="w-full bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] border border-card-border dark:border-[#5C5046] text-text-main dark:text-gray-200 font-medium py-2.5 px-4 rounded-xl transition-all text-sm">
+                        Details
+                    </button>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] text-sm">
+                        Log Activity
+                    </button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col h-full bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+<div class="h-48 bg-[#EBE5D5] dark:bg-[#4A4036] relative overflow-hidden">
+<img alt="Potato Field" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANYd9vcorDdOrLZPp_Xha2SMKt-DKanRtXBEorOME_NmnQhilnqmNXr6hu_zeyMMyqZ14pARI5F65Kx8JdN7gdbLlhk4vQtaoxITFZNHEPpl9LA9NAW2uMvvxQ_81UHU2FcA8MhvN2KU-QWnyp4_v_WGZoC5q-itS-GDmw9rnTlYDuFHjaBh6Iy8v3Yf_LFzPo1b-GWWQyiRyH6Fbp3PDZWmJVoMuhNG2Ew-SjvKiidsDXM30A6Ao6NL_c1FJk0Qo3dG_hi5GAlfY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h3 class="text-2xl font-bold">Potato</h3>
+<p class="text-white/90 font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">square_foot</span> 1.2 Acres
+                    </p>
+</div>
+<div class="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                    Healthy
+                </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Growth Stage</span>
+<span class="text-sm font-bold text-primary">Day 20 of 90</span>
+</div>
+<div class="text-lg font-bold text-text-main dark:text-gray-200 mb-2">Vegetative Growth</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 22%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-black/20 rounded-xl p-4 border border-card-border dark:border-[#4A4036] mb-6">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">compost</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-text-main dark:text-gray-200">Next Action</h4>
+<p class="text-text-secondary dark:text-gray-400 text-sm mt-0.5">Apply NPK fertilizer within 3 days.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-2 gap-4">
+<button class="w-full bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] border border-card-border dark:border-[#5C5046] text-text-main dark:text-gray-200 font-medium py-2.5 px-4 rounded-xl transition-all text-sm">
+                        Details
+                    </button>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] text-sm">
+                        Log Activity
+                    </button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col h-full bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+<div class="h-48 bg-[#EBE5D5] dark:bg-[#4A4036] relative overflow-hidden">
+<img alt="Chickpea Field" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcn0uhLmHMd8Bl2F987Hz9d8GBmA7N9Vn6i3tMHmZd-MKH1zuQJmUVyNqFr8F8CQ8c-NlUKBdM2mVCEbOpVErcArmdsx2v7_Rz_fZND8Rx_9NOOJIx412M4yWLf7Py0WzK98S99CuYVawRgspzfSaOCfdYC0p5GZ2ye_8lWkcPdrP774nuXvf89wazlWssf4uQWkO0YEqzszYroWPqAI4dSSweWQ_zukDhWWYNedcwyVYEPQneA4TRAthWQYWOgJJkz-iip0R1pPw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h3 class="text-2xl font-bold">Chickpea (Gram)</h3>
+<p class="text-white/90 font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">square_foot</span> 3.0 Acres
+                    </p>
+</div>
+<div class="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                    Healthy
+                </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Growth Stage</span>
+<span class="text-sm font-bold text-primary">Day 50 of 100</span>
+</div>
+<div class="text-lg font-bold text-text-main dark:text-gray-200 mb-2">Pod Formation</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 50%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-black/20 rounded-xl p-4 border border-card-border dark:border-[#4A4036] mb-6">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-accent-ochre/10 rounded-lg text-accent-ochre">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-text-main dark:text-gray-200">Next Action</h4>
+<p class="text-text-secondary dark:text-gray-400 text-sm mt-0.5">Monitor for pod borer activity.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-2 gap-4">
+<button class="w-full bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] border border-card-border dark:border-[#5C5046] text-text-main dark:text-gray-200 font-medium py-2.5 px-4 rounded-xl transition-all text-sm">
+                        Details
+                    </button>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] text-sm">
+                        Log Activity
+                    </button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col h-full bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] overflow-hidden hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
+<div class="h-48 bg-[#EBE5D5] dark:bg-[#4A4036] relative overflow-hidden">
+<img alt="Onion Field" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjjkkhPkkT63cYZ83eRfboEhYylKaXvH_dYV9H_0Qf7ooXXGQw66N5xaxj8SIZWR2uJe_oPVTknZdxRB1eypHJrA3JzpjPdl5Cl8xISyGOAuNxcI1nayzVx0-jX-7Kf1AmJCwjCbovHL30RxWKzCwwLfOYEp0N8h_ZREI0SG8QojMywV_I5alPuI1_XKl29-nZEqXc963MZ1o2NsUcPso2NZKzrrN6BaW4o5U1yw6UUP9qoYFmuTlDKq9DxrucDq0S2Jw2t2MMlj0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h3 class="text-2xl font-bold">Onion</h3>
+<p class="text-white/90 font-medium text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-base">square_foot</span> 0.8 Acres
+                    </p>
+</div>
+<div class="absolute top-4 right-4 bg-accent-alert/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">water_loss</span>
+                    Thirsty
+                </div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Growth Stage</span>
+<span class="text-sm font-bold text-accent-ochre">Day 70 of 120</span>
+</div>
+<div class="text-lg font-bold text-text-main dark:text-gray-200 mb-2">Bulb Development</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-accent-ochre h-2.5 rounded-full" style="width: 58%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-black/20 rounded-xl p-4 border border-card-border dark:border-[#4A4036] mb-6">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-accent-ochre/10 rounded-lg text-accent-ochre">
+<span class="material-symbols-outlined">sprinkler</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-text-main dark:text-gray-200">Next Action</h4>
+<p class="text-text-secondary dark:text-gray-400 text-sm mt-0.5">Light irrigation needed this evening.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto grid grid-cols-2 gap-4">
+<button class="w-full bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] border border-card-border dark:border-[#5C5046] text-text-main dark:text-gray-200 font-medium py-2.5 px-4 rounded-xl transition-all text-sm">
+                        Details
+                    </button>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all shadow-sm hover:shadow active:scale-[0.98] text-sm">
+                        Log Activity
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+</body></html>

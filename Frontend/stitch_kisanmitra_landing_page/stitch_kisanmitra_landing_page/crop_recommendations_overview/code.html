@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Crop Recommendations</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8fa87a", // Sage Green
+                        "primary-dark": "#768c63", // Darker Sage
+                        "secondary": "#f4f1ea", // Beige background
+                        "card-bg": "#fcf8ef", // Softer brownish-yellow for cards
+                        "card-bg-hover": "#f7f1e1",
+                        "text-main": "#4a4238", // Soft dark brown instead of harsh black
+                        "text-muted": "#8c857b",
+                        "background-light": "#f4f1ea", // Light warm Beige
+                        "background-dark": "#1c1917", 
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#292524",
+                        "accent-ochre": "#d6a454", // Soft Ochre
+                        "accent-mustard": "#d4b36a", // Muted Mustard
+                        "risk-low": "#8fa87a", // Sage for low risk
+                        "risk-med": "#d6a454", // Ochre for medium
+                        "risk-high": "#bf7e6f", // Soft terra-cotta for high risk
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem", 
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Epilogue', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-100 min-h-screen flex flex-col md:flex-row overflow-hidden font-display">
+<aside class="w-full md:w-72 bg-[#ebe8e0] dark:bg-[#1c1917] border-r border-[#dcd8ce] dark:border-[#44403c] flex flex-col h-screen sticky top-0 z-20 hidden md:flex shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-dark">
+<span class="material-symbols-outlined icon-filled">agriculture</span>
+</div>
+<div>
+<h1 class="font-bold text-lg text-text-main dark:text-white leading-tight">KisanMitra</h1>
+<p class="text-sm text-text-muted dark:text-gray-400">Farm Management</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted dark:text-gray-300 hover:bg-[#dfdbd3] dark:hover:bg-[#292524] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary-dark transition-colors">grid_view</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted dark:text-gray-300 hover:bg-[#dfdbd3] dark:hover:bg-[#292524] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary-dark transition-colors">grass</span>
+<span class="font-medium">Soil Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/20 text-primary-dark dark:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined icon-filled">assignment</span>
+<span class="font-bold">Crop Plan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted dark:text-gray-300 hover:bg-[#dfdbd3] dark:hover:bg-[#292524] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary-dark transition-colors">trending_up</span>
+<span class="font-medium">Market Prices</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted dark:text-gray-300 hover:bg-[#dfdbd3] dark:hover:bg-[#292524] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary-dark transition-colors">account_balance_wallet</span>
+<span class="font-medium">Finances</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#dcd8ce] dark:border-[#44403c]">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted dark:text-gray-300 hover:bg-[#dfdbd3] dark:hover:bg-[#292524] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-4 py-2">
+<div class="h-10 w-10 rounded-full bg-cover bg-center border border-gray-300" data-alt="Profile picture of a farmer smiling" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWrJi5dLhJyCVzXQTSSQ1W6IJUD06j77hFyKLBpPgyTdG3lmRWgZge9DQriPatqSBnD7_pbiGo5t4rTRbvkH9DS5cFWlh2lj3w-94C_noW3hNuKzhWxTt5v2gvDFqyVlCLGHmvY8m7o8ZjA_Fk8e5kB2_0IdNX2euzyZWqF-Si5x9IAY7k0wldvRSkPJ3r2cH-yk-38VZthJlxIsleKDOgOsh8HYPYE46LXVTJMa9U4Re_dQvxoBcq1a00zd2lsxS0UT5osiIAMXI')"></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-text-main dark:text-white">Ramesh Kumar</span>
+<span class="text-xs text-text-muted dark:text-gray-400">Premium Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<header class="md:hidden flex items-center justify-between p-4 bg-[#f4f1ea] border-b border-[#e7e5e4] sticky top-0 z-20">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary-dark">
+<span class="material-symbols-outlined icon-filled text-xl">agriculture</span>
+</div>
+<span class="font-bold text-lg text-text-main">KisanMitra</span>
+</div>
+<button class="p-2 text-text-main">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex-1 h-screen overflow-y-auto relative bg-background-light dark:bg-background-dark p-4 md:p-8 lg:px-12">
+<div class="max-w-5xl mx-auto mb-8 mt-2">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<h2 class="text-3xl md:text-4xl font-bold text-text-main dark:text-white mb-3">Crop Recommendations</h2>
+<p class="text-text-muted dark:text-gray-300 text-lg max-w-2xl leading-relaxed">
+                    Based on your <span class="text-primary-dark dark:text-primary font-medium">soil health</span> and <span class="text-accent-ochre dark:text-accent-mustard font-medium">weather forecast</span>, here are your best planting options for the upcoming season.
+                </p>
+</div>
+<div class="shrink-0">
+<button class="flex items-center gap-2 bg-[#fdfbf7] dark:bg-[#292524] border border-[#dcd8ce] dark:border-[#44403c] px-4 py-2 rounded-lg text-text-main dark:text-gray-200 shadow-sm hover:bg-[#fcf8ef] dark:hover:bg-[#353130] transition">
+<span class="material-symbols-outlined text-accent-ochre">calendar_month</span>
+<span class="font-medium">Rabi Season 2024</span>
+<span class="material-symbols-outlined text-gray-400">arrow_drop_down</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-5xl mx-auto flex flex-col gap-6 pb-24">
+<div class="bg-card-bg dark:bg-amber-900/20 border border-[#e6dec8] dark:border-amber-800/50 rounded-xl p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-primary-dark text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-sm z-10">
+                #1 Recommended
+            </div>
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-48 h-48 md:h-auto shrink-0 rounded-lg bg-gray-200 overflow-hidden relative self-stretch">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Close up of golden wheat stalks in a field" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNZMR-AJMOGarh4wifTCDJA-K1U0k0suT-cWfV2h6hv95bv068RePJAUucrNY4p08j5WbSV30zYFuEjhZGuf0Rtb0ll-Vwu_SbFTrabdj338pvZvbQmtYx7VsHd6sDowv1d3iQ9msfcnF5UvEPEUYxc0Yf07A3Nk-v4hQRvAsqWZG_WPdO_sUi81BSq8W1nkeVqKFt-Tn3tOU38KI4h1rlhTBouv9W7q9HjJziv3pnNHDLvT1ILm02LMMi18w4fsqGjm6ABHciNvY');">
+</div>
+</div>
+<div class="flex-1 w-full flex flex-col justify-between self-stretch gap-4">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-2xl font-bold text-text-main dark:text-white">Wheat (HD 2967)</h3>
+<p class="text-text-muted dark:text-amber-100/70 text-sm">Best suited for your loam soil type.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+<div class="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Profit Estimate</span>
+<span class="block text-lg font-bold text-accent-mustard dark:text-primary">₹25k - ₹30k <span class="text-sm font-normal text-text-muted dark:text-gray-400">/acre</span></span>
+</div>
+<div class="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Duration</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-text-muted dark:text-amber-400 text-[20px]">schedule</span>
+<span class="block text-lg font-bold text-text-main dark:text-gray-200">140 Days</span>
+</div>
+</div>
+<div class="bg-white/60 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30 col-span-2 lg:col-span-1 flex items-center gap-2">
+<div class="flex flex-col">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Risk Level</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-risk-low text-[20px] icon-filled">verified_user</span>
+<span class="font-bold text-primary-dark dark:text-primary">Low Risk</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-[#f0eadd] dark:bg-yellow-900/40 text-[#7a6e5a] dark:text-yellow-200 text-sm font-medium rounded-full border border-[#dcd8ce] dark:border-yellow-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> High Yield
+                            </span>
+<span class="px-3 py-1 bg-[#e0e9dd] dark:bg-blue-900/40 text-[#5c6e58] dark:text-blue-200 text-sm font-medium rounded-full border border-[#cbd8c6] dark:border-blue-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">water_drop</span> Low Water Req
+                            </span>
+</div>
+</div>
+<div class="flex items-center justify-end mt-2 md:mt-0">
+<button class="w-full md:w-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2">
+                            Select Plan
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card-bg dark:bg-amber-900/10 border border-[#e6dec8] dark:border-amber-800/30 rounded-xl p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-48 h-48 md:h-auto shrink-0 rounded-lg bg-gray-200 overflow-hidden relative self-stretch">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Close up of mustard flowers in a field" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCyyEliUTaUQ6TGMUqnfk-MiMlihVsMQioMAEvxpXi2mPAXDqq9kKyTCn37CQFcrMcVOe24pnvAqO0wDv6b3rLd42A_sFIEobKB5qAUkvYuUU6Yx6leM2tPMhKyrKUFasCePayv3RvdTjxn478kGzH4q_OG6LDZSBbYmJT7hJm5U7BKnMMzRt0tKOAtFg084yEiykjnkqsOrz1Eems5NkE-l3-VFw1H1KTS73e1dCRiYxG7e87uLIdMwxb82aIgXYws9JidrKzqtQs');">
+</div>
+</div>
+<div class="flex-1 w-full flex flex-col justify-between self-stretch gap-4">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-2xl font-bold text-text-main dark:text-white">Mustard (Pusa Bold)</h3>
+<p class="text-text-muted dark:text-amber-100/70 text-sm">Good option for shorter duration.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Profit Estimate</span>
+<span class="block text-lg font-bold text-text-main dark:text-gray-200">₹18k - ₹22k <span class="text-sm font-normal text-text-muted dark:text-gray-400">/acre</span></span>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Duration</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-text-muted dark:text-amber-400 text-[20px]">schedule</span>
+<span class="block text-lg font-bold text-text-main dark:text-gray-200">110 Days</span>
+</div>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30 col-span-2 lg:col-span-1 flex items-center gap-2">
+<div class="flex flex-col">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Risk Level</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-ochre text-[20px] icon-filled">gpp_maybe</span>
+<span class="font-bold text-[#b08d55] dark:text-orange-400">Medium Risk</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-[#e8e4db] dark:bg-gray-800 text-[#6b635b] dark:text-gray-300 text-sm font-medium rounded-full border border-[#d6d0c4] dark:border-gray-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> Moderate Profit
+                            </span>
+</div>
+</div>
+<div class="flex items-center justify-end mt-2 md:mt-0">
+<button class="w-full md:w-auto bg-[#fdfbf7] hover:bg-[#f2efe6] dark:bg-[#353130] dark:hover:bg-[#44403c] border border-[#dcd8ce] dark:border-gray-700 text-text-main dark:text-white font-medium py-3 px-8 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            View Details
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card-bg dark:bg-amber-900/10 border border-[#e6dec8] dark:border-amber-800/30 rounded-xl p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-48 h-48 md:h-auto shrink-0 rounded-lg bg-gray-200 overflow-hidden relative self-stretch">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Pile of fresh chickpeas in a bowl" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD0GA69Jm5sIBVhD7mjHNtUY9JHVKo_tuTh9ghVRbQg1CXePzM3ncL1-Y26XdVY9iNnmpxLznum5ZKI1Yor3aMUHiBl6gbv2QuFQiHsmngOBMwOJm4QnlfK8Ku_ysCBpI9ZwUia23skvNpmo3ULtceFTf0j4mBRz6dEQNl4AMelf46VU75ad74-oky7qlROenZxSOWfUkSGCtDz2nWNk_55jzbv68y9j4dQzPXsqYhJ7HStnEkStbMgKIp9z5uP8HoKMawh53Qpxy4');">
+</div>
+</div>
+<div class="flex-1 w-full flex flex-col justify-between self-stretch gap-4">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-2xl font-bold text-text-main dark:text-white">Chickpea (Desi)</h3>
+<p class="text-text-muted dark:text-amber-100/70 text-sm">Requires careful pest management.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Profit Estimate</span>
+<span class="block text-lg font-bold text-accent-mustard dark:text-gray-200">₹30k - ₹35k <span class="text-sm font-normal text-text-muted dark:text-gray-400">/acre</span></span>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Duration</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-text-muted dark:text-amber-400 text-[20px]">schedule</span>
+<span class="block text-lg font-bold text-text-main dark:text-gray-200">100 Days</span>
+</div>
+</div>
+<div class="bg-white/50 dark:bg-black/20 p-3 rounded-lg border border-[#e6dec8] dark:border-amber-900/30 col-span-2 lg:col-span-1 flex items-center gap-2">
+<div class="flex flex-col">
+<span class="block text-xs uppercase tracking-wide text-text-muted dark:text-gray-400 mb-1">Risk Level</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-risk-high text-[20px] icon-filled">warning</span>
+<span class="font-bold text-risk-high dark:text-red-400">High Risk</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-[#f5e8d0] dark:bg-yellow-900/40 text-[#8a6d3b] dark:text-yellow-200 text-sm font-medium rounded-full border border-[#e0d0b0] dark:border-yellow-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">monetization_on</span> High Profit
+                            </span>
+</div>
+</div>
+<div class="flex items-center justify-end mt-2 md:mt-0">
+<button class="w-full md:w-auto bg-[#fdfbf7] hover:bg-[#f2efe6] dark:bg-[#353130] dark:hover:bg-[#44403c] border border-[#dcd8ce] dark:border-gray-700 text-text-main dark:text-white font-medium py-3 px-8 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            View Details
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50">
+<button class="bg-primary hover:bg-primary-dark text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 group flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px] icon-filled">mic</span>
+<span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 font-bold pr-0 group-hover:pr-2">Speak Command</span>
+</button>
+</div>
+
+</body></html>

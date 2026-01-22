@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Equipment Detail - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Planning</a>
+<a class="text-sm font-medium text-primary" href="#">Market</a>
+<div class="size-8 rounded-full bg-card-beige border border-card-border overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+<nav aria-label="Breadcrumb" class="flex mb-6">
+<ol class="flex items-center space-x-2 text-sm text-text-secondary dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Equipment</a></li>
+<li><span class="material-symbols-outlined text-sm pt-1">chevron_right</span></li>
+<li><span class="font-medium text-text-main dark:text-gray-200">Details</span></li>
+</ol>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl overflow-hidden border border-card-border dark:border-[#4A4036] shadow-sm">
+<div class="w-full h-72 sm:h-96 bg-[#E0DBC8] dark:bg-[#2C2520] relative flex items-center justify-center group">
+<span class="material-symbols-outlined text-8xl text-primary/40 group-hover:scale-110 transition-transform duration-500">agriculture</span>
+<div class="absolute bottom-4 left-4 bg-white/90 dark:bg-[#4A4036]/90 backdrop-blur px-4 py-2 rounded-lg border border-card-border dark:border-[#5C5046] shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-ochre">verified</span>
+<span class="text-sm font-bold text-text-main dark:text-gray-200">Verified Equipment</span>
+</div>
+</div>
+<div class="p-6 sm:p-8">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+<div>
+<h2 class="text-3xl font-black text-text-main dark:text-gray-100 mb-2">Rotavator (7 Feet)</h2>
+<p class="text-lg text-text-secondary dark:text-gray-400">Mahindra Heavy Duty Series • 2022 Model</p>
+</div>
+<div class="flex items-center gap-1 bg-white dark:bg-[#4A4036] px-3 py-1.5 rounded-full border border-card-border dark:border-[#5C5046]">
+<span class="material-symbols-outlined text-accent-ochre filled text-xl">star</span>
+<span class="font-bold text-text-main dark:text-gray-200">4.8</span>
+<span class="text-sm text-text-secondary dark:text-gray-400">(24)</span>
+</div>
+</div>
+<div class="h-px w-full bg-card-border dark:bg-[#4A4036] mb-6"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+<div class="flex items-center gap-4">
+<div class="size-14 rounded-full overflow-hidden border-2 border-white dark:border-[#4A4036] shadow-sm">
+<img alt="Owner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+<div>
+<p class="text-sm text-text-secondary dark:text-gray-400">Owned by</p>
+<p class="font-bold text-lg text-text-main dark:text-gray-200">Ramesh Kumar</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div>
+<p class="text-sm text-text-secondary dark:text-gray-400">Condition</p>
+<p class="font-bold text-text-main dark:text-gray-200">Excellent</p>
+</div>
+<div>
+<p class="text-sm text-text-secondary dark:text-gray-400">HP Required</p>
+<p class="font-bold text-text-main dark:text-gray-200">45-50 HP</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">About this equipment</h3>
+<p class="text-text-secondary dark:text-gray-300 leading-relaxed">
+                            Heavy-duty rotavator suitable for all soil types. Well maintained and regularly serviced. It ensures fine seedbed preparation for your Kharif and Rabi crops. Available for immediate booking in Ludhiana district.
+                        </p>
+</div>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl p-6 sm:p-8 border border-card-border dark:border-[#4A4036] shadow-sm">
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100 mb-4">Location &amp; Proximity</h3>
+<div class="flex flex-col sm:flex-row gap-6">
+<div class="sm:w-1/3 h-40 rounded-xl overflow-hidden relative border border-card-border dark:border-[#5C5046]">
+<img alt="Location Map" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIgywCIKe6wLzgbdS806KqL5B04fqsKRbfk9k0bRNSULWUYa29kP7plxJon9ejgrY1yDN-vaL-Gn7aiWCllQVhQ0eui_JrzA3DsNyXdGrHFpKxmps6PDoaQHocQIVwzCCJF8X-mx6djAmq4sEbUz5QOFflVhLs2FTILE9Y22YDRObIwVvMv_TlM14lfEYPoGgBgHNbV3KygeOuCSsbjkkppFQxkuqStgTGIZ7X2sk4I-oAP7cSprzwseD9JMiOErW91WApx5uU59Y"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-primary/90 text-white p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-xl">location_on</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-center gap-3">
+<div class="flex items-start gap-3">
+<div class="bg-white dark:bg-[#4A4036] p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">near_me</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-200">2.5 km away</p>
+<p class="text-sm text-text-secondary dark:text-gray-400">Village Raipur, Near Main Canal</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="bg-white dark:bg-[#4A4036] p-2 rounded-lg text-text-secondary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-200">Self Pickup</p>
+<p class="text-sm text-text-secondary dark:text-gray-400">Transport not included</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-6">
+<div class="bg-white dark:bg-[#3E3630] rounded-2xl p-6 border border-card-border dark:border-[#4A4036] shadow-sm sticky top-24">
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-sm text-text-secondary dark:text-gray-400 font-medium">Daily Rate</p>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-text-main dark:text-gray-100">₹800</span>
+<span class="text-text-secondary dark:text-gray-400">/ day</span>
+</div>
+</div>
+<div class="bg-green-50 dark:bg-green-900/20 text-primary-dark dark:text-primary px-3 py-1 rounded-full text-xs font-bold border border-green-100 dark:border-green-900/30">
+                            Available Now
+                        </div>
+</div>
+<div class="mb-6">
+<label class="block text-sm font-bold text-text-main dark:text-gray-200 mb-2">Selected Dates</label>
+<div class="flex items-center gap-2 p-3 bg-card-beige dark:bg-[#2C2520] rounded-xl border border-card-border dark:border-[#4A4036] cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<span class="font-medium text-text-main dark:text-gray-200">24 Oct - 26 Oct</span>
+<span class="ml-auto text-sm text-text-secondary dark:text-gray-400">3 Days</span>
+</div>
+</div>
+<div class="space-y-3 mb-8 bg-card-beige/50 dark:bg-[#2C2520]/50 p-4 rounded-xl">
+<div class="flex justify-between text-sm">
+<span class="text-text-secondary dark:text-gray-400">₹800 x 3 days</span>
+<span class="font-medium text-text-main dark:text-gray-200">₹2,400</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-text-secondary dark:text-gray-400">Service Fee</span>
+<span class="font-medium text-primary">Free</span>
+</div>
+<div class="h-px bg-card-border dark:bg-[#4A4036] my-2"></div>
+<div class="flex justify-between text-lg font-bold">
+<span class="text-text-main dark:text-gray-100">Total</span>
+<span class="text-text-main dark:text-gray-100">₹2,400</span>
+</div>
+</div>
+<div class="space-y-3">
+<button class="w-full bg-primary hover:bg-primary-dark text-white text-lg font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            Confirm Booking
+                        </button>
+<button class="w-full bg-transparent border-2 border-primary text-primary hover:bg-primary/5 text-lg font-bold py-3.5 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">mic</span>
+                            Request via Voice
+                        </button>
+</div>
+<div class="mt-6 flex items-center justify-center gap-2 text-xs text-text-secondary dark:text-gray-500">
+<span class="material-symbols-outlined text-base">shield</span>
+<span>Secure payment &amp; Verified Owner</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

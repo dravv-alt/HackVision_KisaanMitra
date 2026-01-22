@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Farm Planning - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown (Soft alternative to black)
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown (Not black)
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary" href="#">Planning</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Market</a>
+<div class="size-8 rounded-full bg-card-beige border border-card-border overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="mb-8">
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100 mb-2">Enter Farm Details</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Provide basic details to receive crop recommendations.</p>
+</div>
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-6" onsubmit="event.preventDefault();">
+<div class="lg:col-span-8 flex flex-col">
+<div class="group h-full bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+<div class="flex flex-col sm:flex-row gap-6 h-full">
+<div class="flex-1 flex flex-col justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2 text-primary-dark dark:text-primary">
+<span class="material-symbols-outlined">location_on</span>
+<span class="text-sm font-bold uppercase tracking-wider">Auto-Detected</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100 mb-1">Farm Location</h3>
+<p class="text-text-secondary dark:text-gray-400 font-medium">Ludhiana, Punjab</p>
+<p class="text-sm text-primary-dark dark:text-primary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                    GPS Accuracy: High
+                                </p>
+</div>
+<button class="w-fit px-4 py-2 bg-white dark:bg-[#4A4036] border border-card-border dark:border-[#5C5046] rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-[#5C5046] transition-colors text-text-main dark:text-gray-200" type="button">
+                                Change Location
+                            </button>
+</div>
+<div class="sm:w-1/2 h-48 sm:h-auto rounded-lg overflow-hidden relative">
+<div class="absolute inset-0 bg-neutral-200" data-alt="Map showing farm location in Ludhiana" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIgywCIKe6wLzgbdS806KqL5B04fqsKRbfk9k0bRNSULWUYa29kP7plxJon9ejgrY1yDN-vaL-Gn7aiWCllQVhQ0eui_JrzA3DsNyXdGrHFpKxmps6PDoaQHocQIVwzCCJF8X-mx6djAmq4sEbUz5QOFflVhLs2FTILE9Y22YDRObIwVvMv_TlM14lfEYPoGgBgHNbV3KygeOuCSsbjkkppFQxkuqStgTGIZ7X2sk4I-oAP7cSprzwseD9JMiOErW91WApx5uU59Y'); background-size: cover; background-position: center;"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#2C2520]/20 to-transparent pointer-events-none"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col">
+<div class="h-full bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-5 shadow-sm">
+<label class="block text-lg font-bold text-text-main dark:text-gray-100 mb-4">Current Season</label>
+<div class="grid grid-cols-1 gap-3">
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="season" type="radio"/>
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<div class="size-10 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex items-center justify-center">
+<span class="material-symbols-outlined">wb_sunny</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-100">Kharif</p>
+<p class="text-xs text-text-secondary dark:text-gray-400">Monsoon (June - Oct)</p>
+</div>
+<div class="ml-auto opacity-0 peer-checked:opacity-100 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="season" type="radio"/>
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+<span class="material-symbols-outlined">ac_unit</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-100">Rabi</p>
+<p class="text-xs text-text-secondary dark:text-gray-400">Winter (Oct - March)</p>
+</div>
+<div class="ml-auto opacity-0 peer-checked:opacity-100 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="season" type="radio"/>
+<div class="flex items-center gap-3 p-3 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
+<div class="size-10 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 flex items-center justify-center">
+<span class="material-symbols-outlined">grass</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-100">Zaid</p>
+<p class="text-xs text-text-secondary dark:text-gray-400">Summer (March - June)</p>
+</div>
+<div class="ml-auto opacity-0 peer-checked:opacity-100 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 flex flex-col">
+<div class="h-full bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-5 shadow-sm">
+<label class="block text-lg font-bold text-text-main dark:text-gray-100 mb-4">Soil Type</label>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<label class="cursor-pointer">
+<input class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-[#8D6E63] dark:text-[#A1887F]">
+<span class="material-symbols-outlined text-4xl">grain</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Alluvial</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-[#5D4037] dark:text-[#8D6E63]">
+<span class="material-symbols-outlined text-4xl">landscape</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Black Soil</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-[#D84315] dark:text-[#FF7043]">
+<span class="material-symbols-outlined text-4xl">terrain</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Red Soil</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-[#795548] dark:text-[#A1887F]">
+<span class="material-symbols-outlined text-4xl">spa</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Laterite</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-accent-ochre">
+<span class="material-symbols-outlined text-4xl">waves</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Desert/Arid</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="soil" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-transparent bg-white dark:bg-[#4A4036] hover:bg-gray-50 dark:hover:bg-[#5C5046] peer-checked:border-primary peer-checked:bg-primary/10 transition-all h-32 text-center">
+<div class="mb-2 text-gray-400">
+<span class="material-symbols-outlined text-4xl">more_horiz</span>
+</div>
+<span class="font-medium text-sm text-text-main dark:text-gray-200">Other</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col">
+<div class="h-full bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-5 shadow-sm">
+<label class="block text-lg font-bold text-text-main dark:text-gray-100 mb-4">Total Area</label>
+<div class="flex flex-col gap-6 h-full justify-center">
+<div class="relative">
+<input class="w-full text-4xl font-bold bg-transparent border-0 border-b-2 border-card-border dark:border-[#5C5046] focus:border-primary focus:ring-0 px-0 py-2 text-text-main dark:text-white placeholder-gray-300 transition-colors" placeholder="0.00" type="number"/>
+<span class="absolute right-0 bottom-3 text-text-secondary dark:text-gray-500 font-medium text-lg pointer-events-none">Size</span>
+</div>
+<div class="flex items-center justify-between bg-white dark:bg-[#4A4036] p-1.5 rounded-lg border border-card-border dark:border-[#5C5046]">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer sr-only" name="unit" type="radio"/>
+<span class="flex items-center justify-center py-3 rounded-md text-sm font-bold text-text-secondary dark:text-gray-400 peer-checked:bg-primary peer-checked:text-white dark:peer-checked:text-white transition-all">
+                                    Acre
+                                </span>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="unit" type="radio"/>
+<span class="flex items-center justify-center py-3 rounded-md text-sm font-bold text-text-secondary dark:text-gray-400 peer-checked:bg-primary peer-checked:text-white dark:peer-checked:text-white transition-all">
+                                    Bigha
+                                </span>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="unit" type="radio"/>
+<span class="flex items-center justify-center py-3 rounded-md text-sm font-bold text-text-secondary dark:text-gray-400 peer-checked:bg-primary peer-checked:text-white dark:peer-checked:text-white transition-all">
+                                    Hectare
+                                </span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-1 lg:col-span-12 mt-4 flex justify-end">
+<button class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white text-lg font-bold py-4 px-12 rounded-xl shadow-lg shadow-gray-200 dark:shadow-none transition-transform active:scale-95 flex items-center justify-center gap-2" type="button">
+                    Generate Plan
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

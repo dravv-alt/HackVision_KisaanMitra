@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Pool Status - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "status-green": "#7A9E7E",
+                        "status-yellow": "#D4A351",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary" href="#">Active Pools</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Market</a>
+<div class="size-8 rounded-full bg-card-beige border border-card-border overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/20">Active Group</span>
+<span class="text-text-secondary dark:text-gray-400 text-sm font-medium">• Wheat Collective</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100">Ludhiana Wheat Pool #24</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-3">
+<img alt="Farmer 1" class="w-10 h-10 rounded-full border-2 border-background-light dark:border-background-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5ilrLBnsQP46K9n8arzDqD3p3-yrpQgk3Ab-xFZrmA89IeNo4Xfy_3OQvhwe5Zk_hwzaircIM5CHwKGAy1FRbpA1Ixw8D2cQ1vFjE2YVqzNdarpUtBUSbmMvKJa46ZCluba3l5PJH7-sj_bhr-uAfD4nEowgHou19HHSW7UdbvQW7d6wYbUF_XO28oNONzFpJFsob1aBg55fiib14N8uFQoFbBOpU_0CQNM6gtTiXurVFi-LD1pQxC4ulEyaJnnLjN7rwssXHZ58"/>
+<img alt="Farmer 2" class="w-10 h-10 rounded-full border-2 border-background-light dark:border-background-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGmmrSCE-HXyPKoEBPh5v8v8Ac6xRMapeV12Fn4ZHdYJqXFoEpmKdjR9eIFgQ-6LZ4g_mhumyhHmdzCQoZcHYzNOJarl3VM89I2k43pNZPfPCnlEYOp_5J80GpDbO-iDGUKEonJXw0_5FLja8LmevQ1uCenE6yZ-ZAw8pYib0jQUS7FlD0Jgk15yr3yQU6TxMZWc9yOyjhEcH8gGkkhUeYnSUL-9TBoUC2Oy2H2c-84Z68VBUIRMK2nHM6sv56T5s5yykKYEREB6g"/>
+<img alt="Farmer 3" class="w-10 h-10 rounded-full border-2 border-background-light dark:border-background-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpMtQeiGE29xt2uZfQxWwKI7zN3i2vUO0wKXGwmrn1ZTAhGZ3IMWw0b88D5s2BJQedTHvvg-4Ajc7kT9Rbq8Z9a_1Wux1d8W6PmNntpCJyiTstMqR6Nz3HLbFJO9lBYRHxy8gYHzCi8gLwFtQNGP8DdjYL85M3xjejnBlKy-SV3iUzm9ET_FmQ22KcPXd2RLrFmQJqz_SnhtTva333aqHtn1iGA8oMiZ2og24qX676MdrUZwP4jRyp3lXNzGYdN7dSSJKZjKheDDk"/>
+<div class="w-10 h-10 rounded-full border-2 border-background-light dark:border-background-dark bg-card-beige dark:bg-[#4A4036] flex items-center justify-center text-xs font-bold text-text-secondary dark:text-gray-300">
+                            +12
+                        </div>
+</div>
+<button class="bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] p-2.5 rounded-lg text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="mb-10 overflow-x-auto pb-4">
+<div class="min-w-[700px]">
+<div class="relative flex justify-between">
+<div class="absolute top-1/2 left-0 w-full h-1 bg-card-border dark:bg-[#3E3630] -translate-y-1/2 -z-10"></div>
+<div class="absolute top-1/2 left-0 w-[60%] h-1 bg-primary -translate-y-1/2 -z-10"></div>
+<div class="flex flex-col items-center gap-2 w-32">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-xl">check</span>
+</div>
+<span class="text-sm font-bold text-primary">Formation</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-32">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-xl">check</span>
+</div>
+<span class="text-sm font-bold text-primary">Aggregation</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-32">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-md ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-xl">handshake</span>
+</div>
+<span class="text-sm font-bold text-primary">Negotiation</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-32 opacity-50">
+<div class="w-10 h-10 rounded-full bg-card-beige border-2 border-card-border dark:bg-[#3E3630] dark:border-[#4A4036] text-text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">local_shipping</span>
+</div>
+<span class="text-sm font-bold text-text-secondary">Logistics</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-32 opacity-50">
+<div class="w-10 h-10 rounded-full bg-card-beige border-2 border-card-border dark:bg-[#3E3630] dark:border-[#4A4036] text-text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<span class="text-sm font-bold text-text-secondary">Payment</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+<div class="bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-6 shadow-sm flex flex-col h-full relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-primary">handshake</span>
+</div>
+<div class="flex items-start justify-between mb-4 relative z-10">
+<div class="p-3 bg-white dark:bg-[#4A4036] rounded-lg border border-card-border dark:border-[#5C5046] shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl">campaign</span>
+</div>
+<span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-accent-ochre rounded-full text-xs font-bold border border-yellow-200 dark:border-yellow-900/50 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-accent-ochre animate-pulse"></span>
+                    In Progress
+                </span>
+</div>
+<h3 class="text-text-secondary dark:text-gray-400 text-sm font-bold uppercase tracking-wider mb-1 relative z-10">Current Stage</h3>
+<p class="text-3xl font-black text-text-main dark:text-gray-100 mb-2 relative z-10">Negotiation</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm mb-6 relative z-10">Talking to 3 potential buyers from major retail chains.</p>
+<div class="mt-auto relative z-10">
+<div class="w-full bg-white dark:bg-[#4A4036] rounded-full h-2 mb-2 overflow-hidden border border-card-border dark:border-[#5C5046]">
+<div class="bg-accent-ochre h-full rounded-full" style="width: 65%"></div>
+</div>
+<div class="flex justify-between text-xs font-medium text-text-secondary">
+<span>Progress</span>
+<span>65% Complete</span>
+</div>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-6 shadow-sm flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-green-700">trending_up</span>
+</div>
+<div class="flex items-start justify-between mb-4 relative z-10">
+<div class="p-3 bg-white dark:bg-[#4A4036] rounded-lg border border-card-border dark:border-[#5C5046] shadow-sm">
+<span class="material-symbols-outlined text-primary text-2xl">currency_rupee</span>
+</div>
+<span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-bold border border-green-200 dark:border-green-900/50">
+                    +15% vs Market
+                </span>
+</div>
+<h3 class="text-text-secondary dark:text-gray-400 text-sm font-bold uppercase tracking-wider mb-1 relative z-10">Target Price</h3>
+<div class="flex items-baseline gap-2 mb-2 relative z-10">
+<p class="text-3xl font-black text-text-main dark:text-gray-100">₹2,100</p>
+<span class="text-lg text-text-secondary font-medium">/quintal</span>
+</div>
+<p class="text-text-secondary dark:text-gray-400 text-sm mb-6 relative z-10">Current highest bid: ₹2,050/q by Reliance Retail.</p>
+<div class="mt-auto relative z-10 flex gap-2">
+<button class="flex-1 bg-white dark:bg-[#4A4036] border border-card-border dark:border-[#5C5046] rounded-lg py-2 text-sm font-bold text-text-main dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#5C5046] transition-colors">
+                    View Bids
+                </button>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-6 shadow-sm flex flex-col h-full relative overflow-hidden border-l-4 border-l-accent-ochre">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-accent-ochre">event_upcoming</span>
+</div>
+<div class="flex items-start justify-between mb-4 relative z-10">
+<div class="p-3 bg-white dark:bg-[#4A4036] rounded-lg border border-card-border dark:border-[#5C5046] shadow-sm">
+<span class="material-symbols-outlined text-accent-ochre text-2xl">schedule</span>
+</div>
+<span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full text-xs font-bold border border-red-200 dark:border-red-900/50">
+                    Upcoming
+                </span>
+</div>
+<h3 class="text-text-secondary dark:text-gray-400 text-sm font-bold uppercase tracking-wider mb-1 relative z-10">Next Action</h3>
+<p class="text-2xl font-black text-text-main dark:text-gray-100 mb-1 relative z-10">Transport Booking</p>
+<p class="text-accent-ochre font-bold mb-4 relative z-10 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                    Due by Oct 30
+                </p>
+<div class="mt-auto relative z-10">
+<button class="w-full bg-primary hover:bg-primary-dark text-white text-sm font-bold py-3 px-4 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2">
+                    Review Logistics
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-text-main dark:text-gray-100">Recent Group Activity</h3>
+<button class="text-primary font-bold text-sm hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 items-start pb-4 border-b border-card-border dark:border-[#5C5046]">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-[#4A4036] flex items-center justify-center border border-card-border dark:border-[#5C5046] flex-shrink-0">
+<span class="material-symbols-outlined text-primary">gavel</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-200">New bid received</p>
+<p class="text-sm text-text-secondary dark:text-gray-400">Reliance Retail placed a bid of ₹2,050/quintal.</p>
+<p class="text-xs text-text-secondary mt-1">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4 items-start pb-4 border-b border-card-border dark:border-[#5C5046]">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-[#4A4036] flex items-center justify-center border border-card-border dark:border-[#5C5046] flex-shrink-0">
+<span class="material-symbols-outlined text-accent-ochre">warning</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-200">Quality check required</p>
+<p class="text-sm text-text-secondary dark:text-gray-400">Sample testing scheduled for Lot #4 pending.</p>
+<p class="text-xs text-text-secondary mt-1">5 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-[#4A4036] flex items-center justify-center border border-card-border dark:border-[#5C5046] flex-shrink-0">
+<span class="material-symbols-outlined text-primary">group_add</span>
+</div>
+<div>
+<p class="font-bold text-text-main dark:text-gray-200">New member joined</p>
+<p class="text-sm text-text-secondary dark:text-gray-400">Ramesh Singh added 50 quintals to the pool.</p>
+<p class="text-xs text-text-secondary mt-1">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1 bg-primary/5 border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
+<h3 class="text-lg font-bold text-text-main dark:text-gray-100 mb-2">Pool Summary</h3>
+<div class="space-y-4 mt-6 relative z-10">
+<div class="flex justify-between items-center">
+<span class="text-text-secondary dark:text-gray-400 text-sm">Total Quantity</span>
+<span class="font-bold text-text-main dark:text-gray-200">450 Quintals</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-text-secondary dark:text-gray-400 text-sm">Participating Farmers</span>
+<span class="font-bold text-text-main dark:text-gray-200">15</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-text-secondary dark:text-gray-400 text-sm">Est. Total Value</span>
+<span class="font-bold text-text-main dark:text-gray-200">₹9,45,000</span>
+</div>
+<div class="pt-4 mt-4 border-t border-primary/20">
+<p class="text-sm text-text-secondary italic">"Pooling resources increases bargaining power by approximately 18%."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 w-full p-4 pointer-events-none flex justify-center z-50">
+<div class="bg-white/90 dark:bg-[#3E3630]/90 backdrop-blur-md border border-card-border dark:border-[#5C5046] rounded-2xl shadow-xl p-4 flex items-center gap-4 max-w-lg w-full pointer-events-auto mb-20 sm:mb-6 animate-fade-in-up">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-medium text-text-main dark:text-gray-200">"How does this group benefit me?"</p>
+<p class="text-xs text-text-secondary dark:text-gray-400">Ask for AI insights on your pool progress</p>
+</div>
+<button class="text-primary hover:text-primary-dark font-bold text-sm">Ask Now</button>
+</div>
+</div>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+</body></html>

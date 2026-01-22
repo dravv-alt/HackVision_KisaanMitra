@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Inventory Item - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Alerts</a>
+<a class="text-sm font-bold text-primary" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-3xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 text-sm text-text-secondary mb-4">
+<a class="hover:text-primary" href="#">Inventory</a>
+<span class="material-symbols-outlined text-base">chevron_right</span>
+<span class="font-semibold text-text-main dark:text-gray-200">Add Item</span>
+</div>
+<div class="mb-8 text-center sm:text-left">
+<h2 class="text-3xl font-black text-text-main dark:text-gray-100">Add New Item</h2>
+<p class="text-text-secondary dark:text-gray-400 mt-1">Update your farm stock for better tracking.</p>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] p-1.5 rounded-full flex relative mb-10 border border-card-border dark:border-[#4A4036] shadow-inner max-w-md mx-auto sm:mx-0">
+<button class="flex-1 py-3 px-6 rounded-full bg-primary text-white shadow-sm flex items-center justify-center gap-2 font-bold transition-all ring-1 ring-black/5">
+<span class="material-symbols-outlined">mic</span> Voice Entry
+            </button>
+<button class="flex-1 py-3 px-6 rounded-full text-text-secondary dark:text-gray-400 hover:bg-white/50 dark:hover:bg-white/5 flex items-center justify-center gap-2 font-medium transition-all">
+<span class="material-symbols-outlined">edit</span> Manual Entry
+            </button>
+</div>
+<div class="mb-12 flex flex-col items-center justify-center text-center">
+<div class="relative mb-6 group cursor-pointer">
+<div class="absolute inset-0 bg-primary rounded-full opacity-20 animate-ping"></div>
+<div class="absolute inset-[-12px] bg-primary rounded-full opacity-10 animate-pulse delay-75"></div>
+<div class="relative size-24 bg-primary text-white rounded-full shadow-xl shadow-primary/30 flex items-center justify-center transition-transform transform group-hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-5xl">mic</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100 animate-pulse">Listening...</h3>
+<p class="text-lg text-text-secondary dark:text-gray-400 mt-2">
+                Try saying <span class="text-primary-dark dark:text-primary font-bold italic">"Add 2 bags of Urea expiring in Dec 2024"</span>
+</p>
+</div>
+<div class="bg-white dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] shadow-sm p-6 sm:p-8">
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-bold text-text-secondary dark:text-gray-400 mb-2 uppercase tracking-wide" for="item-name">Item Name</label>
+<input class="w-full bg-background-light dark:bg-[#2C2520] border-card-border dark:border-[#4A4036] rounded-xl px-4 py-4 text-lg text-text-main dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow placeholder:text-text-secondary/40" id="item-name" placeholder="e.g. Urea, Wheat Seeds, Pesticide" type="text"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-bold text-text-secondary dark:text-gray-400 mb-2 uppercase tracking-wide" for="quantity">Quantity</label>
+<input class="w-full bg-background-light dark:bg-[#2C2520] border-card-border dark:border-[#4A4036] rounded-xl px-4 py-4 text-lg text-text-main dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow placeholder:text-text-secondary/40" id="quantity" placeholder="0" type="number"/>
+</div>
+<div>
+<label class="block text-sm font-bold text-text-secondary dark:text-gray-400 mb-2 uppercase tracking-wide" for="unit">Unit</label>
+<div class="relative">
+<select class="w-full bg-background-light dark:bg-[#2C2520] border-card-border dark:border-[#4A4036] rounded-xl px-4 py-4 text-lg text-text-main dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow appearance-none cursor-pointer" id="unit">
+<option>Bags</option>
+<option>Kilograms (kg)</option>
+<option>Liters (L)</option>
+<option>Packets</option>
+<option>Quintal</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-bold text-text-secondary dark:text-gray-400 mb-2 uppercase tracking-wide" for="expiry">Expiry Date</label>
+<div class="relative">
+<input class="w-full bg-background-light dark:bg-[#2C2520] border-card-border dark:border-[#4A4036] rounded-xl px-4 py-4 text-lg text-text-main dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow" id="expiry" type="date"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">calendar_today</span>
+</div>
+</div>
+<div class="pt-4 flex items-center justify-end gap-4">
+<button class="px-6 py-3 rounded-xl font-bold text-text-secondary hover:bg-background-light dark:hover:bg-white/5 transition-colors" type="button">
+                        Cancel
+                    </button>
+<button class="px-8 py-3 bg-text-main dark:bg-primary text-white dark:text-white rounded-xl font-bold shadow-lg hover:bg-black dark:hover:bg-primary-dark transition-all transform hover:-translate-y-0.5 flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined">save</span>
+                        Save Item
+                    </button>
+</div>
+</form>
+</div>
+</main>
+
+</body></html>

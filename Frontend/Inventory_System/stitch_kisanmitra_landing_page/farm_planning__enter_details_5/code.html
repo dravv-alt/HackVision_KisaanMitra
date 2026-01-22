@@ -1,0 +1,334 @@
+<html class="light" lang="en"><head><meta charset="utf-8"/>
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Equipment &amp; Tool Inventory - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(44, 37, 32, 0.4);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Alerts</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100 mb-2">Equipment &amp; Tool Inventory</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Manage your farm assets, track maintenance, and handle rentals.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] text-text-main rounded-lg text-sm font-bold hover:bg-card-beige transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-xl text-primary group-hover:scale-110 transition-transform">handshake</span>
+                    Rent Out Equipment
+                </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary-dark transition-colors shadow-sm shadow-primary/30">
+<span class="material-symbols-outlined text-xl">add</span>
+                    Add New Item
+                </button>
+</div>
+</div>
+<div class="mb-8">
+<div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="whitespace-nowrap px-5 py-2 rounded-full bg-text-main text-white font-semibold text-sm shadow-md transition-all">
+                All Items
+            </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] text-text-secondary hover:text-primary hover:border-primary transition-all font-medium text-sm">
+                Heavy Machinery
+            </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] text-text-secondary hover:text-primary hover:border-primary transition-all font-medium text-sm">
+                Hand Tools
+            </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] text-text-secondary hover:text-primary hover:border-primary transition-all font-medium text-sm">
+                Irrigation
+            </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] text-text-secondary hover:text-primary hover:border-primary transition-all font-medium text-sm">
+                Storage
+            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+<div class="group bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-0 flex flex-col shadow-sm hover:shadow-lg transition-all overflow-hidden relative">
+<div class="h-40 bg-[#E8E4D5] dark:bg-[#332b26] flex items-center justify-center relative">
+<span class="material-symbols-outlined text-8xl text-text-secondary/20 group-hover:scale-105 transition-transform duration-500">agriculture</span>
+<div class="absolute top-4 right-4 bg-white dark:bg-black/40 backdrop-blur px-2 py-1 rounded-md border border-card-border dark:border-[#4A4036]">
+<span class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary"></span> Owned
+                </span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Mahindra 575 DI Tractor</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Heavy Machinery</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 my-4">
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Status</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Active</span>
+</div>
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Usage</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">High</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-accent-ochre/10 border border-accent-ochre/20 rounded-lg p-3 mb-5">
+<span class="material-symbols-outlined text-accent-ochre">build</span>
+<div>
+<div class="text-xs font-bold text-accent-ochre uppercase">Maintenance Alert</div>
+<div class="text-sm font-bold text-amber-800 dark:text-amber-500">Next Service: Nov 12</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg border border-card-border dark:border-[#4A4036] text-sm font-bold text-text-secondary hover:text-text-main hover:bg-white dark:hover:bg-[#4A4036] transition-colors">Log Usage</button>
+<button class="flex-1 py-2 rounded-lg bg-text-main text-white text-sm font-bold hover:bg-black transition-colors">Details</button>
+</div>
+</div>
+</div>
+<div class="group bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-0 flex flex-col shadow-sm hover:shadow-lg transition-all overflow-hidden relative">
+<div class="h-40 bg-[#E8E4D5] dark:bg-[#332b26] flex items-center justify-center relative">
+<span class="material-symbols-outlined text-8xl text-text-secondary/20 group-hover:scale-105 transition-transform duration-500">water_drop</span>
+<div class="absolute top-4 right-4 bg-white dark:bg-black/40 backdrop-blur px-2 py-1 rounded-md border border-card-border dark:border-[#4A4036]">
+<span class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary"></span> Owned
+                </span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Knapsack Seed Sprayer</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Hand Tools</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 my-4">
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Status</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Available</span>
+</div>
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Usage</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Medium</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg p-3 mb-5">
+<span class="material-symbols-outlined text-primary-dark">check_circle</span>
+<div>
+<div class="text-xs font-bold text-primary-dark uppercase">Maintenance</div>
+<div class="text-sm font-bold text-primary-dark">Up to date</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg border border-card-border dark:border-[#4A4036] text-sm font-bold text-text-secondary hover:text-text-main hover:bg-white dark:hover:bg-[#4A4036] transition-colors">Log Usage</button>
+<button class="flex-1 py-2 rounded-lg bg-text-main text-white text-sm font-bold hover:bg-black transition-colors">Details</button>
+</div>
+</div>
+</div>
+<div class="group bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-0 flex flex-col shadow-sm hover:shadow-lg transition-all overflow-hidden relative">
+<div class="h-40 bg-[#E8E4D5] dark:bg-[#332b26] flex items-center justify-center relative">
+<span class="material-symbols-outlined text-8xl text-text-secondary/20 group-hover:scale-105 transition-transform duration-500">settings_motion_mode</span>
+<div class="absolute top-4 right-4 bg-white dark:bg-black/40 backdrop-blur px-2 py-1 rounded-md border border-card-border dark:border-[#4A4036]">
+<span class="text-xs font-bold text-text-secondary flex items-center gap-1">
+<span class="size-2 rounded-full bg-gray-400"></span> Leased
+                </span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">7ft Hydraulic Rotavator</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Attachments</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 my-4">
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Status</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">In Use</span>
+</div>
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Usage</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">High</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-accent-ochre/10 border border-accent-ochre/20 rounded-lg p-3 mb-5">
+<span class="material-symbols-outlined text-accent-ochre">build</span>
+<div>
+<div class="text-xs font-bold text-accent-ochre uppercase">Maintenance Alert</div>
+<div class="text-sm font-bold text-amber-800 dark:text-amber-500">Next Service: Nov 18</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg border border-card-border dark:border-[#4A4036] text-sm font-bold text-text-secondary hover:text-text-main hover:bg-white dark:hover:bg-[#4A4036] transition-colors">Log Usage</button>
+<button class="flex-1 py-2 rounded-lg bg-text-main text-white text-sm font-bold hover:bg-black transition-colors">Details</button>
+</div>
+</div>
+</div>
+<div class="group bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-0 flex flex-col shadow-sm hover:shadow-lg transition-all overflow-hidden relative">
+<div class="h-40 bg-[#E8E4D5] dark:bg-[#332b26] flex items-center justify-center relative">
+<span class="material-symbols-outlined text-8xl text-text-secondary/20 group-hover:scale-105 transition-transform duration-500">valve</span>
+<div class="absolute top-4 right-4 bg-white dark:bg-black/40 backdrop-blur px-2 py-1 rounded-md border border-card-border dark:border-[#4A4036]">
+<span class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary"></span> Owned
+                </span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Kirloskar Water Pump</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Irrigation</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 my-4">
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Status</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Idle</span>
+</div>
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Usage</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Low</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-lg p-3 mb-5">
+<span class="material-symbols-outlined text-primary-dark">check_circle</span>
+<div>
+<div class="text-xs font-bold text-primary-dark uppercase">Maintenance</div>
+<div class="text-sm font-bold text-primary-dark">Check oil Dec 01</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg border border-card-border dark:border-[#4A4036] text-sm font-bold text-text-secondary hover:text-text-main hover:bg-white dark:hover:bg-[#4A4036] transition-colors">Log Usage</button>
+<button class="flex-1 py-2 rounded-lg bg-text-main text-white text-sm font-bold hover:bg-black transition-colors">Details</button>
+</div>
+</div>
+</div>
+<div class="group bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-0 flex flex-col shadow-sm hover:shadow-lg transition-all overflow-hidden relative">
+<div class="h-40 bg-[#E8E4D5] dark:bg-[#332b26] flex items-center justify-center relative">
+<span class="material-symbols-outlined text-8xl text-text-secondary/20 group-hover:scale-105 transition-transform duration-500">grid_on</span>
+<div class="absolute top-4 right-4 bg-white dark:bg-black/40 backdrop-blur px-2 py-1 rounded-md border border-card-border dark:border-[#4A4036]">
+<span class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary"></span> Owned
+                </span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Multi-Crop Thresher</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Harvesting</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 my-4">
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Status</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">Active</span>
+</div>
+<div class="bg-white/60 dark:bg-black/10 rounded-lg p-2.5 border border-card-border dark:border-[#4A4036]/50">
+<span class="text-xs text-text-secondary uppercase tracking-wider font-bold block mb-1">Usage</span>
+<span class="text-sm font-semibold text-text-main dark:text-gray-200">High</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-accent-ochre/10 border border-accent-ochre/20 rounded-lg p-3 mb-5">
+<span class="material-symbols-outlined text-accent-ochre">build</span>
+<div>
+<div class="text-xs font-bold text-accent-ochre uppercase">Maintenance Alert</div>
+<div class="text-sm font-bold text-amber-800 dark:text-amber-500">Next Service: Nov 25</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg border border-card-border dark:border-[#4A4036] text-sm font-bold text-text-secondary hover:text-text-main hover:bg-white dark:hover:bg-[#4A4036] transition-colors">Log Usage</button>
+<button class="flex-1 py-2 rounded-lg bg-text-main text-white text-sm font-bold hover:bg-black transition-colors">Details</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center pb-20">
+<button class="text-sm font-semibold text-text-secondary hover:text-primary transition-colors flex items-center justify-center gap-1 mx-auto">
+                View Archived Equipment <span class="material-symbols-outlined text-lg">history</span>
+</button>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+</body></html>

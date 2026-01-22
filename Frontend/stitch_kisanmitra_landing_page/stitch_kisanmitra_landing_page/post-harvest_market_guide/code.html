@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Post-Harvest Market Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6e8c74", // Sage Green
+                        "primary-dark": "#4a6350", // Darker Sage
+                        "primary-light": "#e3e9e4", // Light Sage Tint
+                        "ochre": "#d4b35e", // Soft Ochre
+                        "ochre-light": "#f4eed9", // Light Ochre Tint
+                        "beige-main": "#f2efe9", // Warm Beige Background
+                        "beige-sidebar": "#f9f8f4", // Lighter Beige for Sidebar/Cards
+                        "earth-dark": "#3d3832", // Dark Earth (Text)
+                        "earth-muted": "#756f66", // Muted Earth (Secondary Text)
+                        "earth-border": "#e6e2d6", // Soft Border
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(110, 140, 116, 0.3);border-radius: 20px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-beige-main text-earth-dark font-display overflow-hidden selection:bg-primary selection:text-white">
+<div class="flex h-screen w-full">
+<aside class="hidden md:flex flex-col w-64 h-full bg-beige-sidebar border-r border-earth-border flex-shrink-0">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 text-primary-dark">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight tracking-tight text-earth-dark">KisanMitra</h1>
+<p class="text-sm text-earth-muted">Farm Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-earth-muted hover:bg-earth-border/50 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-earth-muted hover:bg-earth-border/50 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">potted_plant</span>
+<span class="font-medium text-sm">Crops</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/15 text-primary-dark transition-colors" href="#">
+<span class="material-symbols-outlined fill text-primary">storefront</span>
+<span class="font-medium text-sm">Market</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-earth-muted hover:bg-earth-border/50 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">inventory_2</span>
+<span class="font-medium text-sm">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-earth-muted hover:bg-earth-border/50 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">description</span>
+<span class="font-medium text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-earth-border">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-beige-main border border-earth-border/50">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Profile picture of a farmer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBe6YJUZXDkbBMm4Kwiq1SGMW83ifBcDCljS7O_JQvRyiDDXrwnN5Dg179yhgd63DxNnUxMThYSYofv-yktTOLcwamXZV4ZkTavXqA11vCTH4QNXuX4tMfWZJQ0ECAe2poUHNomUBCfKHoONK42JXCtMV4riGNAm4Jac972xtJdWt5Z5h9oCwF8u3JyWkef15yuoQ57qsSgBDgvrfyHhsc2DpbmLInqdNnczNlEz2LXD1PljJPeUwGADvgUJVCXeoQ3gG3xYgkJabA')"></div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-bold truncate text-earth-dark">Rajesh Kumar</p>
+<p class="text-xs text-earth-muted truncate">Premium Member</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full relative overflow-hidden bg-beige-main">
+<header class="flex md:hidden items-center justify-between p-4 bg-beige-sidebar border-b border-earth-border">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-earth-muted">menu</span>
+<h1 class="font-bold text-lg text-earth-dark">Market Guide</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-primary-dark">person</span>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-8 lg:px-12 xl:px-16 scroll-smooth">
+<div class="max-w-7xl mx-auto space-y-8 pb-24">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight text-earth-dark">Market Recommendations</h2>
+<div class="flex items-center gap-2 text-primary-dark">
+<span class="material-symbols-outlined text-lg">compost</span>
+<p class="text-base font-medium">Wheat Harvest - Lot #402</p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-beige-sidebar px-4 py-2 rounded-full shadow-sm border border-earth-border text-earth-muted">
+<span class="material-symbols-outlined text-earth-muted/70">calendar_today</span>
+<span class="text-sm font-medium">Harvested: 2 Days Ago</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-beige-sidebar border border-earth-border shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-earth-muted">Current Avg Price</p>
+<span class="material-symbols-outlined text-primary-dark bg-primary-light rounded-full p-1 text-sm">trending_up</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold tracking-tight text-earth-dark">₹2,150<span class="text-sm font-normal text-earth-muted">/q</span></p>
+<span class="text-sm font-semibold text-primary mb-1">+2%</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-beige-sidebar border border-earth-border shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-earth-muted">Market Trend</p>
+<span class="material-symbols-outlined text-primary-dark bg-primary-light rounded-full p-1 text-sm">show_chart</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold tracking-tight text-earth-dark">Rising</p>
+<span class="text-sm font-semibold text-primary mb-1">Strong Demand</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-5 rounded-xl bg-beige-sidebar border border-earth-border shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-earth-muted">Harvest Volume</p>
+<span class="material-symbols-outlined text-earth-muted bg-earth-border/50 rounded-full p-1 text-sm">inventory</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold tracking-tight text-earth-dark">40 <span class="text-lg font-normal text-earth-muted">Quintals</span></p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="relative overflow-hidden flex flex-col sm:flex-row rounded-2xl bg-[#f0f4f1] shadow-md border border-earth-border hover:shadow-lg transition-shadow group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+<div class="flex-1 p-6 z-10 flex flex-col justify-between gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary-light text-primary-dark text-xs font-bold mb-3 uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm fill">bolt</span> Recommended
+                                </div>
+<h3 class="text-xl font-bold text-earth-dark leading-tight mb-1">Sell Now: Azadpur Mandi</h3>
+<p class="text-sm text-earth-muted">Highest immediate returns with minimal transport delay.</p>
+</div>
+<div class="bg-white/60 p-3 rounded-lg border border-primary/20">
+<p class="text-xs text-earth-muted uppercase font-semibold">Net Profit</p>
+<p class="text-2xl font-black text-primary-dark">₹2,450<span class="text-sm font-normal text-earth-muted">/quintal</span></p>
+</div>
+<button class="w-full sm:w-fit mt-2 flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-lg font-bold transition-colors shadow-sm">
+<span class="material-symbols-outlined">local_shipping</span>
+                                Connect Transporter
+                            </button>
+</div>
+<div class="w-full sm:w-2/5 min-h-[160px] sm:min-h-full bg-cover bg-center" data-alt="Bustling Azadpur Mandi market scene with trucks" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC24jryryA8bkuoYDdrJpMVHD0tYpEKdANK-VQcRnO8beDHgwS2MZ-gIQUyiU3dVAk-H1YU-E4lgLYOl8dKu5ojHIiFuUUqiai_AvxFc_JhN4YExYx11lI22X1EHNV1XOXE9mBmQXR5jLvjsRdR0vfS0-kErEVFbwAFc-oVP3-FytFzgSnIUF3NpZ2bxuAao5tHBDPwMEab8JtpIw16PM-Y7LZ6A38VnQWZK2q6BQQ0ITvl4eVYU10k-IlPVOLxIroVOHmICF935dI')">
+<div class="w-full h-full bg-gradient-to-t from-earth-dark/80 via-transparent to-transparent sm:bg-gradient-to-l flex items-end justify-start p-4">
+<div class="text-white text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">near_me</span> 12km away
+                                </div>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden flex flex-col sm:flex-row rounded-2xl bg-ochre-light/40 shadow-md border border-ochre/20 hover:shadow-lg transition-shadow">
+<div class="absolute top-0 right-0 w-24 h-24 bg-ochre/10 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+<div class="flex-1 p-6 z-10 flex flex-col justify-between gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-ochre-light text-yellow-900 text-xs font-bold mb-3 uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">trending_up</span> Strategic Hold
+                                </div>
+<h3 class="text-xl font-bold text-earth-dark leading-tight mb-1">Wait 5 Days</h3>
+<p class="text-sm text-earth-muted">Price trend indicates a surge due to reduced supply next week.</p>
+</div>
+<div class="bg-white/60 p-3 rounded-lg border border-ochre/20">
+<p class="text-xs text-earth-muted uppercase font-semibold">Projected Price</p>
+<p class="text-2xl font-black text-ochre">₹2,600<span class="text-sm font-normal text-earth-muted">/quintal</span></p>
+</div>
+<button class="w-full sm:w-fit mt-2 flex items-center justify-center gap-2 bg-white hover:bg-ochre-light border border-ochre/30 text-yellow-900 px-5 py-2.5 rounded-lg font-bold transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+                                Set Price Alert
+                            </button>
+</div>
+<div class="w-full sm:w-2/5 min-h-[160px] sm:min-h-full bg-cover bg-center" data-alt="Graph showing upward trend overlaid on grain silo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEx5e9nIOMbx5jzBxuf9QvjxX_AQGMEWvzjYGHxoMJYPuB40fikcVpUGU6hY3oEfm4eTGHk_gpNEmuBNFsJWmTvgGBJCVi0ZGgbrIOwv6WuyFbVDHlAqysmuoT2-uakD_-F4NQNRLB9YaOBuHsoh3PPD8FEzzcJsTP9oKvTyu35H0XKjurk40nEnER96y7U-Ms2lBp8riGJjwQpPRHeDyCTY6BdCE3rnRDGI2YGMFQmtF5Rb5iI4XwcJZieCLpIJDAJdfhKrNMp7s')">
+<div class="w-full h-full bg-gradient-to-t from-earth-dark/80 via-transparent to-transparent sm:bg-gradient-to-l flex items-end justify-start p-4">
+<div class="text-white text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">security</span> Low Risk
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<h3 class="text-xl font-bold text-earth-dark">Alternative Markets</h3>
+<div class="flex items-center gap-2">
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-2 bg-beige-sidebar border border-earth-border rounded-lg text-sm font-medium hover:border-primary transition-colors text-earth-muted">
+<span class="material-symbols-outlined text-lg">sort</span>
+                                    Sort by: Highest Profit
+                                </button>
+</div>
+<button class="p-2 bg-beige-sidebar border border-earth-border rounded-lg hover:bg-earth-border/30 text-earth-muted">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+<div class="bg-beige-sidebar rounded-xl p-5 border border-earth-border shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg text-earth-dark">Ghazipur Mandi</h4>
+<div class="flex items-center gap-1 text-xs text-earth-muted mt-1">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>East Delhi</span>
+</div>
+</div>
+<div class="px-2 py-1 bg-earth-border/30 rounded text-xs font-semibold text-earth-muted">
+                                    24 km
+                                </div>
+</div>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Market Price</span>
+<span class="font-medium text-earth-dark">₹2,210/q</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Transport Cost</span>
+<span class="font-medium text-red-700/70">-₹120/q</span>
+</div>
+<div class="w-full h-px bg-earth-border"></div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-earth-muted">Net Profit</span>
+<span class="font-bold text-xl text-primary-dark">₹2,090/q</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-lg bg-primary-light/50 border border-primary/20 hover:bg-primary/20 hover:border-primary text-primary-dark font-medium text-sm transition-colors">
+                                View Details
+                            </button>
+</div>
+<div class="bg-beige-sidebar rounded-xl p-5 border border-earth-border shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg text-earth-dark">Okhla Mandi</h4>
+<div class="flex items-center gap-1 text-xs text-earth-muted mt-1">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>South Delhi</span>
+</div>
+</div>
+<div class="px-2 py-1 bg-earth-border/30 rounded text-xs font-semibold text-earth-muted">
+                                    18 km
+                                </div>
+</div>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Market Price</span>
+<span class="font-medium text-earth-dark">₹2,180/q</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Transport Cost</span>
+<span class="font-medium text-red-700/70">-₹90/q</span>
+</div>
+<div class="w-full h-px bg-earth-border"></div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-earth-muted">Net Profit</span>
+<span class="font-bold text-xl text-primary-dark">₹2,090/q</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-lg bg-primary-light/50 border border-primary/20 hover:bg-primary/20 hover:border-primary text-primary-dark font-medium text-sm transition-colors">
+                                View Details
+                            </button>
+</div>
+<div class="bg-beige-sidebar rounded-xl p-5 border border-earth-border shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg text-earth-dark">Narela Mandi</h4>
+<div class="flex items-center gap-1 text-xs text-earth-muted mt-1">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>North Delhi</span>
+</div>
+</div>
+<div class="px-2 py-1 bg-earth-border/30 rounded text-xs font-semibold text-earth-muted">
+                                    45 km
+                                </div>
+</div>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Market Price</span>
+<span class="font-medium text-earth-dark">₹2,300/q</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-earth-muted">Transport Cost</span>
+<span class="font-medium text-red-700/70">-₹250/q</span>
+</div>
+<div class="w-full h-px bg-earth-border"></div>
+<div class="flex justify-between items-center">
+<span class="font-bold text-earth-muted">Net Profit</span>
+<span class="font-bold text-xl text-ochre">₹2,050/q</span>
+</div>
+</div>
+<button class="w-full py-2 rounded-lg bg-primary-light/50 border border-primary/20 hover:bg-primary/20 hover:border-primary text-primary-dark font-medium text-sm transition-colors">
+                                View Details
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 z-50">
+<button class="flex items-center justify-center w-16 h-16 rounded-full bg-primary hover:bg-primary-dark text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 group relative">
+<span class="material-symbols-outlined text-3xl">mic</span>
+<span class="absolute right-full mr-4 bg-earth-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Voice Search</span>
+</button>
+</div>
+</main>
+</div>
+
+</body></html>

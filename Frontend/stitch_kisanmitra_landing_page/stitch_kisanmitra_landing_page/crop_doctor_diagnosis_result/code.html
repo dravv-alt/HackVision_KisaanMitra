@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crop Doctor (Muted Theme)</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8da399", // Muted Sage Green
+                        "primary-dark": "#6d8278",
+                        "primary-light": "#e8efeb", 
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#1a231b",
+                        "beige-warm": "#f4f1ea", // Warm soft beige
+                        "beige-border": "#e6e1d6", // Light brownish-beige
+                        "mustard": "#deb866", // Light Mustard
+                        "mustard-light": "#fcf9f0",
+                        "mustard-dark": "#8a7030",
+                        "soft-black": "#2c332f",
+                        "soft-gray": "#6b726e",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(141, 163, 153, 0.3);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-beige-warm dark:bg-background-dark font-display text-soft-black dark:text-[#f0f0f0] overflow-hidden">
+<div class="flex h-screen w-full">
+<aside class="hidden md:flex w-64 flex-col border-r border-beige-border dark:border-[#2a3c2d] bg-white dark:bg-[#1a2c1e]">
+<div class="flex items-center gap-3 px-6 py-6">
+<div class="flex flex-col">
+<h1 class="text-xl font-bold leading-normal tracking-tight text-soft-black dark:text-white">KisanMitra</h1>
+<p class="text-primary-dark text-xs font-medium uppercase tracking-wider">Farm Management</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 px-3 py-2 flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-beige-warm dark:hover:bg-[#253828] transition-colors group" href="#">
+<span class="material-symbols-outlined text-soft-gray dark:text-[#a0b0a2] group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium text-soft-black dark:text-[#e0e0e0]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-beige-warm dark:hover:bg-[#253828] transition-colors group" href="#">
+<span class="material-symbols-outlined text-soft-gray dark:text-[#a0b0a2] group-hover:text-primary transition-colors">potted_plant</span>
+<span class="text-sm font-medium text-soft-black dark:text-[#e0e0e0]">My Farm</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary-light dark:bg-primary/20 border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-primary-dark dark:text-primary fill-1">stethoscope</span>
+<span class="text-sm font-bold text-primary-dark dark:text-white">Crop Doctor</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-beige-warm dark:hover:bg-[#253828] transition-colors group" href="#">
+<span class="material-symbols-outlined text-soft-gray dark:text-[#a0b0a2] group-hover:text-primary transition-colors">storefront</span>
+<span class="text-sm font-medium text-soft-black dark:text-[#e0e0e0]">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-beige-warm dark:hover:bg-[#253828] transition-colors group" href="#">
+<span class="material-symbols-outlined text-soft-gray dark:text-[#a0b0a2] group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium text-soft-black dark:text-[#e0e0e0]">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-beige-border dark:border-[#2a3c2d]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-200 bg-center bg-cover border border-beige-border" data-alt="Profile picture of Farmer Ramesh Kumar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBiEaTJ7eGRVzqH6jVJdoKD7Ai4Ic5GZTfa18dppUU3uJ97fQeNBxQutNlUEMG8kD_0eKkwls7l8uM_zU_ev-N2GfeEdBWI8iRo22o_4jfMjWjnwizqJMDM9jb4v5t0e-Gn7k6qgWw8iNp8nAELn9rFSN3VuOUkHTKcYVr2REwD4JwmdKMg5E1Dn4d4HioyTDL6KRS02crD-lxQl3DxWtKjhDw68-vjQdL9D1BthyrVm40-Nfwu9x0yCC4pVonNUFa5LgYGhZNBl2M');"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-soft-black dark:text-white">Ramesh Kumar</p>
+<p class="text-xs text-soft-gray dark:text-[#a0b0a2]">Premium Member</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full relative overflow-y-auto scroll-smooth bg-beige-warm dark:bg-background-dark">
+<div class="md:hidden flex items-center justify-between p-4 bg-white dark:bg-[#1a2c1e] border-b border-beige-border dark:border-[#2a3c2d]">
+<button class="text-soft-black dark:text-white p-1">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-bold text-lg text-soft-black dark:text-white">Crop Doctor</span>
+<div class="w-8 h-8 rounded-full bg-gray-200 bg-center bg-cover" data-alt="Profile picture of Farmer Ramesh Kumar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCiZvuM58BOLU3Xksph1w9VbMUYrg07YuZSMk8A5LKeKvCC7hs5ZOZXuTVGNwU0mzC80M3a-Ofgn9UXMPK-RgjseQPwn5m07oilXwAOa7vCgaGW7iunIDb8vIIyiZKlHP4lAeFryNU34quhDGUjQH3s90yY4GCoMLrn6P90o7aYFeFBDD_5DjriE3l3087XwgjV3pvLB1wjruXt9i0gfn_ykccf4KIlNQKspAtLgLO4pf11NxSXI_wuWGzayJ-MyHEfTxW7BGLxB94');"></div>
+</div>
+<div class="w-full max-w-[1000px] mx-auto p-4 md:p-8 lg:p-12 pb-24">
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-center gap-2 text-sm text-soft-gray dark:text-[#a0b0a2] mb-2">
+<span>Home</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span>Crop Doctor</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Diagnosis</span>
+</div>
+<div class="flex flex-wrap items-baseline justify-between gap-4">
+<h1 class="text-3xl md:text-4xl font-black tracking-[-0.033em] text-soft-black dark:text-white">Crop Doctor Diagnosis</h1>
+<span class="text-soft-gray dark:text-[#a0b0a2] text-sm font-mono bg-white dark:bg-[#1a2c1e] px-3 py-1 rounded-md border border-beige-border dark:border-[#2a3c2d]">Report #CD-892</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-5 w-full">
+<div class="bg-white dark:bg-[#1a2c1e] rounded-xl shadow-sm border border-beige-border dark:border-[#2a3c2d] p-3">
+<div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Close up of a potato plant leaf showing signs of early blight with concentric ring spots and yellowing" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBD12mbr510BZczjzoaBBfvkwkmBvPQGa4X8Lwi1Bn4xnMG5kpOUso25FPTI7O7QTbj7Vxr7yZA-2GK3LmHb8iq6Dd6vXhgTOorPmdVOul4I5415GSzufIRz4BKoQ0PXQVR_69TenElhJ7J5lcom3b03bsquEXqmte9QA5if9qDpVQOSnGh242MxKip8KCRFqK19FGSRcCn6eNhjCVjXXopJ-VU2OiXjODk04-YngAyuNquBlggt1sxcYQiP9t9Aa9s_N8YgAmP5FI');"></div>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Captured Oct 24</span>
+</div>
+</div>
+<div class="mt-3 px-1 flex justify-between items-center">
+<span class="text-xs font-bold text-soft-gray dark:text-[#a0b0a2] uppercase tracking-wider">Uploaded Sample</span>
+<button class="text-primary hover:text-primary-dark text-sm font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span> Enlarge
+                            </button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 flex flex-col gap-5">
+<div class="bg-white dark:bg-[#1a2c1e] rounded-xl shadow-sm border-l-[6px] border-l-mustard border-y border-r border-beige-border dark:border-[#2a3c2d] p-6">
+<div class="flex flex-col gap-4">
+<div class="flex items-start justify-between flex-wrap gap-2">
+<div>
+<p class="text-sm font-semibold text-soft-gray dark:text-[#a0b0a2] mb-1">Diagnosis Result</p>
+<h2 class="text-2xl font-bold text-soft-black dark:text-white leading-tight">Detected: Early Blight</h2>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-mustard-light dark:bg-yellow-900/20 border border-mustard/30 dark:border-yellow-800 text-mustard-dark dark:text-yellow-400">
+<span class="material-symbols-outlined text-[18px] fill-1">error</span>
+<span class="text-sm font-bold">High Severity</span>
+</div>
+</div>
+<div class="h-px bg-beige-warm dark:bg-[#2a3c2d] w-full"></div>
+<div>
+<h3 class="text-sm font-bold text-soft-black dark:text-white mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">biotech</span>
+                                    Cause &amp; Conditions
+                                </h3>
+<p class="text-soft-gray dark:text-[#a0b0a2] leading-relaxed text-sm">
+                                    Caused by the fungus <em class="italic text-soft-black dark:text-white">Alternaria solani</em>. This infection is often triggered by the recent high humidity (85%) and warm temperatures (24°C - 29°C) recorded in your region.
+                                </p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a2c1e] rounded-xl shadow-sm border border-beige-border dark:border-[#2a3c2d] p-6 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-soft-black dark:text-white mb-5 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px] fill-1">medication</span>
+                            Recommended Treatment
+                        </h3>
+<div class="flex flex-col gap-5 flex-1">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-light dark:bg-green-900/30 flex items-center justify-center text-primary-dark font-black text-sm border border-primary/20 dark:border-green-800">1</div>
+<div class="flex-1">
+<p class="font-bold text-soft-black dark:text-white">Prune infected leaves</p>
+<p class="text-sm text-soft-gray dark:text-[#a0b0a2] mt-1">Immediately remove and destroy lower leaves showing spots to stop upward spread.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-light dark:bg-green-900/30 flex items-center justify-center text-primary-dark font-black text-sm border border-primary/20 dark:border-green-800">2</div>
+<div class="flex-1">
+<p class="font-bold text-soft-black dark:text-white">Apply Fungicide</p>
+<p class="text-sm text-soft-gray dark:text-[#a0b0a2] mt-1">Spray <strong>Chlorothalonil</strong> or <strong>Copper-based fungicide</strong>.</p>
+<div class="mt-2 inline-flex items-center gap-2 px-3 py-1.5 bg-mustard-light dark:bg-yellow-900/20 border border-mustard/30 dark:border-yellow-800 rounded-lg text-xs font-medium text-mustard-dark dark:text-yellow-400">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+<span>Dosage: Mix 2ml per 1 Litre of water</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-light dark:bg-green-900/30 flex items-center justify-center text-primary-dark font-black text-sm border border-primary/20 dark:border-green-800">3</div>
+<div class="flex-1">
+<p class="font-bold text-soft-black dark:text-white">Follow up</p>
+<p class="text-sm text-soft-gray dark:text-[#a0b0a2] mt-1">Repeat the spray after 7 days if symptoms persist. Monitor for new spots.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-beige-border dark:border-[#2a3c2d] flex flex-col sm:flex-row gap-4 justify-between items-center">
+<div class="text-sm text-soft-gray dark:text-[#a0b0a2]">
+<p>Estimated Cost: <span class="font-bold text-soft-black dark:text-white text-lg">₹450</span></p>
+</div>
+<button class="w-full sm:w-auto bg-primary hover:bg-primary-dark active:bg-[#6b7c72] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_cart</span>
+                                Buy Remedy
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center max-w-2xl mx-auto">
+<p class="text-xs text-soft-gray dark:text-[#a0b0a2] opacity-70">
+                    Disclaimer: The diagnosis is based on AI image analysis. Results may vary based on image quality. For critical crop issues, we recommend consulting a local agriculture expert.
+                </p>
+</div>
+</div>
+<button aria-label="Activate Voice Command" class="fixed bottom-8 right-8 z-50 w-16 h-16 bg-soft-black dark:bg-primary text-white dark:text-soft-black rounded-full shadow-[0_4px_20px_rgba(44,51,47,0.3)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer group">
+<span class="material-symbols-outlined text-[32px] group-hover:animate-pulse">mic</span>
+</button>
+</main>
+</div>
+
+</body></html>

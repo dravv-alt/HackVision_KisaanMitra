@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Fertilizer &amp; Pesticide Optimizer</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#94A89A","primary-dark": "#7C8F82","secondary": "#DBC06E","background-light": "#F5F2EA","background-dark": "#262320","surface-light": "#FDFBF7","surface-dark": "#33302B","text-main": "#3D3A35","text-muted": "#757065","accent-tan": "#EBE7DD",},
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1cbb8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b0aa98;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-[#e0e0e0] font-display min-h-screen flex overflow-hidden">
+<aside class="w-64 flex-shrink-0 border-r border-[#E6E2D6] dark:border-[#423D33] bg-surface-light/80 dark:bg-[#262320]/90 backdrop-blur-sm hidden md:flex flex-col h-screen overflow-y-auto">
+<div class="p-6 flex flex-col gap-8 h-full">
+<div class="flex items-center gap-3">
+<div class="relative size-10 rounded-full overflow-hidden shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-br from-[#94A89A] to-[#5F705F]" data-alt="Abstract green gradient logo representing agriculture"></div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-none tracking-tight text-[#4A4641] dark:text-gray-100">KisanMitra</h1>
+<span class="text-xs text-[#7C8F82] dark:text-[#94A89A] font-medium">Farm Management</span>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-muted dark:text-gray-400 hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-primary/20 text-[#4F5E52] dark:text-white dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">compost</span>
+                    Input Optimizer
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-muted dark:text-gray-400 hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+                    Soil Health
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-muted dark:text-gray-400 hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">cloud</span>
+                    Weather
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-muted dark:text-gray-400 hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">currency_rupee</span>
+                    Market Prices
+                </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-[#E6E2D6] dark:border-[#423D33]">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-muted dark:text-gray-400 hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                    Settings
+                </a>
+<div class="flex items-center gap-3 px-4 py-3 mt-2">
+<div class="size-8 rounded-full bg-[#EBE7DD] dark:bg-gray-700 bg-cover bg-center" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_TmpKtc9yrNyyRBSlzTCjkaVDI2ZYYeFCtfKVhNFbPuu46V1sPLKnRzfZEyyc53aYnZcRlnNkRPOGSyV59YlBgKzoJU_n95djacMiwtUjSTK9ELGyz6QX5gFqjGTgc_cL-eOZekxfqGN3bVpDxY5EEQFHs9beai03JRUxqv74pkqTLFEBi-0UWsBaaH4tLor4i66PimWgliuvTldG1hA-PLfQtfPk5A6X1b_RJy1s78zpGoMzskyZEfkyGg64XUcOnqQBveUHFGQ");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-text-main dark:text-white">Rajesh Kumar</span>
+<span class="text-xs text-text-muted dark:text-gray-500">Premium Plan</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-y-auto relative bg-background-light dark:bg-background-dark">
+<header class="md:hidden flex items-center justify-between p-4 bg-surface-light dark:bg-surface-dark border-b border-[#E6E2D6] dark:border-[#423D33] sticky top-0 z-20">
+<div class="flex items-center gap-2">
+<button class="p-2 -ml-2 rounded-lg hover:bg-[#EBE7DD]/50 dark:hover:bg-white/5 text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-bold text-lg text-text-main dark:text-white">KisanMitra</span>
+</div>
+<div class="size-8 rounded-full bg-[#EBE7DD] dark:bg-gray-700 bg-cover bg-center" data-alt="User profile avatar placeholder small" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC15gNcZGUT_4_WPik-H9i29r_Fegf1AxH1zKcY5zIGiUA_Vbio54vEEs74DmjeNZwMCA1wdI2HcA0nEe_w-EDfKOchlkNG2absnD3EjjjkcixC8gEVdBvY4TBK9nEUaTv6jnj9HwzdQM3CatWVnU4PZAy1-CbEqeucP_r5sFT9S91fbkuBDziJJy8R6HeaOQYQnetEQb12IOq_ioAwNh2m-7jS04ppKcetWbNejlA89AnNJ5sy_CkIu0NrArALjzL9SUAevqqzes0");'></div>
+</header>
+<div class="flex-1 max-w-7xl mx-auto w-full p-4 md:p-8 lg:p-12 pb-24">
+<div class="flex flex-wrap items-center gap-2 mb-6 text-sm">
+<a class="text-text-muted hover:text-primary-dark dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">KisanMitra</a>
+<span class="text-[#D1CBB8] dark:text-gray-600">/</span>
+<a class="text-text-muted hover:text-primary-dark dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">Farming Stage</a>
+<span class="text-[#D1CBB8] dark:text-gray-600">/</span>
+<span class="font-semibold text-primary-dark dark:text-primary">Input Optimizer</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<h1 class="text-3xl md:text-4xl font-black text-text-main dark:text-white tracking-tight mb-2">Input Optimizer</h1>
+<p class="text-text-muted dark:text-gray-400 text-lg max-w-2xl">Tailored recommendations to maximize yield and minimize input costs for your current crop cycle.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-[#E6E2D6] dark:border-gray-700 text-sm font-medium hover:bg-[#EBE7DD]/50 dark:hover:bg-neutral-800 transition-colors shadow-sm text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                        History
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3D3A35] dark:bg-white text-[#F5F2EA] dark:text-black text-sm font-medium hover:bg-[#262320] dark:hover:bg-gray-200 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
+<article class="flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl shadow-[0_2px_12px_-4px_rgba(0,0,0,0.03)] border border-[#E6E2D6] dark:border-[#423D33] overflow-hidden group hover:border-primary/50 dark:hover:border-primary transition-all duration-300">
+<div class="p-6 md:p-8 flex flex-col h-full">
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-xl bg-primary/20 flex items-center justify-center text-[#5F705F] dark:text-primary">
+<span class="material-symbols-outlined text-[28px]">eco</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-text-main dark:text-white">Fertilizer Recommendation</h2>
+<p class="text-sm text-text-muted dark:text-gray-400">Based on soil sample #4023</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E3E8E0] text-[#4F5E52] dark:bg-primary/20 dark:text-primary uppercase tracking-wide">High Priority</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-primary/30 dark:group-hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">category</span>
+<span class="text-xs font-bold uppercase tracking-wider">Type</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">Urea (N)</p>
+</div>
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-primary/30 dark:group-hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">scale</span>
+<span class="text-xs font-bold uppercase tracking-wider">Quantity</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">45 kg/acre</p>
+</div>
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-primary/30 dark:group-hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-xs font-bold uppercase tracking-wider">Timing</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">Early Morning</p>
+</div>
+</div>
+<div class="mt-auto relative overflow-hidden rounded-xl bg-primary/15 dark:bg-primary/10 border border-primary/20 p-5">
+<div class="flex gap-4 relative z-10">
+<span class="material-symbols-outlined text-primary-dark dark:text-primary mt-0.5">savings</span>
+<div>
+<h3 class="text-sm font-bold text-[#4F5E52] dark:text-green-100 mb-1">Cost Saving Tip</h3>
+<p class="text-sm text-[#5F705F] dark:text-primary/90 leading-relaxed">Switch to Neem-coated Urea to reduce consumption by 10% while maintaining efficiency.</p>
+</div>
+</div>
+<div class="absolute -bottom-4 -right-4 size-24 bg-primary/20 rounded-full blur-xl"></div>
+</div>
+<div class="flex gap-3 mt-6">
+<button class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">check</span>
+                                Apply
+                            </button>
+<button class="px-4 py-3 rounded-lg border border-[#E6E2D6] dark:border-gray-700 text-text-main dark:text-gray-300 font-medium hover:bg-[#EBE7DD]/50 dark:hover:bg-neutral-800 transition-colors">
+                                Edit
+                            </button>
+</div>
+</div>
+</article>
+<article class="flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl shadow-[0_2px_12px_-4px_rgba(0,0,0,0.03)] border border-[#E6E2D6] dark:border-[#423D33] overflow-hidden group hover:border-secondary/50 dark:hover:border-secondary transition-all duration-300">
+<div class="p-6 md:p-8 flex flex-col h-full">
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-xl bg-secondary/10 dark:bg-secondary/10 flex items-center justify-center text-[#9E8C48] dark:text-secondary">
+<span class="material-symbols-outlined text-[28px]">pest_control</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-text-main dark:text-white">Pesticide Recommendation</h2>
+<p class="text-sm text-text-muted dark:text-gray-400">Preventative for Leaf Curl</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-[#F3EFD6] text-[#8C7A3D] dark:bg-secondary/20 dark:text-secondary uppercase tracking-wide">Moderate</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-secondary/30 dark:group-hover:border-secondary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span class="text-xs font-bold uppercase tracking-wider">Type</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">Neem Oil (Bio)</p>
+</div>
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-secondary/30 dark:group-hover:border-secondary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+<span class="text-xs font-bold uppercase tracking-wider">Quantity</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">500ml/acre</p>
+</div>
+<div class="p-4 rounded-xl bg-accent-tan dark:bg-[#2A2722] border border-transparent group-hover:border-secondary/30 dark:group-hover:border-secondary/30 transition-colors">
+<div class="flex items-center gap-2 mb-2 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">dark_mode</span>
+<span class="text-xs font-bold uppercase tracking-wider">Timing</span>
+</div>
+<p class="text-lg font-bold text-text-main dark:text-white">Post-sunset</p>
+</div>
+</div>
+<div class="mt-auto relative overflow-hidden rounded-xl bg-primary/15 dark:bg-primary/10 border border-primary/20 p-5">
+<div class="flex gap-4 relative z-10">
+<span class="material-symbols-outlined text-primary-dark dark:text-primary mt-0.5">monetization_on</span>
+<div>
+<h3 class="text-sm font-bold text-[#4F5E52] dark:text-green-100 mb-1">Cost Saving Tip</h3>
+<p class="text-sm text-[#5F705F] dark:text-primary/90 leading-relaxed">Use spot spraying on affected plants instead of blanket spraying to save approx ₹400.</p>
+</div>
+</div>
+<div class="absolute -top-4 -left-4 size-24 bg-primary/20 rounded-full blur-xl"></div>
+</div>
+<div class="flex gap-3 mt-6">
+<button class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">check</span>
+                                Apply
+                            </button>
+<button class="px-4 py-3 rounded-lg border border-[#E6E2D6] dark:border-gray-700 text-text-main dark:text-gray-300 font-medium hover:bg-[#EBE7DD]/50 dark:hover:bg-neutral-800 transition-colors">
+                                Edit
+                            </button>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-10 p-6 rounded-2xl bg-accent-tan dark:bg-[#2A2722] border border-transparent dark:border-[#423D33]">
+<h3 class="font-bold text-text-main dark:text-white mb-2">Note on Weather Conditions</h3>
+<p class="text-sm text-text-muted dark:text-gray-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-dark">info</span>
+                    Light rain expected in 48 hours. Ensure fertilizer application is completed at least 12 hours before precipitation to prevent runoff.
+                </p>
+</div>
+</div>
+</main>
+<button aria-label="Voice Command" class="fixed bottom-8 right-8 z-50 size-16 bg-primary text-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 hover:bg-primary-dark active:scale-95 transition-all duration-300 flex items-center justify-center group">
+<span class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity"></span>
+<span class="material-symbols-outlined text-[32px]">mic</span>
+</button>
+
+</body></html>
