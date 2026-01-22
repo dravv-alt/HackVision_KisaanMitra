@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Land Pooling Overview - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "sage-light": "#E8F0E9",
+                        "ochre-light": "#FBF5E6",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary" href="#">Pooling</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary" href="#">Market</a>
+<div class="size-8 rounded-full bg-card-beige border border-card-border overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2 text-primary-dark dark:text-primary">
+<span class="material-symbols-outlined">handshake</span>
+<span class="text-sm font-bold uppercase tracking-wider">Collaborative Farming</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100">Land Pooling Overview</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg mt-2">Unite resources for better yield and bargaining power.</p>
+</div>
+<button class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-[#3E3630] border border-card-border text-text-main dark:text-gray-200 font-medium hover:bg-gray-50 transition-colors">
+<span class="material-symbols-outlined">share</span>
+                Invite Farmers
+            </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-12">
+<div class="relative bg-card-beige dark:bg-[#3E3630] rounded-2xl overflow-hidden shadow-sm border border-card-border dark:border-[#4A4036]">
+<div class="absolute top-0 right-0 w-full md:w-1/2 h-full opacity-10 md:opacity-100 pointer-events-none">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIgywCIKe6wLzgbdS806KqL5B04fqsKRbfk9k0bRNSULWUYa29kP7plxJon9ejgrY1yDN-vaL-Gn7aiWCllQVhQ0eui_JrzA3DsNyXdGrHFpKxmps6PDoaQHocQIVwzCCJF8X-mx6djAmq4sEbUz5QOFflVhLs2FTILE9Y22YDRObIwVvMv_TlM14lfEYPoGgBgHNbV3KygeOuCSsbjkkppFQxkuqStgTGIZ7X2sk4I-oAP7cSprzwseD9JMiOErW91WApx5uU59Y');"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-card-beige via-card-beige/80 to-transparent dark:from-[#3E3630] dark:via-[#3E3630]/80"></div>
+</div>
+<div class="relative z-10 p-6 md:p-10 flex flex-col justify-center h-full min-h-[300px]">
+<h3 class="text-2xl md:text-3xl font-bold text-text-main dark:text-white mb-6">Collective Strength</h3>
+<div class="flex flex-wrap gap-6 md:gap-12">
+<div class="flex items-start gap-4">
+<div class="size-14 rounded-xl bg-primary/20 text-primary-dark dark:text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">landscape</span>
+</div>
+<div>
+<p class="text-4xl md:text-5xl font-black text-text-main dark:text-white">150</p>
+<p class="text-lg font-bold text-text-secondary dark:text-gray-300">Acres Pooled</p>
+</div>
+</div>
+<div class="w-px h-16 bg-card-border dark:bg-gray-600 hidden sm:block"></div>
+<div class="flex items-start gap-4">
+<div class="size-14 rounded-xl bg-accent-ochre/20 text-accent-ochre flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">groups</span>
+</div>
+<div>
+<p class="text-4xl md:text-5xl font-black text-text-main dark:text-white">12</p>
+<p class="text-lg font-bold text-text-secondary dark:text-gray-300">Farmers Joined</p>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-2">
+<div class="flex -space-x-3">
+<div class="size-10 rounded-full bg-gray-200 border-2 border-white dark:border-[#3E3630]"></div>
+<div class="size-10 rounded-full bg-gray-300 border-2 border-white dark:border-[#3E3630]"></div>
+<div class="size-10 rounded-full bg-gray-400 border-2 border-white dark:border-[#3E3630]"></div>
+<div class="size-10 rounded-full bg-primary text-white border-2 border-white dark:border-[#3E3630] flex items-center justify-center text-xs font-bold">+9</div>
+</div>
+<span class="text-sm text-text-secondary dark:text-gray-400 font-medium ml-2">Active in Village Rampur</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-6">
+<div class="h-full bg-ochre-light dark:bg-[#3E3630] border border-accent-ochre/20 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-full bg-white dark:bg-[#4A4036] shadow-sm flex items-center justify-center text-accent-ochre">
+<span class="material-symbols-outlined text-2xl">local_shipping</span>
+</div>
+<span class="px-3 py-1 bg-white/60 dark:bg-white/10 rounded-full text-xs font-bold text-accent-ochre uppercase tracking-wide">Logistics</span>
+</div>
+<h4 class="text-2xl font-bold text-text-main dark:text-white mb-2">20% Lower Transport Cost</h4>
+<p class="text-text-secondary dark:text-gray-400">By pooling produce, we utilize full truckloads, significantly reducing per-unit transportation expenses to the city market.</p>
+</div>
+</div>
+<div class="lg:col-span-6">
+<div class="h-full bg-sage-light dark:bg-[#3E3630] border border-primary/20 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="size-12 rounded-full bg-white dark:bg-[#4A4036] shadow-sm flex items-center justify-center text-primary-dark">
+<span class="material-symbols-outlined text-2xl">storefront</span>
+</div>
+<span class="px-3 py-1 bg-white/60 dark:bg-white/10 rounded-full text-xs font-bold text-primary-dark uppercase tracking-wide">Market Access</span>
+</div>
+<h4 class="text-2xl font-bold text-text-main dark:text-white mb-2">Better Bulk Mandi Prices</h4>
+<p class="text-text-secondary dark:text-gray-400">Aggregated volume gives us stronger negotiating power at the Mandi, ensuring premium rates for our collective harvest.</p>
+</div>
+</div>
+<div class="lg:col-span-12 mt-4">
+<div class="bg-white dark:bg-[#2C2520] rounded-xl border border-card-border dark:border-[#3E3630] p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-card-beige flex items-center justify-center text-text-main">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div>
+<h5 class="text-lg font-bold text-text-main dark:text-gray-200">Next Pooling Cycle</h5>
+<p class="text-text-secondary dark:text-gray-400">Registration closes in 5 days for the Kharif season.</p>
+</div>
+</div>
+<button class="w-full md:w-auto bg-primary hover:bg-primary-dark text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg shadow-primary/20 transition-transform active:scale-95 flex items-center justify-center gap-2">
+                        Join the Pool
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

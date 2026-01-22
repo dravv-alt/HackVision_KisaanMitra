@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Crop Residue Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#dcb264", // Soft Ochre for highlights and badges
+                        "primary-hover": "#c59d52",
+                        "sage": "#8ba694", // Muted Sage Green
+                        "sage-light": "#e3ebe6",
+                        "sage-dark": "#4f6358",
+                        "background-light": "#f5f2eb", // Warm Beige
+                        "background-dark": "#1c1917", // Dark earthy background
+                        "card-light": "#fbf9f4", // Light Brownish-Beige
+                        "card-dark": "#292524", // Warm dark gray
+                        "text-primary-light": "#44403c", // Warm dark brown
+                        "text-primary-dark": "#e7e5e4",
+                        "text-secondary-light": "#78716c", // Stone gray
+                        "text-secondary-dark": "#a8a29e",
+                        // Earthy muted accents for icons
+                        "earth-orange": "#c27a4d",
+                        "earth-blue": "#7193a8",
+                        "earth-purple": "#9c859c",
+                        "earth-teal": "#6a8f87",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark min-h-screen transition-colors duration-200">
+<div class="flex h-screen overflow-hidden">
+<aside class="hidden md:flex w-64 flex-col bg-card-light dark:bg-card-dark border-r border-stone-200 dark:border-stone-800 transition-colors duration-200">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 shadow-sm border border-stone-200" data-alt="farmer profile avatar illustration" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuv_DT6JEsl2ZjkQbjHE9Z5_nWFBNNqJDvDm_NwjIJADhXrm1VSU9uV0pQa86Xv3bDcwFxZlERZUBg2cStqRwPTrJkBVm8f8Fpj7Wyglv06J9kDQTC6HpNX434BXgi1-dK_n7HfE0FZoQFjAvntA7B2OIToASFXMF87V5REOkoDAVtFhvFCT33Vwk8rrysB7qgxmrHMuC_a6slEcVQrE16nQg1h3CpOftIqBV5AcSFfQlhQ5oLrn3ysNdsmZ7eMlshWQd3QhPeO8w");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-primary-light dark:text-text-primary-dark text-lg font-bold leading-tight">KisanMitra</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-medium">Farm Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-4 py-2 space-y-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary dark:text-stone-500">home</span>
+<span class="font-medium text-sm text-text-secondary-light dark:text-text-secondary-dark group-hover:text-text-primary-light dark:group-hover:text-text-primary-dark">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary dark:text-stone-500">spa</span>
+<span class="font-medium text-sm text-text-secondary-light dark:text-text-secondary-dark group-hover:text-text-primary-light dark:group-hover:text-text-primary-dark">Pre-Sowing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary dark:text-stone-500">agriculture</span>
+<span class="font-medium text-sm text-text-secondary-light dark:text-text-secondary-dark group-hover:text-text-primary-light dark:group-hover:text-text-primary-dark">Harvest</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-sage/20 dark:bg-sage/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-sage-dark dark:text-sage">recycling</span>
+<span class="font-bold text-sm text-sage-dark dark:text-sage">Post-Harvest</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary dark:text-stone-500">storefront</span>
+<span class="font-medium text-sm text-text-secondary-light dark:text-text-secondary-dark group-hover:text-text-primary-light dark:group-hover:text-text-primary-dark">Marketplace</span>
+</a>
+</nav>
+<div class="p-4 border-t border-stone-200 dark:border-stone-800">
+<button class="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-red-700/70 dark:text-red-400 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium text-sm">Logout</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
+<header class="md:hidden flex items-center justify-between p-4 bg-card-light dark:bg-card-dark shadow-sm z-10 border-b border-stone-200 dark:border-stone-800">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-primary-light dark:text-text-primary-dark">menu</span>
+<span class="font-bold text-lg">KisanMitra</span>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-8 w-8" data-alt="mobile user profile image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDO8HQ91AfH0XYJRnCWyiKWtsVgDAofAyPESBSYHPsbb2U23tKDB0RUqSLSmzock_PmKqBk9xvzMYTmO8B3Ep8JaX0E45LTeTC4pW12SRxAtG4swNkYDB94QMrbJluIQHpBXrRtNFt0IY3aB4EpCNFgPbz2vme-rKsnsJnRa3VntmOR9erOBjzAuUJKbc23chxXr6Iy9ynCka6NX6Fo7Svkk2ATbaznP8Ivn3ew4UPRDeB_E2lVRIEq816C9IcQ6DvrjrsNxe2WsZU");'></div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-8 lg:px-12 lg:py-10">
+<div class="max-w-6xl mx-auto space-y-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 dark:bg-primary/10 text-stone-700 dark:text-primary w-fit">
+<span class="material-symbols-outlined text-sm text-primary-hover">warning</span>
+<span class="text-xs font-bold uppercase tracking-wide">Action Required</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-black text-text-primary-light dark:text-text-primary-dark tracking-tight">Crop Residue Management</h2>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-lg md:text-xl font-normal leading-relaxed">
+                                Don't burn your stubble. Turn waste into wealth. Select a sustainable method below to maximize your yield for next season.
+                            </p>
+</div>
+<div class="hidden md:block">
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-xl shadow-sm border border-stone-200 dark:border-stone-800 flex items-center gap-4">
+<div class="bg-sage/20 dark:bg-sage/10 p-3 rounded-full text-sage-dark dark:text-sage">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark font-medium uppercase">Projected Gain</p>
+<p class="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">₹12,450</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-card-light dark:bg-card-dark p-5 rounded-xl border border-stone-200 dark:border-stone-800 shadow-sm flex flex-col justify-between h-full group hover:border-sage transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-earth-blue/10 dark:bg-earth-blue/20 rounded-lg text-earth-blue dark:text-earth-blue">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="bg-sage/20 dark:bg-sage/10 text-sage-dark dark:text-sage text-xs font-bold px-2 py-1 rounded">+15%</span>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium mb-1">Potential Earnings</p>
+<p class="text-2xl font-bold text-text-primary-light dark:text-white">₹2,500 <span class="text-sm font-normal text-text-secondary-light dark:text-stone-500">/ acre</span></p>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-5 rounded-xl border border-stone-200 dark:border-stone-800 shadow-sm flex flex-col justify-between h-full group hover:border-sage transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 dark:bg-primary/20 rounded-lg text-primary-hover dark:text-primary">
+<span class="material-symbols-outlined">compost</span>
+</div>
+<span class="bg-sage/20 dark:bg-sage/10 text-sage-dark dark:text-sage text-xs font-bold px-2 py-1 rounded">High Impact</span>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium mb-1">Soil Health Score</p>
+<div class="flex items-baseline gap-2">
+<p class="text-2xl font-bold text-text-primary-light dark:text-white">Good</p>
+<p class="text-sm font-medium text-sage-dark dark:text-sage">Improving</p>
+</div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-5 rounded-xl border border-stone-200 dark:border-stone-800 shadow-sm flex flex-col justify-between h-full group hover:border-sage transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-earth-purple/10 dark:bg-earth-purple/20 rounded-lg text-earth-purple dark:text-earth-purple">
+<span class="material-symbols-outlined">co2</span>
+</div>
+<span class="bg-sage/20 dark:bg-sage/10 text-sage-dark dark:text-sage text-xs font-bold px-2 py-1 rounded">-40%</span>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium mb-1">Carbon Footprint</p>
+<p class="text-2xl font-bold text-text-primary-light dark:text-white">Reduced</p>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-text-primary-light dark:text-white mb-6">Choose a Management Method</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group bg-card-light dark:bg-card-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-primary flex flex-col h-full">
+<div class="h-40 bg-cover bg-center relative" data-alt="piles of hay bales ready for biofuel processing" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmADLSrxgtx-OcB4oS9wefaHbDlGthMhgFtQ52--tZyyuggrSph0t3zD9MAATjC5eokSvurHfftuCeRN8Zi-Nn-YZH-VZgrir-_Gv4fUyp3V-x4efHqBHcM0PWSSunYh8mHZR0Va935o4aQyYkkX9BFweojOEC29qw4n8t-Q__awZnWwdL88Mj1aWpF5hYhOuUnh1EdpJ1GlaCDeeWowLqImFSx8OqGTxHBKYUwC_HviVi9ohfnFoYByAzd2aV82zR6-g5_qQerqg");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<span class="bg-primary text-text-primary-light text-xs font-bold px-2 py-1 rounded mb-1 inline-block">Most Popular</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-earth-orange">local_fire_department</span>
+<h4 class="font-bold text-lg text-text-primary-light dark:text-white">Bio-fuel Sale</h4>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4 flex-1">Sell stubble to local bio-fuel plants instead of burning it.</p>
+<div class="bg-sage/10 dark:bg-sage/20 rounded-lg p-3 mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-sage-dark dark:text-sage">payments</span>
+<span class="text-sm font-bold text-sage-dark dark:text-sage">Earn ₹2,000 / ton</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-stone-100 hover:bg-primary hover:text-white dark:bg-stone-800 dark:hover:bg-primary dark:hover:text-black text-text-primary-light dark:text-text-primary-dark font-bold transition-colors">
+                                        Select Option
+                                    </button>
+</div>
+</div>
+<div class="group bg-card-light dark:bg-card-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-primary flex flex-col h-full">
+<div class="h-40 bg-cover bg-center relative" data-alt="tractor mulching field with organic matter" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSCEfKEvnsHfBYZwmtfGft6ij1KnHgRhLPAHutlsK8R41SG0xVIP7D_ds7dkVDrPn_6JAdbzOeglfVZ2qbtLkU6bxheS8qcmXSKDvxMUM0_bpG-ixyri1-dazlDbJ-9IR-Rcib4f5ir3LgD3FUPJBBTrEqTGjLpUi20BC67060NoqyinU56CJzxLWdDhSyvpMeR9AD19pMgQjn-wQomMa93U1NwZX4bdevyn2umtQ-4JboF4zOIyyhd9XlALX5pup1vz_LYjqBBrc");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-earth-blue">agriculture</span>
+<h4 class="font-bold text-lg text-text-primary-light dark:text-white">In-situ Mulching</h4>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4 flex-1">Mix residue into soil to improve moisture and nutrient content.</p>
+<div class="bg-earth-blue/10 dark:bg-earth-blue/20 rounded-lg p-3 mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-earth-blue dark:text-earth-blue">savings</span>
+<span class="text-sm font-bold text-earth-blue dark:text-earth-blue">Save 30% Fertilizer</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-stone-100 hover:bg-primary hover:text-white dark:bg-stone-800 dark:hover:bg-primary dark:hover:text-black text-text-primary-light dark:text-text-primary-dark font-bold transition-colors">
+                                        Select Option
+                                    </button>
+</div>
+</div>
+<div class="group bg-card-light dark:bg-card-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-primary flex flex-col h-full">
+<div class="h-40 bg-cover bg-center relative" data-alt="mushroom cultivation in organic farm setup" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChuhw-oy6oh9uOA9Qbl3wyPpbMdvXFMRc7lI8niVdkSjka4qpv7DFdw8LBexiazRLMqPrm7X4f3B1cADEkbu6Yq8IA-ZvckZyGw9wrMUctrmnxoKz0_DeLZf1i-IVa5s4MXXKuM4-G5osgXjDlsxaysLbTOICmOBOD8tNCCSjA6lk1445-QU_oWpWhSD_73qeHw3N-irrSWvnS1v2Doan24P5BgTsbVPAhg54YkK1UP4o2Tx8qMwxhD2TV8KTixzexPjeOeYwDUJg");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-earth-purple">grass</span>
+<h4 class="font-bold text-lg text-text-primary-light dark:text-white">Mushroom Farm</h4>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4 flex-1">Use paddy straw as a base for growing oyster mushrooms.</p>
+<div class="bg-earth-purple/10 dark:bg-earth-purple/20 rounded-lg p-3 mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-earth-purple dark:text-earth-purple">add_business</span>
+<span class="text-sm font-bold text-earth-purple dark:text-earth-purple">New Income Source</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-stone-100 hover:bg-primary hover:text-white dark:bg-stone-800 dark:hover:bg-primary dark:hover:text-black text-text-primary-light dark:text-text-primary-dark font-bold transition-colors">
+                                        Select Option
+                                    </button>
+</div>
+</div>
+<div class="group bg-card-light dark:bg-card-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-transparent hover:border-primary flex flex-col h-full">
+<div class="h-40 bg-cover bg-center relative" data-alt="farmer spraying decomposing agent on field" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHLegVfcYkm1NG-aJqRORrB-tbsjvGGPuxfa_wWc8uMQx8_0i-iztXHtNY2lr2MST-8TIEmhJ0vgtoLDcRNuZa6VNDx2Rtm99fh99mVBMN-udJbzHWsYXGB_ySpjJCQvz6_UkmTwxxf-zP6Q2Tq7FPvACPHazLMzwToV4J9JxkVoofe2D3Xru3xBh4JQAi0fYE5kf45yJ6SI-Pl-EYRdHUI3MMV8yx8JOq23iQ03kJu2a0w5R9YrL2tkWi_tCrzrE5Om1zKPwQdx8");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-earth-teal">science</span>
+<h4 class="font-bold text-lg text-text-primary-light dark:text-white">Pusa Decomposer</h4>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4 flex-1">Spray bio-enzyme capsules to rapidly decompose stubble.</p>
+<div class="bg-earth-teal/10 dark:bg-earth-teal/20 rounded-lg p-3 mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-earth-teal dark:text-earth-teal">timer</span>
+<span class="text-sm font-bold text-earth-teal dark:text-earth-teal">Ready in 25 days</span>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-stone-100 hover:bg-primary hover:text-white dark:bg-stone-800 dark:hover:bg-primary dark:hover:text-black text-text-primary-light dark:text-text-primary-dark font-bold transition-colors">
+                                        Select Option
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-50">
+<button aria-label="Activate voice commands" class="group flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary text-text-primary-light shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ring-4 ring-primary/20 hover:ring-primary/40 focus:outline-none focus:ring-4 focus:ring-primary/50">
+<span class="material-symbols-outlined text-3xl md:text-4xl group-hover:animate-pulse">mic</span>
+<span class="absolute -top-12 bg-card-dark text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        Tap to Speak
+                    </span>
+</button>
+</div>
+</main>
+</div>
+
+</body></html>

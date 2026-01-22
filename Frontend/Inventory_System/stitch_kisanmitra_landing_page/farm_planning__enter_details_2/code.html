@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fertilizer Inventory Details - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(44, 37, 32, 0.4);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex items-center gap-4 mb-8">
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] hover:bg-card-beige hover:border-primary transition-all shadow-sm group">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary">arrow_back</span>
+</button>
+<div>
+<h2 class="text-3xl font-black text-text-main dark:text-gray-100">Fertilizers</h2>
+<p class="text-text-secondary dark:text-gray-400 text-sm md:text-base">Inventory Management &amp; Usage Tracking</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="group bg-white dark:bg-[#3E3630] rounded-xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex flex-col md:flex-row gap-6 md:items-center justify-between">
+<div class="flex gap-5 items-start flex-grow">
+<div class="size-16 rounded-2xl bg-card-beige dark:bg-[#2C2520] flex items-center justify-center border border-card-border dark:border-[#4A4036] text-text-secondary">
+<span class="material-symbols-outlined text-4xl">compost</span>
+</div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center flex-wrap gap-3">
+<h3 class="text-2xl font-black text-text-main dark:text-gray-100">Urea</h3>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-200 dark:border-amber-800/50 uppercase tracking-wide">
+<span class="material-symbols-outlined text-base">warning</span> Low Stock
+                                </span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mt-1">
+<div class="text-3xl font-black text-text-main dark:text-gray-100 tabular-nums">150 <span class="text-lg font-bold text-text-secondary dark:text-gray-400">kg</span></div>
+<div class="flex items-center gap-1.5 text-sm font-medium text-text-secondary dark:text-gray-400 bg-background-light dark:bg-black/20 px-2 py-1 rounded border border-card-border dark:border-[#4A4036]">
+<span class="material-symbols-outlined text-base">history</span>
+                                    Last Used: 3 days ago
+                                </div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto mt-2 md:mt-0 flex-shrink-0">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary-dark dark:text-primary font-bold hover:bg-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+                            Used
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20 hover:bg-primary-dark transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-[#3E3630] rounded-xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex flex-col md:flex-row gap-6 md:items-center justify-between">
+<div class="flex gap-5 items-start flex-grow">
+<div class="size-16 rounded-2xl bg-card-beige dark:bg-[#2C2520] flex items-center justify-center border border-card-border dark:border-[#4A4036] text-text-secondary">
+<span class="material-symbols-outlined text-4xl">science</span>
+</div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center flex-wrap gap-3">
+<h3 class="text-2xl font-black text-text-main dark:text-gray-100">DAP</h3>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200 dark:bg-green-900/40 dark:text-green-200 dark:border-green-800/50 uppercase tracking-wide">
+<span class="material-symbols-outlined text-base">check_circle</span> Healthy
+                                </span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mt-1">
+<div class="text-3xl font-black text-text-main dark:text-gray-100 tabular-nums">450 <span class="text-lg font-bold text-text-secondary dark:text-gray-400">kg</span></div>
+<div class="flex items-center gap-1.5 text-sm font-medium text-text-secondary dark:text-gray-400 bg-background-light dark:bg-black/20 px-2 py-1 rounded border border-card-border dark:border-[#4A4036]">
+<span class="material-symbols-outlined text-base">history</span>
+                                    Last Used: 1 week ago
+                                </div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto mt-2 md:mt-0 flex-shrink-0">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary-dark dark:text-primary font-bold hover:bg-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+                            Used
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20 hover:bg-primary-dark transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-[#3E3630] rounded-xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex flex-col md:flex-row gap-6 md:items-center justify-between">
+<div class="flex gap-5 items-start flex-grow">
+<div class="size-16 rounded-2xl bg-card-beige dark:bg-[#2C2520] flex items-center justify-center border border-card-border dark:border-[#4A4036] text-text-secondary">
+<span class="material-symbols-outlined text-4xl">grain</span>
+</div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center flex-wrap gap-3">
+<h3 class="text-2xl font-black text-text-main dark:text-gray-100">MOP (Potash)</h3>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mt-1">
+<div class="text-3xl font-black text-text-main dark:text-gray-100 tabular-nums">220 <span class="text-lg font-bold text-text-secondary dark:text-gray-400">kg</span></div>
+<div class="flex items-center gap-1.5 text-sm font-medium text-text-secondary dark:text-gray-400 bg-background-light dark:bg-black/20 px-2 py-1 rounded border border-card-border dark:border-[#4A4036]">
+<span class="material-symbols-outlined text-base">history</span>
+                                    Last Used: 2 weeks ago
+                                </div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto mt-2 md:mt-0 flex-shrink-0">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary-dark dark:text-primary font-bold hover:bg-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+                            Used
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20 hover:bg-primary-dark transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+<div class="group bg-white dark:bg-[#3E3630] rounded-xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all">
+<div class="flex flex-col md:flex-row gap-6 md:items-center justify-between">
+<div class="flex gap-5 items-start flex-grow">
+<div class="size-16 rounded-2xl bg-card-beige dark:bg-[#2C2520] flex items-center justify-center border border-card-border dark:border-[#4A4036] text-text-secondary">
+<span class="material-symbols-outlined text-4xl">eco</span>
+</div>
+<div class="flex flex-col gap-1 w-full">
+<div class="flex items-center flex-wrap gap-3">
+<h3 class="text-2xl font-black text-text-main dark:text-gray-100">NPK 12:32:16</h3>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 dark:bg-amber-900/40 dark:text-amber-200 dark:border-amber-800/50 uppercase tracking-wide">
+<span class="material-symbols-outlined text-base">warning</span> Low Stock
+                                </span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mt-1">
+<div class="text-3xl font-black text-text-main dark:text-gray-100 tabular-nums">15 <span class="text-lg font-bold text-text-secondary dark:text-gray-400">kg</span></div>
+<div class="flex items-center gap-1.5 text-sm font-medium text-text-secondary dark:text-gray-400 bg-background-light dark:bg-black/20 px-2 py-1 rounded border border-card-border dark:border-[#4A4036]">
+<span class="material-symbols-outlined text-base">history</span>
+                                    Last Used: Yesterday
+                                </div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 w-full md:w-auto mt-2 md:mt-0 flex-shrink-0">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary-dark dark:text-primary font-bold hover:bg-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">remove</span>
+                            Used
+                        </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/20 hover:bg-primary-dark transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center pb-20">
+<button class="text-sm font-semibold text-text-secondary hover:text-primary transition-colors flex items-center justify-center gap-1 mx-auto border-b border-dashed border-text-secondary/50 pb-0.5 hover:border-primary">
+                View Purchase History
+            </button>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

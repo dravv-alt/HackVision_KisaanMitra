@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory &amp; Storage Health - KisanMitra</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        // Muted, Organic Palette
+                        "sage": {
+                            DEFAULT: "#8CA388", // Soft Sage Green
+                            dark: "#5E705B",
+                            light: "#E9F0E9", // Very light sage bg
+                            hover: "#7A9176"
+                        },
+                        "ochre": {
+                            DEFAULT: "#D6AD60", // Muted Ochre
+                            dark: "#8F6F30",
+                            light: "#FAF6EB",
+                            hover: "#C49D55"
+                        },
+                        "terracotta": {
+                            DEFAULT: "#D48C84", // Soft Terracotta
+                            dark: "#965A52",
+                            light: "#FCF2F0",
+                            hover: "#C27D75"
+                        },
+                        "beige": {
+                            DEFAULT: "#F4F1EA", // Warm Beige Background
+                            sidebar: "#FDFCF8", // Very light warm white for sidebar
+                            border: "#E6E2D8"
+                        },
+                        // Mapping user request terms to palette
+                        "primary": "#8CA388", 
+                        "primary-dark": "#5E705B",
+                        "background-dark": "#1A1816",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(140, 163, 136, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-beige dark:bg-background-dark text-[#1a1c1a] dark:text-gray-100 overflow-x-hidden transition-colors duration-200 selection:bg-sage selection:text-white">
+<div class="flex min-h-screen w-full">
+<aside class="hidden lg:flex w-72 flex-col border-r border-beige-border dark:border-gray-800 bg-beige-sidebar dark:bg-[#1f2420] shrink-0 h-screen sticky top-0">
+<div class="flex h-full flex-col justify-between p-6">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm ring-1 ring-beige-border" data-alt="KisanMitra logo green leaf icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7-e9TeaOdrixl_vZK-pB3Nj2SrYyzGvgCVGeT91pKTwCZn8HQnnEm9sKieEcgabqzSl4gd0UR1Tw_rwytQeO0dOCmu2z9D63XBfKzczNvxvWvukuZLyYS7uRB6HRWQxUjRwc-jJ-JsMZ4V-mEYlLo0xZLHOG5Zx-HdrcFKui3RpvjqTyhxSI450jro55uTqFsHwULAFdrZyShj5JaudZ2balpSLVfO3hrhsaFDgyIyoS2yZuWgRDjS_bYPb-djP3G_zbm9xNr31o");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#1a1c1a] dark:text-white text-lg font-bold leading-tight">KisanMitra</h1>
+<p class="text-sage dark:text-[#8CA388] text-sm font-normal">Farm Management</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#1a1c1a] dark:text-gray-300 hover:bg-sage-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-sage dark:text-gray-400 transition-colors">house</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-sage-light dark:bg-primary/20 text-[#1a1c1a] dark:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-sage-dark dark:text-primary fill-1">inventory_2</span>
+<span class="text-sm font-bold text-sage-dark dark:text-white">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#1a1c1a] dark:text-gray-300 hover:bg-sage-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-sage dark:text-gray-400 transition-colors">cloud</span>
+<span class="text-sm font-medium">Weather</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#1a1c1a] dark:text-gray-300 hover:bg-sage-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-sage dark:text-gray-400 transition-colors">attach_money</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#1a1c1a] dark:text-gray-300 hover:bg-sage-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-sage dark:text-gray-400 transition-colors">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="border-t border-beige-border dark:border-gray-700 pt-6">
+<button class="flex items-center gap-3 w-full text-left px-4 py-2 hover:bg-sage-light dark:hover:bg-white/5 rounded-lg transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 ring-1 ring-beige-border" data-alt="User avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBphl2yURQHcRG_3N1A_jilWRjpvPLKKUiKtvIg8-kez78gpopxAuDLWui7NlCOXx8Gx9YcImEq_sCCofBT8oFBmaYKfiuUISTyY-WjkPa2RtvlYgDbWfjbIvj-vbTJeC_XVe0_vAAaZ5_gVQZ1ybA4W6qz7LWxwlVTVFhuzP1zD1Qm_rMfWq_enYk2DpnVpNm9j-eQS5g3ALFoJJtxObMzsnoB18z-s4xdmDrjgQRK-900j8B6vKqsv3oIoGsQoQ_5WG2Bag7du88");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#1a1c1a] dark:text-white">Rajesh Kumar</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Logout</span>
+</div>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
+<header class="lg:hidden flex items-center justify-between p-4 bg-beige-sidebar dark:bg-[#1f2420] sticky top-0 z-20 shadow-sm border-b border-beige-border">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-lg hover:bg-sage-light dark:hover:bg-white/10 text-[#1a1c1a] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-bold text-lg text-[#1a1c1a] dark:text-white">KisanMitra</h1>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 ring-1 ring-beige-border" data-alt="User avatar portrait mobile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPN2VhWBLStzonUX8cdJgAAnJsx0zohUNjkFEvm8fd_oE1MDD69372LGgVR6Tb1GBM5KyGUxuxBq7i0b0U1R1DAU2olVJg2KucBgrZdsPDF-fblEvbp4TEjWoVNCVGKI5D3IoaVlyRlFzoGlo83cZ5F6tRxeDOSmoN1iY91dTBkWgraqYVjl9VW2roSM3LPXLQxftQkIPahv2woJLOh1ocJ_zBLRwZ8W1VdQwvjD-QgFA3N8TW_b4LN6oWRXz93_Mg8D0z0iXYF5g");'></div>
+</header>
+<div class="flex-1 p-4 lg:p-10 max-w-[1400px] mx-auto w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sm text-sage-dark dark:text-sage font-medium mb-1">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+<span>Dashboard</span>
+</div>
+<h2 class="text-[#1a1c1a] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">Inventory &amp; Storage Health</h2>
+<p class="text-gray-600 dark:text-gray-400 text-base max-w-2xl">Monitor stock levels, track shelf-life expiration, and get AI-driven recommendations for your produce.</p>
+</div>
+<button class="bg-sage hover:bg-sage-hover text-white px-6 h-12 rounded-lg font-bold text-sm shadow-soft flex items-center gap-2 transition-all transform active:scale-95 whitespace-nowrap justify-center">
+<span class="material-symbols-outlined">add</span>
+                    Add New Stock
+                </button>
+</div>
+<div class="bg-beige-sidebar dark:bg-[#1f2420] p-4 rounded-xl shadow-sm mb-8 flex flex-col md:flex-row gap-4 items-center border border-beige-border dark:border-gray-800">
+<div class="relative flex-1 w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-beige-border dark:border-gray-700 rounded-lg leading-5 bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sage focus:border-sage sm:text-sm transition-shadow shadow-sm" placeholder="Search crops (e.g., Wheat, Potato)..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+<button class="px-4 py-2.5 rounded-lg bg-sage-light dark:bg-primary/20 text-sage-dark dark:text-primary text-sm font-bold whitespace-nowrap border border-transparent hover:border-sage transition-colors">
+                        All Crops
+                    </button>
+<button class="px-4 py-2.5 rounded-lg bg-white dark:bg-white/5 border border-beige-border dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-terracotta-light dark:hover:bg-white/10 transition-colors">
+                        Critical (3)
+                    </button>
+<button class="px-4 py-2.5 rounded-lg bg-white dark:bg-white/5 border border-beige-border dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-sage-light dark:hover:bg-white/10 transition-colors">
+                        Safe (12)
+                    </button>
+<button class="px-4 py-2.5 rounded-lg bg-white dark:bg-white/5 border border-beige-border dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-sage-light dark:hover:bg-white/10 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-base">filter_list</span> Filter
+                    </button>
+</div>
+</div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold text-[#1a1c1a] dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-sage">grid_view</span>
+                    Stored Crops Overview
+                </h3>
+<span class="text-sm text-gray-500 font-medium">Last updated: 2 hours ago</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-20">
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-beige-border dark:border-gray-700 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Fresh potatoes piled up close up" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfQdRSAiULmXTdo5Au0z1r_LdrzY2a6gEwhLOXBWGOlztKIASC49DjdWTNzEYQsmZtPL4fBcw-7fvvYhqVtFhQ4zAxXbf1QtimH15qW5p2GvbUCxdfWX-NGNNZL89ekbVRu6a-PzstpueN8IvuqDdyFfTnWCcl1GytXdCprsYYzun3cRfOYQtRtWQHNkM1BrQmw0C_x6rhoU4egaTDS37_BoQaaLfixAWk2TLo0GN-vP9svQLGykNmG7xwAwn9zlcSiDuKusSfFPA");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Potato - Agra Red</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #PT-2023-09</p>
+</div>
+</div>
+<span class="bg-sage-light text-sage-dark text-xs font-bold px-2.5 py-1 rounded-full border border-sage/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Safe
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">200 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹3.2L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-sage-dark">80% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-sage to-[#A4B8A0] h-2.5 rounded-full" style="width: 80%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">Approx. 45 days until quality dip</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-sage-dark dark:text-sage-light bg-sage-light dark:bg-sage/20 px-2 py-1 rounded">Hold Stock</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-beige-border dark:border-gray-700 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Red onions in a basket" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOQ3rckvKUJM2fqht40mdMGrxujFXEUwOegBC8mopRTj81MYfr8OM6THF5nTLle5jGjMlefn8-9jYkST18WURvSG7rk9a8QlXKUMKawb40ujXm0-AcF46JrEm6LJMzP1tBS9pqLUgi7I6Cnvs_P_KSun3eb6No8eWPHklMwTGvWzNRDygsXwbB8VCcnoWdq8R4qLObP2hEvjwai9KOBdYhvrKxo-39QeVvdnYxurbOCQ1Zdy05y0P-s0vMKbAbwFhSoSTON0B68rM");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Onion - Nashik</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #ON-2023-11</p>
+</div>
+</div>
+<span class="bg-ochre-light text-ochre-dark text-xs font-bold px-2.5 py-1 rounded-full border border-ochre/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Moderate
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">120 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹1.8L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-ochre-dark">40% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-ochre to-ochre/70 h-2.5 rounded-full" style="width: 40%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">Approx. 12 days until quality dip</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-ochre-dark dark:text-ochre bg-ochre-light dark:bg-ochre/20 px-2 py-1 rounded">Monitor Daily</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-terracotta/30 dark:border-terracotta/30 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-terracotta"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Fresh red tomatoes in sunlight" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHwnLdGoxJwrLL4gQwEVGop2EjFGi9PdCnrtXRtkbSTFlYY2niVfHj3Mc8_E26PEPSitq68FgUnoHDkzG1l3txzIs8NAJ5xjmnaT5f9XZQKCcKOP2qRQT4bKE01MInerT5-PFne2Ux89pTNtsUtxWQqDIt35gHSqL5lVHlO4rgyo3sLKfzkpRMDOkT024XG8sVXuFtFkYlEE5p5oJDZQDPmNZqBlwTquC7VbRJWh5z7tBWbqq1Z53SAwghxdgYHI4xF3W7GlvlIiw");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Tomato - Hybrid</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #TM-2023-14</p>
+</div>
+</div>
+<span class="bg-terracotta-light text-terracotta-dark text-xs font-bold px-2.5 py-1 rounded-full border border-terracotta/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span> Critical
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">50 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹0.5L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-terracotta">10% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-terracotta to-terracotta/70 h-2.5 rounded-full" style="width: 10%"></div>
+</div>
+<p class="text-xs text-terracotta mt-1 font-medium">Expires in less than 48 hours</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-terracotta-dark dark:text-terracotta-light bg-terracotta-light dark:bg-terracotta/20 px-2 py-1 rounded animate-pulse">Sell Immediately</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-beige-border dark:border-gray-700 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Wheat grains close up texture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCh1gdaHxLrh2UH4TjuBJ6qsXSlKX28pEF5Fg9CfpTmI6_PhAOxMpZY7EqkaynGBdKpLv9J30hxZik-DpZwtSMdUAsif2IE_TcFTXFyjLPVigEsKmcexeYrjYo4DT9R751p9McC-yfytd6pxQrbd293deSvaS_HL10JmkiY1n1wk7Q1oRIn9r38tyqF57Z46KMuX43474OJkMdzBO_B1259ZzFzmEZVS7uGORLSAcW70WdiYEsTOnrGkV-bn3tM2PYnr1wa3XAtXv0");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Wheat - Sharbati</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #WH-2023-01</p>
+</div>
+</div>
+<span class="bg-sage-light text-sage-dark text-xs font-bold px-2.5 py-1 rounded-full border border-sage/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Safe
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">500 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹12.5L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-sage-dark">95% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-sage to-[#A4B8A0] h-2.5 rounded-full" style="width: 95%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">Approx. 6 months safe storage</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-sage-dark dark:text-sage-light bg-sage-light dark:bg-sage/20 px-2 py-1 rounded">Hold Stock</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-beige-border dark:border-gray-700 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Pile of fresh garlic bulbs" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCt2TCdUcLX51Y7Hfi_57o8t1CZXhBMnQYETfLXM50SDh2a-Si224HJ_ICVXTPG0Javuue-rowqBum0v61Skkl2utiH9fIWWmSrfn0_2VB5ZmzdefVsyyeoDh8HM_EJlzbhsKljsYQx3pD8PNizNDClmxmDtFQGcvorlJl4lAaHdJ4jp3qwXJeZcOpdZKr72HH_a1yb4nJsFdrzDGRxR83yxLdUyJbGkH3IzA6XVT17J4T_ZdZpisyGjKzrAYOGD6YWMyXjXmXJAGw");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Garlic - White</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #GR-2023-05</p>
+</div>
+</div>
+<span class="bg-sage-light text-sage-dark text-xs font-bold px-2.5 py-1 rounded-full border border-sage/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Safe
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">80 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹4.2L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-sage-dark">75% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-sage to-[#A4B8A0] h-2.5 rounded-full" style="width: 75%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">Approx. 3 months safe storage</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-sage-dark dark:text-sage-light bg-sage-light dark:bg-sage/20 px-2 py-1 rounded">Hold Stock</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2420] rounded-xl border border-beige-border dark:border-gray-700 p-5 shadow-sm hover:shadow-soft transition-shadow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm" data-alt="Green peas in pods" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTR0kGLiig_Lz97O4T_wcrmlPp8794AEXS6rTe0udhLQHeGO3-xFcQ6S6O6aS2OYgxBPciBxjLGJVOB34i-ZeHix508M9F4ocOvaP6FQPsX7q3wIqGHn3YlBMWaPy78IM-k-xwalA0Co8n2U_96_lz2ccBR06Yvbuq_x-7Xc12LyejGBRdNsEIdHwy8NHunf_tBoQUjSz85OIGiPOGAmiMgYsG80MBrNsWGHRc3yhg3ko2NXNWAnRkbs8_tnwu2cuEyG3ZUQJ2igk");'></div>
+<div>
+<h4 class="text-lg font-bold text-[#1a1c1a] dark:text-white">Peas - Green</h4>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Batch #PS-2023-02</p>
+</div>
+</div>
+<span class="bg-ochre-light text-ochre-dark text-xs font-bold px-2.5 py-1 rounded-full border border-ochre/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Moderate
+                        </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Quantity</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">40 Qtl</p>
+</div>
+<div class="bg-beige-sidebar dark:bg-white/5 p-3 rounded-lg">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Est. Value</p>
+<p class="text-lg font-bold text-[#1a1c1a] dark:text-white">₹1.1L</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-gray-600 dark:text-gray-300">Shelf Life</span>
+<span class="font-bold text-ochre-dark">35% Remaining</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-gradient-to-r from-ochre to-ochre/70 h-2.5 rounded-full" style="width: 35%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">Consider selling within week</p>
+</div>
+<div class="mt-auto pt-4 border-t border-beige-border dark:border-gray-700">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase text-gray-400">Action:</span>
+<span class="text-sm font-bold text-ochre-dark dark:text-ochre bg-ochre-light dark:bg-ochre/20 px-2 py-1 rounded">Monitor Daily</span>
+</div>
+<button class="text-gray-400 hover:text-[#1a1c1a] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-8 right-8 size-16 bg-sage hover:bg-sage-dark text-white rounded-full shadow-soft flex items-center justify-center transition-transform hover:scale-105 group z-50">
+<span class="material-symbols-outlined text-3xl group-hover:animate-pulse">mic</span>
+<span class="sr-only">Voice Commands</span>
+<div class="absolute right-full mr-4 bg-[#1a1c1a] text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Voice Commands
+            </div>
+</button>
+</main>
+</div>
+
+</body></html>

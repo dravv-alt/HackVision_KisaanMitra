@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory Overview - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(44, 37, 32, 0.4);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="text-4xl font-black text-text-main dark:text-gray-100 mb-2">Inventory</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Manage seeds, fertilizers, crops, and farm equipment.</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-6 py-3 bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-xl text-base font-bold text-text-main hover:bg-primary/10 hover:border-primary transition-all shadow-sm">
+<span class="material-symbols-outlined">bar_chart</span>
+                    View History
+                </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-base font-bold hover:bg-primary-dark transition-all shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5">
+<span class="material-symbols-outlined">add</span>
+                    Add Item
+                </button>
+</div>
+</div>
+<div class="mb-12">
+<div class="flex items-center justify-between mb-4 px-1">
+<h3 class="text-lg font-bold text-text-secondary uppercase tracking-wide">Categories</h3>
+<span class="text-sm text-text-secondary flex items-center gap-1">Scroll <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-6 px-1 no-scrollbar snap-x">
+<div class="snap-start min-w-[260px] bg-white dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all hover:border-primary/50 group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-xl text-primary-dark dark:text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">grass</span>
+</div>
+<span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full">In Stock</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-text-main dark:text-gray-100">Seeds</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-text-main dark:text-gray-100">12</span>
+<span class="text-sm font-medium text-text-secondary">varieties</span>
+</div>
+</div>
+</div>
+<div class="snap-start min-w-[260px] bg-white dark:bg-[#3E3630] rounded-2xl border-l-4 border-l-accent-alert border-y border-r border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-xl text-accent-alert group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">compost</span>
+</div>
+<span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full">Low Stock</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-text-main dark:text-gray-100">Fertilizers</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-text-main dark:text-gray-100">4</span>
+<span class="text-sm font-medium text-text-secondary">types</span>
+</div>
+</div>
+</div>
+<div class="snap-start min-w-[260px] bg-white dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all hover:border-primary/50 group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-blue-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">pest_control</span>
+</div>
+<span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Sufficient</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-text-main dark:text-gray-100">Pesticides</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-text-main dark:text-gray-100">6</span>
+<span class="text-sm font-medium text-text-secondary">bottles</span>
+</div>
+</div>
+</div>
+<div class="snap-start min-w-[260px] bg-white dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all hover:border-primary/50 group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl text-yellow-700 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">agriculture</span>
+</div>
+<span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-full">Stored</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-text-main dark:text-gray-100">Harvested Crops</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-text-main dark:text-gray-100">250</span>
+<span class="text-sm font-medium text-text-secondary">Quintals</span>
+</div>
+</div>
+</div>
+<div class="snap-start min-w-[260px] bg-white dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-md transition-all hover:border-primary/50 group cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">handyman</span>
+</div>
+<span class="bg-gray-200 text-gray-800 text-xs font-bold px-2 py-1 rounded-full">Operational</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-text-main dark:text-gray-100">Equipment</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-black text-text-main dark:text-gray-100">3</span>
+<span class="text-sm font-medium text-text-secondary">machines</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100 mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-alert">warning</span>
+                Critical Alerts
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-200 dark:border-red-900/30 p-6 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-red-600">inventory_2</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-3">
+<div class="p-2 bg-white dark:bg-red-900/40 rounded-lg text-red-600 shadow-sm">
+<span class="material-symbols-outlined text-2xl">production_quantity_limits</span>
+</div>
+<span class="text-red-800 dark:text-red-200 font-bold text-sm uppercase tracking-wider">Stock Alert</span>
+</div>
+<h4 class="text-2xl font-black text-text-main dark:text-gray-100 mb-2">Low Urea Stock</h4>
+<p class="text-text-secondary dark:text-gray-300 mb-6 font-medium">Your current stock is <span class="text-red-600 font-bold">2 bags</span>. Upcoming sowing cycle requires approx <span class="text-text-main font-bold">10 bags</span>.</p>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-sm">
+                            Order Now
+                            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-200 dark:border-amber-900/30 p-6 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-9xl text-amber-600">water_drop</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-3">
+<div class="p-2 bg-white dark:bg-amber-900/40 rounded-lg text-amber-600 shadow-sm">
+<span class="material-symbols-outlined text-2xl">thermometer_loss</span>
+</div>
+<span class="text-amber-800 dark:text-amber-200 font-bold text-sm uppercase tracking-wider">Quality Risk</span>
+</div>
+<h4 class="text-2xl font-black text-text-main dark:text-gray-100 mb-2">Stored Wheat Spoilage Risk</h4>
+<p class="text-text-secondary dark:text-gray-300 mb-6 font-medium">High moisture levels detected in <span class="text-amber-700 font-bold">Silo #2</span>. Immediate inspection recommended to prevent fungal growth.</p>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 bg-white border-2 border-amber-200 text-amber-800 rounded-xl font-bold hover:bg-amber-100 transition-colors shadow-sm">
+                            View Details
+                            <span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard: Farmer Overview - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(44, 37, 32, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Rentals</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-gray-100 mb-2">Namaste, Ramesh</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Here's the summary for your farm today.</p>
+</div>
+<div class="w-full md:w-auto bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-2xl p-4 flex items-center gap-6 shadow-sm hover:shadow-md transition-shadow cursor-default">
+<div class="flex items-center gap-3 border-r border-card-border dark:border-[#5C5046] pr-6">
+<span class="material-symbols-outlined text-4xl text-accent-ochre">sunny</span>
+<div>
+<div class="text-2xl font-bold text-text-main dark:text-gray-100">32°C</div>
+<div class="text-xs font-semibold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Sunny</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-3xl text-primary">water_drop</span>
+<div>
+<div class="text-xl font-bold text-text-main dark:text-gray-100">10%</div>
+<div class="text-xs font-semibold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Chance of Rain</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/20 rounded-lg text-primary-dark dark:text-primary">
+<span class="material-symbols-outlined">potted_plant</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Active Crops</h3>
+</div>
+<button class="text-sm font-medium text-primary hover:text-primary-dark transition-colors">View Field</button>
+</div>
+<div class="space-y-4">
+<div class="bg-white dark:bg-[#4A4036] rounded-xl p-4 flex items-center justify-between border border-transparent hover:border-card-border transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-[#E8F5E9] flex items-center justify-center text-green-700 font-bold text-sm">W</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-gray-200">Wheat (Rabi)</h4>
+<p class="text-xs text-text-secondary dark:text-gray-400">Planted 45 days ago</p>
+</div>
+</div>
+<span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded-full border border-green-200">Healthy</span>
+</div>
+<div class="bg-white dark:bg-[#4A4036] rounded-xl p-4 flex items-center justify-between border border-transparent hover:border-card-border transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-[#FFF8E1] flex items-center justify-center text-amber-700 font-bold text-sm">M</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-gray-200">Mustard</h4>
+<p class="text-xs text-text-secondary dark:text-gray-400">Flowering Stage</p>
+</div>
+</div>
+<span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2.5 py-1 rounded-full border border-yellow-200 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">water_drop</span> Needs Water
+                        </span>
+</div>
+<div class="bg-white dark:bg-[#4A4036] rounded-xl p-4 flex items-center justify-between border border-transparent hover:border-card-border transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-[#EFEBE9] flex items-center justify-center text-brown-700 font-bold text-sm">P</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-gray-200">Potato</h4>
+<p class="text-xs text-text-secondary dark:text-gray-400">Harvest in 2 weeks</p>
+</div>
+</div>
+<span class="bg-gray-100 text-gray-800 text-xs font-bold px-2.5 py-1 rounded-full border border-gray-200">Monitoring</span>
+</div>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-accent-ochre/20 rounded-lg text-amber-700 dark:text-accent-ochre">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Mandi Prices</h3>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400 bg-black/5 dark:bg-white/10 px-2 py-1 rounded">Updated 2h ago</span>
+</div>
+<div class="overflow-hidden rounded-xl border border-card-border dark:border-[#5C5046]">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-text-secondary uppercase bg-[#EBE5D5] dark:bg-[#4A4036] border-b border-card-border dark:border-[#5C5046]">
+<tr>
+<th class="px-6 py-3" scope="col">Crop</th>
+<th class="px-6 py-3" scope="col">Price / Quintal</th>
+<th class="px-6 py-3 text-right" scope="col">Trend</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-[#3E3630]">
+<tr class="border-b border-card-border dark:border-[#5C5046] last:border-0 hover:bg-gray-50 dark:hover:bg-[#4A4036]/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main dark:text-gray-200">Wheat (Sharbati)</td>
+<td class="px-6 py-4">₹2,850</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center text-trend-up font-bold text-xs bg-green-50 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span> +2.4%
+                                    </span>
+</td>
+</tr>
+<tr class="border-b border-card-border dark:border-[#5C5046] last:border-0 hover:bg-gray-50 dark:hover:bg-[#4A4036]/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main dark:text-gray-200">Mustard Seeds</td>
+<td class="px-6 py-4">₹5,400</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center text-trend-down font-bold text-xs bg-red-50 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-sm mr-1">trending_down</span> -1.2%
+                                    </span>
+</td>
+</tr>
+<tr class="last:border-0 hover:bg-gray-50 dark:hover:bg-[#4A4036]/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main dark:text-gray-200">Soybean</td>
+<td class="px-6 py-4">₹4,200</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center text-text-secondary font-bold text-xs bg-gray-100 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-sm mr-1">remove</span> 0.0%
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 text-center">
+<a class="text-sm text-primary font-semibold hover:underline" href="#">View all market rates</a>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/20 rounded-lg text-primary-dark dark:text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Financial Overview</h3>
+</div>
+<select class="bg-transparent border-none text-sm font-semibold text-text-secondary focus:ring-0 cursor-pointer">
+<option>This Month</option>
+<option>Last Month</option>
+<option>This Year</option>
+</select>
+</div>
+<div class="flex flex-col md:flex-row gap-4 h-full">
+<div class="flex-1 bg-white dark:bg-[#4A4036] p-5 rounded-xl border border-card-border dark:border-[#5C5046] relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-trend-up">payments</span>
+</div>
+<p class="text-sm font-medium text-text-secondary dark:text-gray-400 mb-1">Total Revenue</p>
+<h4 class="text-2xl font-black text-text-main dark:text-gray-100">₹1,24,500</h4>
+<div class="mt-4 h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] rounded-full"></div>
+</div>
+<p class="text-xs text-trend-up font-bold mt-2">+12% from last month</p>
+</div>
+<div class="flex-1 bg-white dark:bg-[#4A4036] p-5 rounded-xl border border-card-border dark:border-[#5C5046] relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-trend-down">shopping_cart</span>
+</div>
+<p class="text-sm font-medium text-text-secondary dark:text-gray-400 mb-1">Total Expenses</p>
+<h4 class="text-2xl font-black text-text-main dark:text-gray-100">₹45,200</h4>
+<div class="mt-4 h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+<div class="h-full bg-accent-alert w-[40%] rounded-full"></div>
+</div>
+<p class="text-xs text-text-secondary mt-2">Mainly fertilizers &amp; labor</p>
+</div>
+</div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] rounded-2xl border border-card-border dark:border-[#4A4036] p-6 shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-accent-alert/20 rounded-lg text-accent-alert">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<h3 class="text-xl font-bold text-text-main dark:text-gray-100">Priority Alerts</h3>
+</div>
+<span class="bg-red-100 text-red-800 text-xs font-bold px-2.5 py-1 rounded-full">2 New</span>
+</div>
+<div class="space-y-3">
+<div class="p-4 bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r-xl flex gap-3 items-start">
+<span class="material-symbols-outlined text-red-500 mt-0.5">warning</span>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-gray-200 text-sm">Heavy Rain Warning</h4>
+<p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Expected in next 24 hours. Secure harvested crops.</p>
+</div>
+</div>
+<div class="p-4 bg-yellow-50 dark:bg-yellow-900/10 border-l-4 border-accent-ochre rounded-r-xl flex gap-3 items-start">
+<span class="material-symbols-outlined text-accent-ochre mt-0.5">pest_control</span>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-gray-200 text-sm">Pest Alert: Aphids</h4>
+<p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Detected in nearby farms. Check mustard crop.</p>
+</div>
+</div>
+<div class="p-4 bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-400 rounded-r-xl flex gap-3 items-start">
+<span class="material-symbols-outlined text-blue-500 mt-0.5">calendar_clock</span>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-gray-200 text-sm">Soil Health Card Renewal</h4>
+<p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Your card expires in 15 days. Schedule test.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

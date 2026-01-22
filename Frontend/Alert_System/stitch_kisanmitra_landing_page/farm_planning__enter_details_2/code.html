@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weather &amp; Pest Warnings - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-bold text-primary" href="#">Alerts</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-3xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-3xl font-black text-text-main dark:text-gray-100 mb-2">Weather &amp; Pest Warnings</h2>
+<p class="text-text-secondary dark:text-gray-400 text-lg">Real-time alerts affecting your farmland.</p>
+</div>
+<div class="hidden sm:block">
+<button class="flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors bg-white dark:bg-[#3E3630] border border-card-border px-4 py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-lg">tune</span>
+                    Filter Alerts
+                </button>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-4 py-2">
+<div class="h-px bg-card-border flex-1"></div>
+<span class="text-xs font-bold text-text-secondary uppercase tracking-wider">Today</span>
+<div class="h-px bg-card-border flex-1"></div>
+</div>
+<div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-2xl p-6 relative group hover:shadow-lg transition-all duration-300">
+<div class="absolute top-4 right-4">
+<button class="p-1 rounded-full text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors" title="Dismiss">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<div class="flex items-start gap-4 sm:gap-6">
+<div class="flex-shrink-0">
+<div class="size-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-accent-alert shadow-sm border border-red-200 dark:border-transparent">
+<span class="material-symbols-outlined text-2xl">pest_control</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-accent-alert text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">High Priority</span>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">12 mins ago</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Locust Swarm detected 10km away</h3>
+<p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                            Satellite imagery has confirmed a locust swarm moving south-east towards your sector. Immediate preventative measures are recommended for all standing crops.
+                        </p>
+<div class="flex flex-wrap gap-3">
+<button class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-bold px-5 py-2.5 rounded-lg shadow-sm transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">spa</span>
+                                Check Crop Health
+                            </button>
+<button class="inline-flex items-center justify-center gap-2 bg-white dark:bg-[#3E3630] border border-red-200 dark:border-red-900/30 hover:bg-red-50 dark:hover:bg-red-900/20 text-text-main dark:text-gray-200 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all">
+                                Report Sighting
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-[#FFFDF5] dark:bg-yellow-900/5 border border-[#F0E6D2] dark:border-yellow-900/30 rounded-2xl p-6 relative group hover:shadow-lg transition-all duration-300">
+<div class="absolute top-4 right-4">
+<button class="p-1 rounded-full text-[#BCAAA4] hover:bg-[#F2EFE5] dark:hover:bg-yellow-900/30 transition-colors" title="Dismiss">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<div class="flex items-start gap-4 sm:gap-6">
+<div class="flex-shrink-0">
+<div class="size-12 rounded-xl bg-[#FFF8E1] dark:bg-yellow-900/30 flex items-center justify-center text-accent-ochre shadow-sm border border-[#FBE9B9] dark:border-transparent">
+<span class="material-symbols-outlined text-2xl">thunderstorm</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-accent-ochre text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Weather</span>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">1 hour ago</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Light Rain Warning</h3>
+<div class="flex flex-col sm:flex-row gap-4">
+<div class="flex-1">
+<p class="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+                                    Unexpected light showers are forecast for this afternoon. This may affect soil moisture levels significantly.
+                                </p>
+<div class="bg-yellow-50/50 dark:bg-yellow-900/10 border-l-4 border-accent-ochre p-3 rounded-r-lg">
+<p class="text-sm font-bold text-[#8D6E63] dark:text-yellow-100">
+<span class="material-symbols-outlined text-sm align-middle mr-1">info</span>
+                                        Advice: Do not irrigate today.
+                                    </p>
+</div>
+</div>
+<div class="sm:w-32 flex-shrink-0 flex flex-col items-center justify-center bg-white dark:bg-[#3E3630] border border-card-border rounded-xl p-3 text-center">
+<span class="material-symbols-outlined text-3xl text-primary mb-1">rainy</span>
+<span class="text-lg font-bold text-text-main dark:text-gray-200">5mm</span>
+<span class="text-[10px] text-text-secondary uppercase">Expected</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 pt-4">
+<div class="h-px bg-card-border flex-1"></div>
+<span class="text-xs font-bold text-text-secondary uppercase tracking-wider">Yesterday</span>
+<div class="h-px bg-card-border flex-1"></div>
+</div>
+<div class="bg-card-beige dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-2xl p-6 opacity-75 hover:opacity-100 transition-opacity">
+<div class="flex items-start gap-4 sm:gap-6">
+<div class="flex-shrink-0">
+<div class="size-12 rounded-xl bg-white dark:bg-[#4A4036] flex items-center justify-center text-primary shadow-sm border border-card-border dark:border-transparent">
+<span class="material-symbols-outlined text-2xl">science</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-3">
+<span class="bg-gray-200 text-gray-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Advisory</span>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">Yesterday, 4:00 PM</span>
+</div>
+<button class="text-text-secondary hover:text-primary text-sm font-medium">Dismiss</button>
+</div>
+<h3 class="text-lg font-bold text-text-main dark:text-gray-100 mb-1">Soil Testing Reminder</h3>
+<p class="text-text-secondary dark:text-gray-400 text-sm">
+                            Your annual soil health card renewal is due next week. Schedule a visit from the local lab.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

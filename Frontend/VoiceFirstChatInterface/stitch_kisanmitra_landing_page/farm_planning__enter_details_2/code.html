@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Pilot: Conversational Flow - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary" href="#">Voice Pilot</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col overflow-hidden h-[calc(100vh-80px)]">
+<div class="flex justify-center mb-6">
+<span class="text-xs font-bold text-text-secondary dark:text-gray-400 bg-card-beige dark:bg-[#3E3630] px-3 py-1 rounded-full border border-card-border dark:border-[#4A4036]">
+                Today, 10:23 AM
+            </span>
+</div>
+<div class="flex-grow overflow-y-auto space-y-6 pb-24 pr-2 custom-scrollbar">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-sm mt-1">
+<span class="material-symbols-outlined text-xl">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[85%] sm:max-w-[70%]">
+<div class="bg-primary/20 dark:bg-primary/30 p-5 rounded-2xl rounded-tl-none text-text-main dark:text-gray-100 text-lg leading-relaxed shadow-sm border border-primary/10">
+<p>Namaste, Ramesh! <span class="material-symbols-outlined text-base align-middle ml-1 text-primary-dark">waving_hand</span></p>
+<p class="mt-2">I noticed it's a sunny day with good soil moisture. How can I help you with your farm today?</p>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-500 ml-2">10:23 AM</span>
+</div>
+</div>
+<div class="flex items-end justify-end gap-4">
+<div class="flex flex-col gap-1 items-end max-w-[85%] sm:max-w-[70%]">
+<div class="bg-white dark:bg-[#3E3630] p-5 rounded-2xl rounded-tr-none text-text-main dark:text-gray-100 text-lg leading-relaxed shadow-sm border border-card-border dark:border-[#4A4036]">
+<p>Which crop is best this month?</p>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-500 mr-2">10:24 AM</span>
+</div>
+<div class="flex-shrink-0 size-10 rounded-full bg-card-beige border border-card-border overflow-hidden mt-1">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-sm mt-1">
+<span class="material-symbols-outlined text-xl">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[85%] sm:max-w-[70%]">
+<div class="bg-primary/20 dark:bg-primary/30 p-5 rounded-2xl rounded-tl-none text-text-main dark:text-gray-100 text-lg leading-relaxed shadow-sm border border-primary/10">
+<p class="font-bold">Wheat (Rabi Season)</p>
+<p class="mt-2">Given the current date and your soil report from last week, <span class="font-bold">Wheat (Sharbati)</span> is your best option.</p>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-white/60 dark:bg-black/20 rounded-lg text-sm border border-primary/20">
+<span class="material-symbols-outlined text-base">water_drop</span> Medium Water
+                            </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-white/60 dark:bg-black/20 rounded-lg text-sm border border-primary/20">
+<span class="material-symbols-outlined text-base">calendar_month</span> 120 Days
+                            </span>
+</div>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-500 ml-2">10:24 AM</span>
+</div>
+</div>
+<div class="flex items-end justify-end gap-4">
+<div class="flex flex-col gap-1 items-end max-w-[85%] sm:max-w-[70%]">
+<div class="bg-white dark:bg-[#3E3630] p-5 rounded-2xl rounded-tr-none text-text-main dark:text-gray-100 text-lg leading-relaxed shadow-sm border border-card-border dark:border-[#4A4036]">
+<p>What is the expected market price?</p>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-500 mr-2">10:25 AM</span>
+</div>
+<div class="flex-shrink-0 size-10 rounded-full bg-card-beige border border-card-border overflow-hidden mt-1">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-sm mt-1">
+<span class="material-symbols-outlined text-xl">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[85%] sm:max-w-[70%]">
+<div class="bg-primary/20 dark:bg-primary/30 p-5 rounded-2xl rounded-tl-none text-text-main dark:text-gray-100 text-lg leading-relaxed shadow-sm border border-primary/10">
+<p>Currently, the Mandi price is <span class="font-bold text-lg">₹2,850 per quintal</span>.</p>
+<p class="mt-2">The trend is rising <span class="inline-flex items-center text-trend-up font-bold bg-white/50 dark:bg-black/20 px-1.5 rounded ml-1"><span class="material-symbols-outlined text-sm mr-0.5">trending_up</span> +2.4%</span> this week.</p>
+<p class="mt-3 text-base">Would you like me to check seed availability near you?</p>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-500 ml-2">10:25 AM</span>
+</div>
+</div>
+<div class="flex items-start gap-4 opacity-0 animate-pulse delay-700 fill-mode-forwards" style="animation-fill-mode: forwards; animation-delay: 1s; animation-name: fadeIn;">
+<style>
+                    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                </style>
+<div class="flex-shrink-0 size-8 rounded-full bg-primary/50 flex items-center justify-center text-white mt-1">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 w-full bg-background-light dark:bg-background-dark border-t border-card-border dark:border-[#3E3630] px-4 py-4 sm:px-6 lg:px-8 z-50">
+<div class="max-w-4xl mx-auto flex items-end gap-3">
+<button class="p-3 text-text-secondary hover:text-primary transition-colors rounded-full hover:bg-card-beige dark:hover:bg-white/5 hidden sm:block">
+<span class="material-symbols-outlined text-2xl">add_circle</span>
+</button>
+<div class="flex-grow relative">
+<input class="w-full bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-full py-4 pl-6 pr-14 text-text-main dark:text-gray-100 placeholder-text-secondary dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow text-lg shadow-sm" placeholder="Type or speak..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-text-secondary hover:text-primary rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-2xl">send</span>
+</button>
+</div>
+<button aria-label="Voice Input" class="size-14 sm:size-16 bg-primary text-white rounded-full shadow-lg hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center flex-shrink-0 group relative">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+</div>
+</div>
+
+</body></html>

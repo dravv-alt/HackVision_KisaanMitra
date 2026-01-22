@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Pilot: Smart Recommendations - KisanMitra</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8FA892", // Soft Muted Sage Green
+                        "primary-dark": "#758E78", // Darker Sage
+                        "accent-ochre": "#D9A54C", // Mustard/Ochre
+                        "accent-alert": "#D9724C", // Terracotta for alerts
+                        "background-light": "#FDFCF6", // Warm Light Beige
+                        "background-dark": "#2C2520", // Deep Earthy Brown
+                        "card-beige": "#F2EFE5", // Very light Brownish-Beige
+                        "card-border": "#E6DCC8", // Soft border color
+                        "text-main": "#423E37", // Dark Grey/Brown
+                        "text-secondary": "#6B6358", // Muted Brownish Grey
+                        "trend-up": "#4E7C53", // Green for trend up
+                        "trend-down": "#C25E4D", // Red/Brown for trend down
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #D7CCC8;
+            border-radius: 20px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(44, 37, 32, 0.4);
+        }
+        .card-pop {
+            transition: all 0.2s ease-in-out;
+        }
+        .card-pop:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-200 font-display min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+<header class="sticky top-0 z-40 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-card-border dark:border-[#3E3630] px-4 py-3 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined">agriculture</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-text-main dark:text-gray-200">KisanMitra</h1>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary" href="#">Voice Pilot</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-text-secondary dark:text-gray-400" href="#">Market</a>
+<div class="size-9 rounded-full bg-card-beige border border-card-border overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIoMFl7xxXQ8XE0_SQVmgDGWa-cNKXJDKG5XbTmbTDoO0raUxTCbb88bpgyxaiRnPTgciSJbo3ZVjc9PkyHFJQg-MpYC6ul5LPfGkwJmwztk8ezoBqt1b5nQ6VVWPImg1n-CPdwGC4h4LAUjbu45qplWBdEwXLqcVC0HHI4UIhDojXWSW0Q33SmYTvWpRH98pM8qGKcO40034jnbbCwk-83ko-k8Jg1V67F9U77MdHzrxxKeK0M20s49r-rDmT-quXsarSZc4-CM"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col justify-end pb-32">
+<div class="space-y-10">
+<div class="flex justify-end opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">
+<div class="bg-primary text-white rounded-2xl rounded-tr-none px-6 py-4 max-w-[85%] sm:max-w-[70%] shadow-md relative">
+<p class="text-lg leading-relaxed font-medium">What crop should I plant this season for better returns?</p>
+<div class="absolute -bottom-6 right-0 text-xs text-text-secondary opacity-60 font-medium">Just now</div>
+</div>
+</div>
+<div class="flex gap-4 sm:gap-6 items-start opacity-0 animate-[fadeIn_0.5s_ease-out_0.3s_forwards]">
+<div class="size-10 sm:size-12 rounded-xl bg-accent-ochre/10 border border-accent-ochre/20 flex items-center justify-center shrink-0 mt-1 shadow-sm">
+<span class="material-symbols-outlined text-accent-ochre text-2xl">smart_toy</span>
+</div>
+<div class="flex-1 space-y-6">
+<div class="bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-2xl rounded-tl-none p-6 shadow-sm relative">
+<div class="absolute -top-3 left-6 bg-[#F2EFE5] dark:bg-[#4A4036] border border-card-border dark:border-[#5C5046] px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-primary text-sm">my_location</span>
+<span class="text-xs font-bold text-text-secondary dark:text-gray-300 uppercase tracking-wide">Based on your soil &amp; location</span>
+</div>
+<p class="text-text-main dark:text-gray-200 text-lg leading-relaxed mt-2">
+                        Namaste, Ramesh. I've analyzed your latest soil health card. Considering your soil's nitrogen levels and the market trends in Indore, <strong>Wheat (Sharbati)</strong> is your best option right now.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="card-pop group bg-[#F5F2E8] dark:bg-[#4A4036] border border-card-border dark:border-[#5C5046] rounded-2xl p-5 shadow-sm hover:shadow-lg hover:shadow-primary/5 relative overflow-hidden flex flex-col h-full">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl text-text-main">grass</span>
+</div>
+<div class="flex items-start justify-between mb-6 relative z-10">
+<div>
+<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-black/20 text-text-secondary mb-2 border border-card-border dark:border-transparent">Rabi Season</span>
+<h3 class="text-2xl font-bold text-text-main dark:text-gray-100 font-display">Wheat (Sharbati)</h3>
+</div>
+<div class="size-10 bg-white dark:bg-[#3E3630] rounded-full flex items-center justify-center shadow-sm text-primary border border-card-border dark:border-transparent">
+<span class="material-symbols-outlined">verified</span>
+</div>
+</div>
+<div class="space-y-4 mb-6 relative z-10 flex-grow">
+<div>
+<div class="flex justify-between text-sm mb-1.5">
+<span class="text-text-secondary dark:text-gray-400 font-medium">Profit Potential</span>
+<span class="font-bold text-primary-dark dark:text-primary">High</span>
+</div>
+<div class="h-2.5 w-full bg-white dark:bg-black/20 rounded-full overflow-hidden border border-black/5">
+<div class="h-full bg-primary w-[85%] rounded-full shadow-[0_0_10px_rgba(143,168,146,0.4)]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1.5">
+<span class="text-text-secondary dark:text-gray-400 font-medium">Risk Level</span>
+<span class="font-bold text-green-700 dark:text-green-400">Low</span>
+</div>
+<div class="h-2.5 w-full bg-white dark:bg-black/20 rounded-full overflow-hidden border border-black/5">
+<div class="h-full bg-green-500 w-[20%] rounded-full"></div>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#5C5046] rounded-xl text-sm font-bold text-text-main dark:text-gray-200 hover:bg-primary hover:text-white hover:border-primary transition-all shadow-sm flex items-center justify-center gap-2 relative z-10 mt-auto">
+<span>View Details</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="card-pop bg-white dark:bg-[#3E3630] border border-card-border dark:border-[#4A4036] rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between h-full relative overflow-hidden">
+<div class="absolute -right-4 -top-4 size-24 bg-accent-ochre/5 rounded-full blur-2xl pointer-events-none"></div>
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="p-1.5 rounded-lg bg-gray-50 dark:bg-white/5 text-text-secondary border border-gray-100 dark:border-white/10">
+<span class="material-symbols-outlined text-xl">storefront</span>
+</span>
+<h4 class="text-sm font-bold text-text-secondary dark:text-gray-400 uppercase tracking-wider">Mandi Price</h4>
+</div>
+<div class="flex items-baseline gap-1 mb-2">
+<span class="text-3xl font-black text-text-main dark:text-gray-100 tracking-tight">₹2,850</span>
+<span class="text-sm text-text-secondary font-medium">/ Quintal</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<div class="flex items-center gap-1 text-trend-up bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-md border border-green-100 dark:border-green-900/30">
+<span class="material-symbols-outlined text-lg font-bold">trending_up</span>
+<span class="text-sm font-bold">+2.4%</span>
+</div>
+<span class="text-xs text-text-secondary">vs last week</span>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-card-border dark:border-[#5C5046] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-text-secondary uppercase font-bold tracking-wider">Location</span>
+<span class="text-xs font-bold text-text-main dark:text-gray-300">Indore Mandi</span>
+</div>
+<button class="text-accent-ochre hover:text-accent-alert transition-colors p-2 hover:bg-accent-ochre/5 rounded-full">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button aria-label="Voice Input" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 size-16 bg-primary text-white rounded-full shadow-xl hover:bg-primary-dark transition-all hover:scale-105 active:scale-95 flex items-center justify-center z-50 group">
+<span class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping group-hover:opacity-40"></span>
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+
+</body></html>

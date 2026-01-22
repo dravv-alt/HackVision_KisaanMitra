@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Smart Irrigation Advisor</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    sage: {
+                        DEFAULT: "#768A6E", // Muted Sage Green
+                        light: "#A4B89D",
+                        dark: "#54664E"
+                    },
+                    ochre: {
+                        DEFAULT: "#C99E66", // Soft Ochre
+                        dark: "#A67C46"
+                    },
+                    beige: {
+                        bg: "#F5F2E9", // Warm Beige Background
+                        card: "#EBE6D8", // Light Earth-toned Brownish-Beige
+                        border: "#D6D1C2", // Muted Border
+                        sidebar: "#E3DEC9" // Sidebar shade
+                    },
+                    earth: {
+                        dark: "#3E3B32", // Dark organic text
+                        muted: "#757166"  // Muted organic text
+                    },
+                    rain: {
+                        DEFAULT: "#7C9CB0", // Muted Blue
+                        bg: "#DCE5EB"
+                    }
+                },
+                fontFamily: {
+                    "display": ["Lexend", "sans-serif"]
+                },
+                borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        font-family: 'Lexend', sans-serif;
+    }::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #D6D1C2;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #A67C46;
+    }
+</style>
+</head>
+<body class="bg-beige-bg text-earth-dark antialiased overflow-hidden selection:bg-sage-light selection:text-earth-dark">
+<div class="flex h-screen w-full">
+<aside class="hidden md:flex w-72 flex-col bg-beige-sidebar border-r border-beige-border">
+<div class="flex h-20 items-center gap-3 px-6 border-b border-beige-border">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-sage/20 text-sage-dark">
+<span class="material-symbols-outlined" style="font-size: 24px;">agriculture</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight tracking-tight text-earth-dark">KisanMitra</h1>
+<p class="text-sm text-earth-muted">Farm Management</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-4 py-6">
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-earth-dark hover:bg-sage/10 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-earth-dark hover:bg-sage/10 transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-earth-dark hover:bg-sage/10 transition-colors" href="#">
+<span class="material-symbols-outlined">spa</span>
+<span class="text-sm font-medium">Soil Health</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg bg-sage text-white px-4 py-3 shadow-sm transition-colors" href="#">
+<span class="material-symbols-outlined font-variation-settings-fill">water_drop</span>
+<span class="text-sm font-medium">Smart Irrigation</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-earth-dark hover:bg-sage/10 transition-colors" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm font-medium">Market Prices</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 border-t border-beige-border">
+<div class="flex items-center gap-3 rounded-lg bg-beige-border/40 p-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center" data-alt="Profile picture of the farmer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuiJN3OAEW5lzsUUA-koKMVeop7i9dkyhmfM9o8_WxuThNLwtuvbc65jYcaqc0ChDUfjQfzS4cMnIUDLfrn2eDjUcGi4BJZt7VxI_TzK1U4SYAfCHIna9VFlG-fZilpTRifl5pigP6HyuibGOr4Qwd1zOYjNejzzpVlm4fBB4SQEnVKx9zVh7HIZ8AgyoQYD787OFAcH5ye-9nid2Lu93lhHKfmakOzUxmTcny8iiOLUFd-GU0ow52FjDDpRlqw7Xklvg_yHYAGEc');"></div>
+<div class="flex flex-col">
+<p class="text-sm font-medium text-earth-dark">Ramesh Kumar</p>
+<p class="text-xs text-earth-muted">Premium Plan</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="md:hidden flex h-16 items-center justify-between bg-beige-sidebar px-4 border-b border-beige-border">
+<div class="flex items-center gap-2">
+<button class="text-earth-dark">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-bold text-lg text-earth-dark">KisanMitra</span>
+</div>
+<div class="h-8 w-8 rounded-full bg-sage/20 text-sage-dark flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">agriculture</span>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 scroll-smooth">
+<div class="mx-auto max-w-6xl flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sm text-earth-muted">
+<span>Farm Management</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-earth-dark font-medium">Smart Irrigation</span>
+</div>
+<div class="flex flex-wrap items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-black tracking-tight text-earth-dark">Smart Irrigation Advisor</h1>
+<p class="mt-2 text-lg text-earth-muted">Real-time water recommendations based on weather and soil data.</p>
+</div>
+<div class="flex items-center gap-2 rounded-full bg-white/60 px-3 py-1 text-sm font-medium text-earth-muted border border-beige-border shadow-sm">
+<span class="material-symbols-outlined text-sm text-sage-dark">location_on</span>
+<span>Punjab, India</span>
+</div>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-beige-card shadow-sm border-l-8 border-ochre overflow-hidden">
+<div class="flex flex-col lg:flex-row">
+<div class="flex-1 p-8 lg:border-r border-beige-border">
+<div class="flex flex-col h-full justify-between gap-6">
+<div class="flex items-center gap-2 text-ochre font-bold uppercase tracking-wider text-sm">
+<span class="material-symbols-outlined">warning</span>
+                                    Recommendation
+                                </div>
+<div class="flex items-center gap-6">
+<div class="h-24 w-24 md:h-32 md:w-32 flex-shrink-0 rounded-full bg-rain-bg flex items-center justify-center text-rain">
+<span class="material-symbols-outlined text-[64px] md:text-[80px]">rainy</span>
+</div>
+<div>
+<h2 class="text-4xl md:text-5xl font-black text-earth-dark leading-none">DO NOT WATER</h2>
+<p class="mt-2 text-xl font-medium text-earth-muted">Heavy rain expected today</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="px-4 py-2 rounded-lg bg-beige-border/30 text-sm font-medium">
+                                        Status: <span class="text-sage-dark">Moisture Adequate</span>
+</div>
+<div class="px-4 py-2 rounded-lg bg-beige-border/30 text-sm font-medium">
+                                        Last Watered: <span class="text-earth-muted">2 days ago</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-[400px] p-8 bg-white/40 flex flex-col justify-center gap-6">
+<div>
+<h3 class="text-lg font-bold text-earth-dark mb-2">Why wait?</h3>
+<p class="text-earth-muted leading-relaxed">
+                                    Precipitation probability is <strong>80%</strong> within the next 4 hours. By waiting, you will leverage natural rainfall and prevent waterlogging.
+                                </p>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-sage/10 border border-sage/20">
+<div class="h-10 w-10 rounded-full bg-sage/20 flex items-center justify-center text-sage-dark">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div>
+<p class="text-sm text-earth-muted">Estimated Savings</p>
+<p class="text-lg font-bold text-earth-dark">~1,200 Liters</p>
+</div>
+</div>
+<button class="w-full py-3 rounded-lg bg-sage text-white font-medium text-sm hover:bg-sage-dark transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                View Detailed Report
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 rounded-2xl bg-beige-card p-6 shadow-sm border border-beige-border">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-earth-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-earth-muted">partly_cloudy_day</span>
+                                Weather Forecast
+                            </h3>
+<button class="text-sm text-sage-dark font-medium hover:underline">Full Forecast</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="flex flex-col items-center p-4 rounded-xl bg-rain-bg/50 border border-rain-bg">
+<p class="text-sm font-medium text-rain mb-2">Today</p>
+<span class="material-symbols-outlined text-4xl text-rain mb-2">rainy</span>
+<p class="text-2xl font-bold text-earth-dark">24°C</p>
+<p class="text-sm text-rain font-medium">Heavy Rain</p>
+<div class="mt-3 flex items-center gap-1 text-xs text-earth-muted">
+<span class="material-symbols-outlined text-[14px]">water_drop</span>
+<span>80% Precip</span>
+</div>
+</div>
+<div class="flex flex-col items-center p-4 rounded-xl bg-white/40 border border-beige-border">
+<p class="text-sm font-medium text-earth-muted mb-2">Tomorrow</p>
+<span class="material-symbols-outlined text-4xl text-ochre mb-2">sunny</span>
+<p class="text-2xl font-bold text-earth-dark">28°C</p>
+<p class="text-sm text-earth-muted font-medium">Sunny</p>
+<div class="mt-3 flex items-center gap-1 text-xs text-earth-muted">
+<span class="material-symbols-outlined text-[14px]">water_drop</span>
+<span>10% Precip</span>
+</div>
+</div>
+<div class="flex flex-col items-center p-4 rounded-xl bg-white/40 border border-beige-border">
+<p class="text-sm font-medium text-earth-muted mb-2">Wed, 24 Oct</p>
+<span class="material-symbols-outlined text-4xl text-earth-muted mb-2">cloud</span>
+<p class="text-2xl font-bold text-earth-dark">26°C</p>
+<p class="text-sm text-earth-muted font-medium">Cloudy</p>
+<div class="mt-3 flex items-center gap-1 text-xs text-earth-muted">
+<span class="material-symbols-outlined text-[14px]">water_drop</span>
+<span>30% Precip</span>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-2xl bg-beige-card p-6 shadow-sm border border-beige-border flex flex-col justify-between">
+<div>
+<h3 class="text-lg font-bold text-earth-dark flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-sage-dark">grass</span>
+                                Current Crop Stage
+                            </h3>
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="text-sm text-earth-muted">Wheat (Rabi Season)</p>
+<p class="text-xl font-bold text-earth-dark">Flowering Stage</p>
+</div>
+<p class="text-2xl font-bold text-sage-dark">Day 45</p>
+</div>
+<div class="relative h-4 w-full bg-beige-border rounded-full overflow-hidden mb-2">
+<div class="absolute top-0 left-0 h-full bg-sage rounded-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between text-xs text-earth-muted font-medium mb-6">
+<span>Sowing</span>
+<span>Harvest</span>
+</div>
+<div class="p-4 rounded-xl bg-beige-border/30">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-sage-dark text-sm">humidity_high</span>
+<p class="text-sm font-bold text-earth-dark">Soil Moisture: 85%</p>
+</div>
+<p class="text-xs text-earth-muted">Optimal range for flowering: 70-80%. Current levels are slightly high due to recent rain.</p>
+</div>
+</div>
+<button class="w-full mt-4 py-2 border border-beige-border rounded-lg text-sm font-medium hover:bg-beige-border/50 text-earth-dark transition-colors">
+                            Update Stage
+                        </button>
+</div>
+</div>
+<div class="h-16"></div>
+</div>
+</div>
+<button class="group fixed bottom-8 right-8 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-sage text-white shadow-[0_4px_12px_rgba(118,138,110,0.4)] hover:scale-105 hover:bg-sage-dark active:scale-95 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-sage/40">
+<span class="material-symbols-outlined text-3xl group-hover:animate-pulse">mic</span>
+<span class="absolute right-full mr-4 hidden whitespace-nowrap rounded-lg bg-earth-dark px-3 py-1 text-sm text-white shadow-md group-hover:block">
+                Ask Assistant
+            </span>
+</button>
+</main>
+</div>
+
+</body></html>
