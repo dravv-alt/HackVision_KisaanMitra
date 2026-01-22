@@ -1,13 +1,13 @@
 """
-Inventory Management Module
+inventory Management Module
 Provides stock tracking, shelf-life management, and sell priority intelligence
 """
 
-from .service import InventoryService
+from .service import inventoryService
 from .models import (
-    InventoryModuleOutput,
+    inventoryModuleOutput,
     StockCardOutput,
-    InventoryItem,
+    inventoryItem,
     FarmerProfile
 )
 from .constants import (
@@ -20,10 +20,10 @@ from .constants import (
 )
 
 __all__ = [
-    "InventoryService",
-    "InventoryModuleOutput",
+    "inventoryService",
+    "inventoryModuleOutput",
     "StockCardOutput",
-    "InventoryItem",
+    "inventoryItem",
     "FarmerProfile",
     "StorageType",
     "StockStage",

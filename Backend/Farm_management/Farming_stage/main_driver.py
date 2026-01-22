@@ -10,11 +10,11 @@ import os
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Farming_stage.models import (
+from farming_stage.models import (
     CropContext, CropStage, EnvironmentalContext,
     MarketContext, PriceTrend, DemandLevel
 )
-from Farming_stage.engines import (
+from farming_stage.engines import (
     WeatherEngine, MarketEngine, VisionEngine, KnowledgeEngine
 )
 

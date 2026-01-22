@@ -9,9 +9,9 @@ import os
 backend_path = os.path.join(os.path.dirname(__file__), '..', '..', '..')
 sys.path.insert(0, backend_path)
 
-from Backend.Farm_management.Planning_stage.service import PreSeedingService
-from Backend.Farm_management.Planning_stage.models import PlanningRequest
-from Backend.Farm_management.Planning_stage.constants import Season, RiskPreference
+from Backend.farm_management.planning_stage.service import PreSeedingService
+from Backend.farm_management.planning_stage.models import PlanningRequest
+from Backend.farm_management.planning_stage.constants import Season, RiskPreference
 
 
 def test_basic_functionality():

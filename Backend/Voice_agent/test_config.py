@@ -17,7 +17,7 @@ def test_config():
     print("=" * 70)
     
     try:
-        from Voice_agent.config import get_config
+        from voice_agent.config import get_config
         
         print("\n🔄 Loading configuration...")
         config = get_config()
@@ -54,19 +54,19 @@ def test_components():
     try:
         # Test intent classifier
         print("\n🔄 Testing Intent Classifier...")
-        from Voice_agent.core import get_intent_classifier
+        from voice_agent.core import get_intent_classifier
         classifier = get_intent_classifier()
         print(f"✅ Intent Classifier initialized with {classifier.provider}")
         
         # Test speech-to-text
         print("\n🔄 Testing Speech-to-Text...")
-        from Voice_agent.input_processing import get_speech_to_text
+        from voice_agent.input_processing import get_speech_to_text
         stt = get_speech_to_text()
         print(f"✅ Speech-to-Text initialized with model: {stt.model_name}")
         
         # Test translator
         print("\n🔄 Testing Translator...")
-        from Voice_agent.input_processing import get_translator
+        from voice_agent.input_processing import get_translator
         translator = get_translator()
         print("✅ Translator initialized")
         

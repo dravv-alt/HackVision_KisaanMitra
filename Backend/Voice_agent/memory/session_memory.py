@@ -5,7 +5,7 @@ Stores conversation turns and can be easily connected to MongoDB
 
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from Voice_agent.core.context import ConversationContext
+from voice_agent.core.context import ConversationContext
 
 
 class SessionMemory:

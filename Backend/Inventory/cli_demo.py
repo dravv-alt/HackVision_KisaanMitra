@@ -1,5 +1,5 @@
 """
-CLI Demo - Manual Testing Runner for Inventory Management
+CLI Demo - Manual Testing Runner for inventory Management
 Demonstrates complete functionality without web framework
 """
 
@@ -61,7 +61,7 @@ def print_stock_card(card, rank: int = None):
 
 def print_dashboard_summary(output):
     """Print dashboard summary"""
-    print_header("INVENTORY DASHBOARD SUMMARY")
+    print_header("inventory DASHBOARD SUMMARY")
     
     print(f"\n🏠 {output.header}")
     print(f"📅 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -90,12 +90,12 @@ def print_dashboard_summary(output):
 
 def run_basic_demo():
     """Run basic inventory dashboard demo"""
-    from .service import InventoryService
+    from .service import inventoryService
     
-    print_header("INVENTORY MANAGEMENT - BASIC DEMO")
+    print_header("inventory MANAGEMENT - BASIC DEMO")
     
     # Initialize service
-    service = InventoryService()
+    service = inventoryService()
     
     # Test farmer ID
     farmer_id = "FARMER001"
@@ -257,7 +257,7 @@ def run_interactive_demo():
 def main():
     """Main entry point"""
     print("\n" + "🌾" * 40)
-    print("  INVENTORY MANAGEMENT - CLI DEMO")
+    print("  inventory MANAGEMENT - CLI DEMO")
     print("  Voice-First Farming Assistant")
     print("🌾" * 40)
     

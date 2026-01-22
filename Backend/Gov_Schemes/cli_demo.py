@@ -265,7 +265,7 @@ def main():
             print("  [SUCCESS] DEMO COMPLETED!")
             print("=" * 80)
             print("\nRun with --interactive flag for interactive menu")
-            print("   Example: python -m Gov_Schemes.cli_demo --interactive")
+            print("   Example: python -m gov_schemes.cli_demo --interactive")
             
     except Exception as e:
         print(f"\n[ERROR] {e}")

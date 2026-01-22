@@ -1,5 +1,5 @@
 """
-Constants and Enums for Inventory Management
+Constants and Enums for inventory Management
 """
 
 from enum import Enum
@@ -29,7 +29,7 @@ class HealthStatus(str, Enum):
     CRITICAL = "critical"
 
 
-class InventoryAction(str, Enum):
+class inventoryAction(str, Enum):
     """Types of inventory actions"""
     ADD = "add"
     SELL = "sell"

@@ -4,7 +4,7 @@ Reasoning Planner - Creates reasoning plans per intent
 
 from typing import List, Dict, Any
 from dataclasses import dataclass
-from Voice_agent.core.intent import Intent
+from voice_agent.core.intent import Intent
 
 
 @dataclass

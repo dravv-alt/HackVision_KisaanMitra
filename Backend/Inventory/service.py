@@ -1,15 +1,15 @@
 """
-Inventory Service - Main Orchestration Layer
+inventory Service - Main Orchestration Layer
 """
 
 from datetime import datetime
 from typing import Optional
 
-from .models import InventoryModuleOutput
+from .models import inventoryModuleOutput
 from .repositories import (
     FarmerRepo,
-    InventoryRepo,
-    InventoryLogRepo,
+    inventoryRepo,
+    inventoryLogRepo,
     MarketRepo,
     AlertRepo,
     AuditRepo
@@ -24,7 +24,7 @@ from .engines import (
 )
 
 
-class InventoryService:
+class inventoryService:
     """
     Main service for inventory management
     Orchestrates all engines and repositories
@@ -33,8 +33,8 @@ class InventoryService:
     def __init__(self):
         # Initialize repositories
         self.farmer_repo = FarmerRepo()
-        self.inventory_repo = InventoryRepo()
-        self.log_repo = InventoryLogRepo()
+        self.inventory_repo = inventoryRepo()
+        self.log_repo = inventoryLogRepo()
         self.market_repo = MarketRepo()
         self.alert_repo = AlertRepo()
         self.audit_repo = AuditRepo()
@@ -51,7 +51,7 @@ class InventoryService:
         self,
         farmer_id: str,
         include_reminders: bool = True
-    ) -> InventoryModuleOutput:
+    ) -> inventoryModuleOutput:
         """
         Get complete inventory dashboard for a farmer
         
@@ -62,7 +62,7 @@ class InventoryService:
             include_reminders: Whether to generate and save expiry reminders
             
         Returns:
-            InventoryModuleOutput with complete dashboard data
+            inventoryModuleOutput with complete dashboard data
         """
         try:
             # Audit log
@@ -162,7 +162,7 @@ class InventoryService:
         item_id: str,
         quantity_kg: float,
         price_per_kg: Optional[float] = None
-    ) -> InventoryModuleOutput:
+    ) -> inventoryModuleOutput:
         """
         Simulate a sell action and return updated dashboard
         
@@ -175,16 +175,16 @@ class InventoryService:
         Returns:
             Updated inventory dashboard
         """
-        from .models import InventoryLogEntry
-        from .constants import InventoryAction
+        from .models import inventoryLogEntry
+        from .constants import inventoryAction
         import uuid
         
         # Create sell log entry
-        log_entry = InventoryLogEntry(
+        log_entry = inventoryLogEntry(
             logId=str(uuid.uuid4()),
             farmerId=farmer_id,
             itemId=item_id,
-            action=InventoryAction.SELL,
+            action=inventoryAction.SELL,
             quantityKg=quantity_kg,
             pricePerKg=price_per_kg,
             notes="Simulated sell action",
@@ -210,7 +210,7 @@ class InventoryService:
         item_id: str,
         quantity_kg: float,
         notes: Optional[str] = None
-    ) -> InventoryModuleOutput:
+    ) -> inventoryModuleOutput:
         """
         Simulate a spoilage action and return updated dashboard
         
@@ -223,16 +223,16 @@ class InventoryService:
         Returns:
             Updated inventory dashboard
         """
-        from .models import InventoryLogEntry
-        from .constants import InventoryAction
+        from .models import inventoryLogEntry
+        from .constants import inventoryAction
         import uuid
         
         # Create spoilage log entry
-        log_entry = InventoryLogEntry(
+        log_entry = inventoryLogEntry(
             logId=str(uuid.uuid4()),
             farmerId=farmer_id,
             itemId=item_id,
-            action=InventoryAction.SPOILAGE,
+            action=inventoryAction.SPOILAGE,
             quantityKg=quantity_kg,
             notes=notes or "Simulated spoilage",
             ts=datetime.now()

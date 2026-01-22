@@ -9,7 +9,7 @@ import os
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Voice_agent.core import get_voice_agent
+from voice_agent.core import get_voice_agent
 
 
 def print_header(title):

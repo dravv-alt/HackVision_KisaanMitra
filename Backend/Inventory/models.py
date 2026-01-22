@@ -1,5 +1,5 @@
 """
-Pydantic Models for Inventory Management
+Pydantic Models for inventory Management
 """
 
 from datetime import datetime
@@ -10,7 +10,7 @@ from .constants import (
     StorageType,
     StockStage,
     HealthStatus,
-    InventoryAction,
+    inventoryAction,
     QualityGrade,
     UrgencyLevel,
     Language
@@ -26,7 +26,7 @@ class FarmerProfile(BaseModel):
     pincode: Optional[str] = None
 
 
-class InventoryItem(BaseModel):
+class inventoryItem(BaseModel):
     """Core inventory item model"""
     itemId: str
     farmerId: str
@@ -46,12 +46,12 @@ class InventoryItem(BaseModel):
     updatedAt: datetime = Field(default_factory=datetime.now)
 
 
-class InventoryLogEntry(BaseModel):
-    """Inventory action log entry"""
+class inventoryLogEntry(BaseModel):
+    """inventory action log entry"""
     logId: str
     farmerId: str
     itemId: str
-    action: InventoryAction
+    action: inventoryAction
     quantityKg: float
     pricePerKg: Optional[float] = None
     notes: Optional[str] = None
@@ -87,7 +87,7 @@ class StockCardOutput(BaseModel):
     storageType: StorageType
 
 
-class InventoryModuleOutput(BaseModel):
+class inventoryModuleOutput(BaseModel):
     """Complete inventory dashboard output"""
     header: str
     language: Language

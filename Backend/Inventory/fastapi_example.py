@@ -1,7 +1,7 @@
 """
-FastAPI Integration Example for Inventory Module
+FastAPI Integration Example for inventory Module
 
-This file demonstrates how to integrate the Inventory module with FastAPI.
+This file demonstrates how to integrate the inventory module with FastAPI.
 Copy these endpoints to your main FastAPI application.
 """
 
@@ -10,20 +10,20 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
-# Import the Inventory service
+# Import the inventory service
 import sys
 sys.path.insert(0, 'D:\\KissanMitra\\HackVision_KisaanMitra\\Backend')
-from Inventory import InventoryService, InventoryModuleOutput
+from inventory import inventoryService, inventoryModuleOutput
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="KissanMitra Inventory API",
-    description="Inventory Management API for Voice-First Farming Assistant",
+    title="KissanMitra inventory API",
+    description="inventory Management API for Voice-First Farming Assistant",
     version="1.0.0"
 )
 
 # Initialize service (singleton)
-inventory_service = InventoryService()
+inventory_service = inventoryService()
 
 
 # Request/Response models for API
@@ -46,7 +46,7 @@ class ActionResponse(BaseModel):
     """Response model for actions"""
     success: bool
     message: str
-    updated_dashboard: InventoryModuleOutput
+    updated_dashboard: inventoryModuleOutput
 
 
 # ============================================================================
@@ -57,7 +57,7 @@ class ActionResponse(BaseModel):
 async def root():
     """API root endpoint"""
     return {
-        "service": "KissanMitra Inventory API",
+        "service": "KissanMitra inventory API",
         "version": "1.0.0",
         "status": "running",
         "endpoints": [
@@ -68,7 +68,7 @@ async def root():
     }
 
 
-@app.get("/api/inventory/{farmer_id}", response_model=InventoryModuleOutput)
+@app.get("/api/inventory/{farmer_id}", response_model=inventoryModuleOutput)
 async def get_inventory_dashboard(
     farmer_id: str,
     include_reminders: bool = Query(True, description="Generate expiry reminders")
@@ -275,7 +275,7 @@ if __name__ == "__main__":
     import uvicorn
     
     print("=" * 80)
-    print("  KISSAN MITRA - INVENTORY API")
+    print("  KISSAN MITRA - inventory API")
     print("=" * 80)
     print("\n📚 API Documentation: http://localhost:8000/docs")
     print("🔧 Interactive API: http://localhost:8000/redoc")

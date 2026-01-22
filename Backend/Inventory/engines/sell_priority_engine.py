@@ -5,7 +5,7 @@ Sell Priority Engine - Intelligent Sell Priority Ranking
 from typing import List, Dict, Optional
 from datetime import datetime
 
-from ..models import InventoryItem, StockCardOutput, MarketPriceContext
+from ..models import inventoryItem, StockCardOutput, MarketPriceContext
 from ..constants import (
     HealthStatus,
     StorageType,
@@ -21,7 +21,7 @@ class SellPriorityEngine:
     
     def rank_stock(
         self,
-        items: List[InventoryItem],
+        items: List[inventoryItem],
         shelf_life_info: Dict[str, Dict],
         health_info: Dict[str, HealthStatus],
         market_context: Optional[Dict[str, MarketPriceContext]] = None
@@ -107,7 +107,7 @@ class SellPriorityEngine:
     
     def _calculate_priority_score(
         self,
-        item: InventoryItem,
+        item: inventoryItem,
         shelf_info: Dict,
         health_status: HealthStatus,
         market_data: Optional[MarketPriceContext]
@@ -153,7 +153,7 @@ class SellPriorityEngine:
     
     def _generate_reasons(
         self,
-        item: InventoryItem,
+        item: inventoryItem,
         shelf_info: Dict,
         health_status: HealthStatus,
         market_data: Optional[MarketPriceContext]

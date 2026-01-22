@@ -5,19 +5,19 @@ Shelf Life Engine - Shelf Life Countdown and Expiry Risk
 from datetime import datetime
 from typing import Dict
 
-from ..models import InventoryItem
+from ..models import inventoryItem
 from ..constants import SHELF_LIFE_HIGH_RISK_DAYS, SHELF_LIFE_MEDIUM_RISK_DAYS
 
 
 class ShelfLifeEngine:
     """Engine for computing shelf life and expiry risk"""
     
-    def compute_shelf_life(self, item: InventoryItem, now: datetime) -> Dict[str, any]:
+    def compute_shelf_life(self, item: inventoryItem, now: datetime) -> Dict[str, any]:
         """
         Compute shelf life information for an item
         
         Args:
-            item: Inventory item
+            item: inventory item
             now: Current datetime
             
         Returns:

@@ -25,7 +25,7 @@ class Language(str, Enum):
 class AlertType(str, Enum):
     """Types of alerts"""
     GOV_SCHEME = "gov_scheme"
-    INVENTORY_EXPIRY = "inventory_expiry"
+    inventory_EXPIRY = "inventory_expiry"
     MARKET_PRICE = "market_price"
     WEATHER = "weather"
 

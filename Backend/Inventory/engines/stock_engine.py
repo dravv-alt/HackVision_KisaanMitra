@@ -5,8 +5,8 @@ Stock Engine - Core Stock Tracking Logic
 from typing import List, Dict
 from datetime import datetime
 
-from ..models import InventoryItem, InventoryLogEntry
-from ..constants import InventoryAction, StockStage
+from ..models import inventoryItem, inventoryLogEntry
+from ..constants import inventoryAction, StockStage
 
 
 class StockEngine:
@@ -14,9 +14,9 @@ class StockEngine:
     
     def build_current_stock_view(
         self, 
-        items: List[InventoryItem], 
-        logs: List[InventoryLogEntry]
-    ) -> List[InventoryItem]:
+        items: List[inventoryItem], 
+        logs: List[inventoryLogEntry]
+    ) -> List[inventoryItem]:
         """
         Build current stock view by applying logs to items
         
@@ -28,7 +28,7 @@ class StockEngine:
             Updated list of inventory items with current state
         """
         # Create a mapping of items by ID for quick lookup
-        item_map: Dict[str, InventoryItem] = {item.itemId: item for item in items}
+        item_map: Dict[str, inventoryItem] = {item.itemId: item for item in items}
         
         # Sort logs by timestamp (oldest first)
         sorted_logs = sorted(logs, key=lambda x: x.ts)
@@ -41,11 +41,11 @@ class StockEngine:
             item = item_map[log.itemId]
             
             # Apply quantity changes
-            if log.action == InventoryAction.ADD:
+            if log.action == inventoryAction.ADD:
                 item.quantityKg += log.quantityKg
                 item.stage = StockStage.STORED
                 
-            elif log.action == InventoryAction.SELL:
+            elif log.action == inventoryAction.SELL:
                 item.quantityKg = max(0, item.quantityKg - log.quantityKg)
                 
                 # Update stage based on remaining quantity
@@ -54,15 +54,15 @@ class StockEngine:
                 elif item.quantityKg > 0:
                     item.stage = StockStage.SOLD_PARTIAL
                     
-            elif log.action == InventoryAction.SPOILAGE:
+            elif log.action == inventoryAction.SPOILAGE:
                 item.quantityKg = max(0, item.quantityKg - log.quantityKg)
                 item.spoilageRisk = "high"
                 
-            elif log.action == InventoryAction.TRANSFER:
+            elif log.action == inventoryAction.TRANSFER:
                 # Transfer doesn't change quantity, just location/stage
                 item.stage = StockStage.PACKED
                 
-            elif log.action == InventoryAction.UPDATE_GRADE:
+            elif log.action == inventoryAction.UPDATE_GRADE:
                 # Grade update handled separately
                 pass
             
@@ -74,12 +74,12 @@ class StockEngine:
         
         return active_items
     
-    def calculate_total_value(self, items: List[InventoryItem], prices: Dict[str, float]) -> float:
+    def calculate_total_value(self, items: List[inventoryItem], prices: Dict[str, float]) -> float:
         """
         Calculate total inventory value
         
         Args:
-            items: Inventory items
+            items: inventory items
             prices: Price per kg for each crop
             
         Returns:

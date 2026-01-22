@@ -46,7 +46,7 @@ class LLMIntentClassifier:
             model: Model name (optional, uses default for provider)
         """
         # Import config here to avoid circular imports
-        from Voice_agent.config import get_config
+        from voice_agent.config import get_config
         
         # Auto-detect provider from config if not specified
         if provider is None:
@@ -78,7 +78,7 @@ class LLMIntentClassifier:
             
             # Use provided API key or get from config
             if self.api_key is None:
-                from Voice_agent.config import get_config
+                from voice_agent.config import get_config
                 config = get_config()
                 if config.llm_provider != "groq":
                     raise ValueError("Groq API key not found in config")
@@ -99,7 +99,7 @@ class LLMIntentClassifier:
             
             # Use provided API key or get from config
             if self.api_key is None:
-                from Voice_agent.config import get_config
+                from voice_agent.config import get_config
                 config = get_config()
                 if config.llm_provider != "gemini":
                     raise ValueError("Gemini API key not found in config")

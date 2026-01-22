@@ -2,7 +2,7 @@
 Health Engine - Stock Health Status Assessment
 """
 
-from ..models import InventoryItem
+from ..models import inventoryItem
 from ..constants import HealthStatus, StorageType
 
 
@@ -11,7 +11,7 @@ class HealthEngine:
     
     def infer_health_status(
         self, 
-        item: InventoryItem, 
+        item: inventoryItem, 
         remaining_days: int, 
         spoilage_risk: str
     ) -> HealthStatus:
@@ -19,7 +19,7 @@ class HealthEngine:
         Infer health status based on multiple factors
         
         Args:
-            item: Inventory item
+            item: inventory item
             remaining_days: Days until expiry
             spoilage_risk: "low", "medium", or "high"
             

@@ -3,7 +3,7 @@ Response Builder - UI Output Generation
 """
 
 from typing import List, Dict
-from ..models import StockCardOutput, InventoryModuleOutput
+from ..models import StockCardOutput, inventoryModuleOutput
 from ..constants import Language, UrgencyLevel, HealthStatus
 
 
@@ -15,7 +15,7 @@ class ResponseBuilder:
         language: Language,
         cards: List[StockCardOutput],
         farmer_id: str
-    ) -> InventoryModuleOutput:
+    ) -> inventoryModuleOutput:
         """
         Build complete inventory dashboard output
         
@@ -25,7 +25,7 @@ class ResponseBuilder:
             farmer_id: Farmer ID
             
         Returns:
-            Complete InventoryModuleOutput for UI
+            Complete inventoryModuleOutput for UI
         """
         # Calculate counts
         total_count = len(cards)
@@ -48,7 +48,7 @@ class ResponseBuilder:
             language, cards, critical_count, warning_count
         )
         
-        return InventoryModuleOutput(
+        return inventoryModuleOutput(
             header=header,
             language=language,
             speechText=speech_text,
@@ -133,7 +133,7 @@ class ResponseBuilder:
         if language == Language.HINDI:
             return f"इन्वेंटरी डैशबोर्ड - {total_count} आइटम"
         else:
-            return f"Inventory Dashboard - {total_count} Items"
+            return f"inventory Dashboard - {total_count} Items"
     
     def _generate_detailed_reasoning(
         self,

@@ -1,7 +1,7 @@
 """Input processing package"""
 
-from Voice_agent.input_processing.speech_to_text import WhisperSTT, get_speech_to_text
-from Voice_agent.input_processing.translator import ArgosTranslator, get_translator
+from voice_agent.input_processing.speech_to_text import WhisperSTT, get_speech_to_text
+from voice_agent.input_processing.translator import ArgosTranslator, get_translator
 
 __all__ = [
     "WhisperSTT",

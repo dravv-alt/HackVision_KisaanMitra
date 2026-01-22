@@ -1,12 +1,12 @@
 """
-Inventory Repository with Mock Fallback
+inventory Repository with Mock Fallback
 """
 
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import uuid
 
-from ..models import InventoryItem
+from ..models import inventoryItem
 from ..constants import (
     StorageType,
     StockStage,
@@ -16,14 +16,14 @@ from ..constants import (
 )
 
 
-class InventoryRepo:
+class inventoryRepo:
     """Repository for inventory items with mock fallback"""
     
     def __init__(self):
         # Mock in-memory storage (simulates MongoDB collection)
-        self._mock_items: Dict[str, InventoryItem] = {}
+        self._mock_items: Dict[str, inventoryItem] = {}
     
-    def list_items(self, farmer_id: str) -> List[InventoryItem]:
+    def list_items(self, farmer_id: str) -> List[inventoryItem]:
         """
         List all inventory items for a farmer
         Returns mock data if empty
@@ -37,12 +37,12 @@ class InventoryRepo:
         
         return items
     
-    def add_item(self, item: InventoryItem) -> InventoryItem:
+    def add_item(self, item: inventoryItem) -> inventoryItem:
         """Add new inventory item"""
         self._mock_items[item.itemId] = item
         return item
     
-    def update_item(self, item_id: str, updates: Dict[str, Any]) -> InventoryItem:
+    def update_item(self, item_id: str, updates: Dict[str, Any]) -> inventoryItem:
         """Update existing inventory item"""
         if item_id not in self._mock_items:
             raise ValueError(f"Item {item_id} not found")
@@ -61,7 +61,7 @@ class InventoryRepo:
         
         mock_items = [
             # Critical: Tomato near expiry
-            InventoryItem(
+            inventoryItem(
                 itemId=str(uuid.uuid4()),
                 farmerId=farmer_id,
                 cropKey="tomato",
@@ -79,7 +79,7 @@ class InventoryRepo:
             ),
             
             # Warning: Onion medium shelf life
-            InventoryItem(
+            inventoryItem(
                 itemId=str(uuid.uuid4()),
                 farmerId=farmer_id,
                 cropKey="onion",
@@ -97,7 +97,7 @@ class InventoryRepo:
             ),
             
             # Good: Potato long shelf life
-            InventoryItem(
+            inventoryItem(
                 itemId=str(uuid.uuid4()),
                 farmerId=farmer_id,
                 cropKey="potato",
@@ -115,7 +115,7 @@ class InventoryRepo:
             ),
             
             # Good: Wheat very long shelf life
-            InventoryItem(
+            inventoryItem(
                 itemId=str(uuid.uuid4()),
                 farmerId=farmer_id,
                 cropKey="wheat",
@@ -133,7 +133,7 @@ class InventoryRepo:
             ),
             
             # Partial sold: Groundnut
-            InventoryItem(
+            inventoryItem(
                 itemId=str(uuid.uuid4()),
                 farmerId=farmer_id,
                 cropKey="groundnut",

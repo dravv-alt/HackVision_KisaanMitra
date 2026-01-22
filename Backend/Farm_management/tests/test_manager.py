@@ -34,9 +34,9 @@ def wait_for_enter():
 
 def test_planning_stage():
     """Test Planning Stage functions"""
-    from Planning_stage import PreSeedingService, PlanningRequest
-    from Planning_stage.crop_selection import recommend_crops_for_farmer
-    from Planning_stage.gov_scheme_suggestor import suggest_schemes_for_farmer
+    from planning_stage import PreSeedingService, PlanningRequest
+    from planning_stage.crop_selection import recommend_crops_for_farmer
+    from planning_stage.gov_scheme_suggestor import suggest_schemes_for_farmer
     
     while True:
         print_header("PLANNING STAGE - Test Menu")
@@ -116,8 +116,8 @@ def test_planning_stage():
 
 def test_farming_stage():
     """Test Farming Stage functions"""
-    from Farming_stage.engines import WeatherEngine, MarketEngine, VisionEngine, KnowledgeEngine
-    from Farming_stage.models import CropContext, EnvironmentalContext, MarketContext, CropStage, PriceTrend, DemandLevel
+    from farming_stage.engines import WeatherEngine, MarketEngine, VisionEngine, KnowledgeEngine
+    from farming_stage.models import CropContext, EnvironmentalContext, MarketContext, CropStage, PriceTrend, DemandLevel
     
     while True:
         print_header("FARMING STAGE - Test Menu")
@@ -270,7 +270,7 @@ def test_farming_stage():
 
 def test_post_harvest_stage():
     """Test Post-Harvest Stage functions"""
-    from Post_Harvest_stage.core import FarmerContext, PostHarvestDecisionEngine
+    from post_harvest_stage.core import FarmerContext, PostHarvestDecisionEngine
     
     while True:
         print_header("POST-HARVEST STAGE - Test Menu")

@@ -34,7 +34,7 @@ class Settings:
         Load .env file if it exists
         Uses simple key=value parsing (no external dependencies)
         """
-        # Look for .env in the Gov_Schemes directory
+        # Look for .env in the gov_schemes directory
         env_path = Path(__file__).parent.parent / ".env"
         
         if not env_path.exists():
