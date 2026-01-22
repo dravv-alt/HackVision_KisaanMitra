@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Check, Sprout, TrendingUp, ShieldCheck, CloudRain } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import MapComponent from '../components/MapComponent';
 import '../styles/global.css';
 
 const CropCard = ({ crop, recommended }) => (
@@ -204,6 +205,21 @@ const PlanningStage = () => {
                 </div>
             ) : (
                 <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    <div className="card" style={{ padding: '0', overflow: 'hidden', marginBottom: '24px', border: '1px solid var(--color-border)' }}>
+                        <MapComponent
+                            lat={30.90}
+                            lon={75.85}
+                            height="180px"
+                            zoom={13}
+                            markers={[
+                                { lat: 30.90, lon: 75.85, popupText: "Your Farm Location" }
+                            ]}
+                        />
+                        <div style={{ padding: '8px 16px', background: '#F1F8E9', color: '#33691E', fontSize: '0.9rem', fontWeight: '500' }}>
+                            Soil Analysis for: {formData.area} {formData.unit} in Ludhiana
+                        </div>
+                    </div>
+
                     <p style={{ marginBottom: '16px', color: 'var(--color-text-muted)' }}>
                         Based on <strong>{formData.area} {formData.unit}</strong> of <strong>{formData.soil}</strong> in <strong>{formData.season}</strong> season.
                     </p>

@@ -11,10 +11,12 @@ import {
     ArrowRight
 } from 'lucide-react';
 import '../styles/global.css';
+import MapComponent from './MapComponent';
 
 const LandPoolingList = ({ onSelectPool }) => {
     return (
         <div className="fade-in">
+            {/* Header / Filter Toolbar */}
             <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                 <div>
                     <h2 style={{ fontSize: '2rem', fontWeight: '900', margin: 0, color: 'var(--color-text-dark)' }}>Available Land Pools</h2>
@@ -47,6 +49,26 @@ const LandPoolingList = ({ onSelectPool }) => {
                     }}>
                         <Plus size={18} /> Create Group
                     </button>
+                </div>
+            </div>
+
+            {/* MAP VIEW INTEGRATION */}
+            <div style={{ marginBottom: '32px' }}>
+                <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
+                    <MapComponent
+                        lat={30.9010}
+                        lon={75.8573}
+                        height="250px"
+                        zoom={11}
+                        markers={[
+                            { lat: 30.91, lon: 75.85, popupText: "Village Wheat Cooperative (45 Acres)" },
+                            { lat: 30.88, lon: 75.90, popupText: "Organic Veggies Collective (12 Acres)" },
+                            { lat: 30.95, lon: 75.80, popupText: "Paddy Field Alliance (85 Acres)" }
+                        ]}
+                    />
+                    <div style={{ padding: '8px 16px', borderTop: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
+                        <MapPin size={16} color="var(--color-primary-green)" /> Found 3 active pools in Ludhiana District
+                    </div>
                 </div>
             </div>
 

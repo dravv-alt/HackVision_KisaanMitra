@@ -9,6 +9,7 @@ import {
     Mic
 } from 'lucide-react';
 import '../styles/global.css';
+import MapComponent from './MapComponent';
 
 const EquipmentRentalDetails = ({ equipment, onBack, onConfirm }) => {
     // Mock data/state for selected dates
@@ -150,21 +151,21 @@ const EquipmentRentalDetails = ({ equipment, onBack, onConfirm }) => {
                     <div className="card">
                         <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '16px' }}>Location & Proximity</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {/* Map Placeholder */}
+                            {/* Map Placeholder - REPLACED WITH REAL MAP */}
                             <div style={{
                                 height: '160px',
-                                backgroundColor: '#E3F2FD',
                                 borderRadius: '12px',
-                                position: 'relative',
                                 overflow: 'hidden',
-                                border: '1px solid #BBDEFB',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
+                                border: '1px solid var(--color-border)',
+                                marginBottom: '0'
                             }}>
-                                <MapPin size={32} color="#1976D2" />
-                                {/* Decorative mock map */}
-                                <div style={{ position: 'absolute', top: 20, left: 30, width: 10, height: 10, background: '#EF5350', borderRadius: '50%' }}></div>
+                                <MapComponent
+                                    lat={30.91}
+                                    lon={75.85}
+                                    height="100%"
+                                    zoom={14}
+                                    markers={[{ lat: 30.91, lon: 75.85, popupText: equipment.name }]}
+                                />
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

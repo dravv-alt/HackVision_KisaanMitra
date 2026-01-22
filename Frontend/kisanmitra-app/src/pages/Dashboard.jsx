@@ -18,7 +18,7 @@ import {
     ChevronRight,
     MapPin
 } from 'lucide-react';
-import FarmingTimeline from '../components/FarmingTimeline';
+import FarmingCalendar from '../components/Calendar/FarmingCalendar';
 import '../styles/global.css';
 
 const Dashboard = () => {
@@ -178,8 +178,8 @@ const Dashboard = () => {
                 </Link>
             </div>
 
-            {/* Timeline Section (Screen 4) */}
-            <FarmingTimeline />
+            {/* Calendar Section (Screen 4) */}
+            <FarmingCalendar compact={true} />
 
         </div>
     );
