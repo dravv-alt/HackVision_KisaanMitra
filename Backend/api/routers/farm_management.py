@@ -30,6 +30,18 @@ async def get_pre_seeding_plan(
         service = PreSeedingService() 
         output = service.run(request)
         return output
+    except ValueError as e:
+        error_msg = str(e)
+        if "Farmer not found" in error_msg:
+            # Provide helpful guidance with available test IDs
+            raise HTTPException(
+                status_code=404, 
+                detail={
+                    "error": error_msg,
+                    "help": "Use one of the test farmer IDs: F001, F002, F003, or F004"
+                }
+            )
+        raise HTTPException(status_code=400, detail=error_msg)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -79,9 +91,15 @@ async def get_market_prices(
     """
     try:
         engine = MarketEngine()
-        # Use user's state if not provided
-        state_filter = state or current_user.get("state")
-        return engine.get_prices(crop_name=crop, state=state_filter)
+        market_data = engine.get_market_data(crop)
+        return {
+            "crop": crop,
+            "state": state or current_user.get("state"),
+            "current_price": market_data.current_price,
+            "trend": market_data.price_trend.value,
+            "demand": market_data.demand_level.value,
+            "forecast": engine.get_price_forecast(crop)
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

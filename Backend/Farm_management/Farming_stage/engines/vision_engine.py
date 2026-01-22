@@ -86,15 +86,19 @@ class VisionEngine:
     def _load_model(self):
         """
         Attempt to load Keras model from disk
-        Silently fails if model not available (uses fallback instead)
+        Raises explicit error if model cannot be loaded (NO FALLBACK)
         """
         if not KERAS_AVAILABLE:
-            print("ℹ️  TensorFlow/Keras not installed. Using fallback mode.")
-            return
+            raise RuntimeError(
+                "TensorFlow/Keras not installed. "
+                "Install with: pip install tensorflow pillow"
+            )
             
         if not os.path.exists(self.model_path):
-            print(f"ℹ️  Model file not found at {self.model_path}. Using fallback mode.")
-            return
+            raise FileNotFoundError(
+                f"Disease detection model not found at {self.model_path}. "
+                f"Please ensure the trained .keras model is placed in the correct location."
+            )
         
         try:
             self.model = keras.models.load_model(self.model_path)
@@ -103,10 +107,34 @@ class VisionEngine:
             print(f"   Model input shape: {self.model.input_shape}")
             print(f"   Number of classes: {len(self.class_names)}")
         except Exception as e:
-            print(f"⚠️  Failed to load model: {e}. Using fallback mode.")
-            self.model = None
-            self.model_loaded = False
+            raise RuntimeError(
+                f"Failed to load disease detection model from {self.model_path}. "
+                f"Error: {e}. Check TensorFlow/Keras compatibility and model file integrity."
+            )
     
+    def detect_disease(self, image_path: str) -> DiseaseDetectionResult:
+        """
+        Detect disease from image file path
+        
+        Args:
+            image_path: Path to image file
+            
+        Returns:
+            DiseaseDetectionResult
+        """
+        if not os.path.exists(image_path):
+             raise FileNotFoundError(f"Image not found at {image_path}")
+
+        try:
+            with open(image_path, "rb") as f:
+                image_bytes = f.read()
+            return self.analyze_image(image_bytes)
+        except Exception as e:
+            print(f"❌ Error reading image file: {e}")
+            # Return a fallback or re-raise. Since analyze_image handles bytes, we let the caller handle file errors or return a generic error result.
+            # But the router expects a result. Let's return a safe failure if read fails, or better re-raise so 500 happens but is logged.
+            raise
+
     def analyze_image(self, image_bytes: bytes) -> DiseaseDetectionResult:
         """
         Analyze crop image for disease detection
@@ -116,15 +144,17 @@ class VisionEngine:
             
         Returns:
             DiseaseDetectionResult with disease name and confidence
+            
+        Raises:
+            RuntimeError: If model is not loaded or prediction fails
         """
-        if self.model_loaded and self.model is not None:
-            try:
-                return self._predict_with_model(image_bytes)
-            except Exception as e:
-                print(f"⚠️  Model prediction failed: {e}. Using fallback.")
+        if not self.model_loaded or self.model is None:
+            raise RuntimeError(
+                "Disease detection model is not loaded. "
+                "Check TensorFlow installation and model file availability."
+            )
         
-        # Fallback to dummy result
-        return self._get_fallback_result(image_bytes)
+        return self._predict_with_model(image_bytes)
     
     def _predict_with_model(self, image_bytes: bytes) -> DiseaseDetectionResult:
         """
