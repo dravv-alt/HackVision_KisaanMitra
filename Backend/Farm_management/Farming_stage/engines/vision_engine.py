@@ -1,18 +1,28 @@
 """
 Vision Engine - Handles image-based disease detection
-Supports ML model with critical fallback to dummy results
+Supports Keras/TensorFlow model with critical fallback to dummy results
 """
 
 import os
-import pickle
-from typing import Tuple
+import io
+import numpy as np
+from typing import Tuple, Optional
 from ..models import DiseaseDetectionResult
+
+# Optional imports for Keras model support
+try:
+    from tensorflow import keras
+    from PIL import Image
+    KERAS_AVAILABLE = True
+except ImportError:
+    KERAS_AVAILABLE = False
+    print("⚠️  TensorFlow/Keras not available. Install with: pip install tensorflow")
 
 
 class VisionEngine:
     """
     Analyzes crop images for disease detection
-    Attempts to load ML model, falls back to dummy results if unavailable
+    Attempts to load Keras model, falls back to dummy results if unavailable
     """
     
     # Dummy disease database for fallback
@@ -24,14 +34,49 @@ class VisionEngine:
         ("Healthy", 0.99)
     ]
     
-    def __init__(self, model_path: str = None):
+    # Default class names for plant disease model
+    # Update this list based on your actual model's classes
+    DEFAULT_CLASS_NAMES = [
+        "Apple___Apple_scab",
+        "Apple___Black_rot",
+        "Apple___Cedar_apple_rust",
+        "Apple___healthy",
+        "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+        "Corn_(maize)___Common_rust_",
+        "Corn_(maize)___Northern_Leaf_Blight",
+        "Corn_(maize)___healthy",
+        "Grape___Black_rot",
+        "Grape___Esca_(Black_Measles)",
+        "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+        "Grape___healthy",
+        "Potato___Early_blight",
+        "Potato___Late_blight",
+        "Potato___healthy",
+        "Tomato___Bacterial_spot",
+        "Tomato___Early_blight",
+        "Tomato___Late_blight",
+        "Tomato___Leaf_Mold",
+        "Tomato___Septoria_leaf_spot",
+        "Tomato___Spider_mites Two-spotted_spider_mite",
+        "Tomato___Target_Spot",
+        "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+        "Tomato___Tomato_mosaic_virus",
+        "Tomato___healthy"
+    ]
+    
+    def __init__(self, model_path: str = None, class_names: list = None):
         """
         Initialize vision engine
         
         Args:
-            model_path: Path to .pkl model file (optional)
+            model_path: Path to .keras model file (optional)
+            class_names: List of class names corresponding to model output (optional)
         """
-        self.model_path = model_path or os.getenv("DISEASE_MODEL_PATH", "disease_model.pkl")
+        self.model_path = model_path or os.getenv(
+            "DISEASE_MODEL_PATH", 
+            os.path.join(os.path.dirname(os.path.dirname(__file__)), "models", "plant_disease_recog_model_pwp.keras")
+        )
+        self.class_names = class_names or self.DEFAULT_CLASS_NAMES
         self.model = None
         self.model_loaded = False
         
@@ -40,18 +85,23 @@ class VisionEngine:
     
     def _load_model(self):
         """
-        Attempt to load ML model from disk
+        Attempt to load Keras model from disk
         Silently fails if model not available (uses fallback instead)
         """
+        if not KERAS_AVAILABLE:
+            print("ℹ️  TensorFlow/Keras not installed. Using fallback mode.")
+            return
+            
         if not os.path.exists(self.model_path):
             print(f"ℹ️  Model file not found at {self.model_path}. Using fallback mode.")
             return
         
         try:
-            with open(self.model_path, 'rb') as f:
-                self.model = pickle.load(f)
+            self.model = keras.models.load_model(self.model_path)
             self.model_loaded = True
             print(f"✅ Disease detection model loaded from {self.model_path}")
+            print(f"   Model input shape: {self.model.input_shape}")
+            print(f"   Number of classes: {len(self.class_names)}")
         except Exception as e:
             print(f"⚠️  Failed to load model: {e}. Using fallback mode.")
             self.model = None
@@ -78,31 +128,43 @@ class VisionEngine:
     
     def _predict_with_model(self, image_bytes: bytes) -> DiseaseDetectionResult:
         """
-        Use loaded ML model for prediction
+        Use loaded Keras model for prediction
         
         Args:
             image_bytes: Raw image data
             
         Returns:
             DiseaseDetectionResult from model
-            
-        Note:
-            This is a placeholder. Actual implementation would:
-            1. Decode image bytes to numpy array
-            2. Preprocess (resize, normalize)
-            3. Run model.predict()
-            4. Map class index to disease name
         """
-        # Placeholder for actual ML inference
-        # In real implementation:
-        # - Convert bytes to PIL Image or numpy array
-        # - Preprocess according to model requirements
-        # - Run prediction
-        # - Return top prediction
+        # 1. Decode image bytes to PIL Image
+        img = Image.open(io.BytesIO(image_bytes))
         
-        # For now, return a realistic result
-        disease_name = "Leaf Blight"
-        confidence = 0.94
+        # 2. Get target size from model input shape
+        target_size = self.model.input_shape[1:3]  # (height, width)
+        
+        # 3. Preprocess image
+        img = img.convert('RGB')  # Ensure RGB format
+        img = img.resize(target_size)  # Resize to model's expected input
+        img_array = np.array(img)
+        
+        # 4. Normalize pixel values (0-255 to 0-1)
+        img_array = img_array.astype('float32') / 255.0
+        
+        # 5. Add batch dimension
+        img_array = np.expand_dims(img_array, axis=0)
+        
+        # 6. Run prediction
+        predictions = self.model.predict(img_array, verbose=0)
+        
+        # 7. Get top prediction
+        class_index = np.argmax(predictions[0])
+        confidence = float(predictions[0][class_index])
+        
+        # 8. Map to disease name
+        disease_name = self.class_names[class_index] if class_index < len(self.class_names) else "Unknown"
+        
+        # Clean up disease name (remove crop prefix and underscores)
+        disease_name = disease_name.replace("___", " - ").replace("_", " ")
         
         return DiseaseDetectionResult(
             disease_name=disease_name,
