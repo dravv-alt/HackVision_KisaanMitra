@@ -30,6 +30,7 @@ class VoiceAgentConfig:
     vision_ai_endpoint: Optional[str] = None
     market_api_key: Optional[str] = None
     mandi_api_key: Optional[str] = None
+    mandi_resource_id: str = "9ef84268-d588-465a-a308-a864a43d0070"
 
 
 class ConfigManager:
@@ -99,6 +100,7 @@ class ConfigManager:
                 vision_ai_endpoint=os.getenv("VISION_AI_ENDPOINT"),
                 market_api_key=os.getenv("MARKET_API_KEY"),
                 mandi_api_key=os.getenv("MANDI_API_KEY"),
+                mandi_resource_id=os.getenv("MANDI_RESOURCE_ID", "9ef84268-d588-465a-a308-a864a43d0070"),
             )
             
             print(f"✅ Configuration loaded:")

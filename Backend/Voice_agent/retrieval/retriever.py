@@ -4,14 +4,18 @@ Retriever - RAG-style information retrieval
 
 from typing import List, Dict, Any
 from voice_agent.core.intent import Intent
-from voice_agent.retrieval.sources import get_knowledge_registry, KnowledgeSource
+from voice_agent.retrieval.weather_service import get_weather_service
+from voice_agent.retrieval.market_service import get_market_service
 
 
 class Retriever:
-    """RAG-style retriever for knowledge sources"""
+    """RAG-style retriever using Vector DB (Chroma) and specialized services"""
     
     def __init__(self):
         self.registry = get_knowledge_registry()
+        self.vector_store = get_vector_store()
+        self.weather_service = get_weather_service()
+        self.market_service = get_market_service()
     
     def retrieve(
         self,
@@ -34,8 +38,11 @@ class Retriever:
         
         # Intent-based retrieval
         if intent == Intent.CROP_PLANNING:
+            # RAG Search for crops
             retrieved.extend(self._retrieve_crop_info(query_text, context))
+            # Weather for context
             retrieved.extend(self._retrieve_weather_info())
+            # Market for context
             retrieved.extend(self._retrieve_market_info(query_text))
         
         elif intent == Intent.STORAGE_DECISION or intent == Intent.SELLING_DECISION:
@@ -53,65 +60,78 @@ class Retriever:
         return retrieved
     
     def _retrieve_crop_info(self, query: str, context: Dict[str, Any] = None) -> List[Dict[str, Any]]:
-        """Retrieve crop information"""
-        source = self.registry.get_source("crops")
-        if not source:
-            return []
+        """Retrieve crop information via Vector Search"""
+        # If query is very generic, ensure we get some results
+        search_query = query if len(query) > 5 else "best crops for this season"
         
-        results = []
-        for crop_id, crop_data in source.data.items():
-            results.append({
-                "source": "crops",
+        results = self.vector_store.search(
+            query=search_query,
+            limit=5,
+            type_filter="crop_info"
+        )
+        
+        # Map vector results to document format
+        docs = []
+        for res in results:
+            docs.append({
+                "source": "vector_db",
                 "type": "crop_info",
-                "data": crop_data
+                "data": res["data"],
+                "score": res["distance"] 
             })
-        
-        return results
+            
+        return docs
     
     def _retrieve_weather_info(self) -> List[Dict[str, Any]]:
-        """Retrieve weather information"""
-        source = self.registry.get_source("weather")
-        if not source:
-            return []
+        """Retrieve weather information via Live Service"""
+        weather_data = self.weather_service.get_current_weather()
         
         return [{
-            "source": "weather",
+            "source": weather_data.get("source", "weather_service"),
             "type": "weather_info",
-            "data": source.data["current"]
+            "data": weather_data
         }]
     
     def _retrieve_market_info(self, query: str) -> List[Dict[str, Any]]:
-        """Retrieve market information"""
-        source = self.registry.get_source("market")
-        if not source:
-            return []
+        """Retrieve market information via Live Service"""
+        # Extract commodity from query if possible (simple heuristic)
+        # In a real app, use an LLM or NER to extract key entity
+        commodity = None
+        for crop in ["wheat", "rice", "cotton", "onion", "soybean", "maize"]:
+            if crop in query.lower():
+                commodity = crop
+                break
         
-        results = []
-        for crop, price_data in source.data.items():
-            results.append({
-                "source": "market",
+        market_data_list = self.market_service.get_market_prices(commodity=commodity)
+        
+        docs = []
+        for data in market_data_list:
+            docs.append({
+                "source": data.get("source", "market_service"),
                 "type": "market_price",
-                "crop": crop,
-                "data": price_data
+                "crop": data.get("crop", "Unknown"),
+                "data": data
             })
         
-        return results
+        return docs
     
     def _retrieve_scheme_info(self, query: str, context: Dict[str, Any] = None) -> List[Dict[str, Any]]:
-        """Retrieve government scheme information"""
-        source = self.registry.get_source("schemes")
-        if not source:
-            return []
+        """Retrieve government scheme information via Vector Search"""
+        results = self.vector_store.search(
+            query=query,
+            limit=3,
+            type_filter="scheme_info"
+        )
         
-        results = []
-        for scheme_id, scheme_data in source.data.items():
-            results.append({
-                "source": "schemes",
+        docs = []
+        for res in results:
+            docs.append({
+                "source": "vector_db",
                 "type": "scheme_info",
-                "data": scheme_data
+                "data": res["data"]
             })
         
-        return results
+        return docs
 
 
 # Singleton instance
