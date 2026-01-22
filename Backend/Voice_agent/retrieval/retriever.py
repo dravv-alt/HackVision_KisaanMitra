@@ -7,13 +7,25 @@ from voice_agent.core.intent import Intent
 from voice_agent.retrieval.weather_service import get_weather_service
 from voice_agent.retrieval.market_service import get_market_service
 
+# Optional imports - graceful fallback if not available
+try:
+    from voice_agent.retrieval.sources import get_knowledge_registry
+except ImportError:
+    get_knowledge_registry = None
+
+try:
+    from voice_agent.retrieval.vector_store import get_vector_store
+except ImportError:
+    get_vector_store = None
+
 
 class Retriever:
     """RAG-style retriever using Vector DB (Chroma) and specialized services"""
     
     def __init__(self):
-        self.registry = get_knowledge_registry()
-        self.vector_store = get_vector_store()
+        # Optional components - only initialize if available
+        self.registry = get_knowledge_registry() if get_knowledge_registry else None
+        self.vector_store = get_vector_store() if get_vector_store else None
         self.weather_service = get_weather_service()
         self.market_service = get_market_service()
     
@@ -61,6 +73,10 @@ class Retriever:
     
     def _retrieve_crop_info(self, query: str, context: Dict[str, Any] = None) -> List[Dict[str, Any]]:
         """Retrieve crop information via Vector Search"""
+        # If vector store not available, return empty
+        if not self.vector_store:
+            return []
+        
         # If query is very generic, ensure we get some results
         search_query = query if len(query) > 5 else "best crops for this season"
         
@@ -117,6 +133,10 @@ class Retriever:
     
     def _retrieve_scheme_info(self, query: str, context: Dict[str, Any] = None) -> List[Dict[str, Any]]:
         """Retrieve government scheme information via Vector Search"""
+        # If vector store not available, return empty
+        if not self.vector_store:
+            return []
+        
         results = self.vector_store.search(
             query=query,
             limit=3,

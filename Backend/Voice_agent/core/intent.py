@@ -12,6 +12,7 @@ import json
 
 class Intent(str, Enum):
     """Supported intents"""
+    # Existing intents
     CROP_PLANNING = "crop_planning"
     STORAGE_DECISION = "storage_decision"
     SELLING_DECISION = "selling_decision"
@@ -23,6 +24,34 @@ class Intent(str, Enum):
     WEATHER_QUERY = "weather_query"
     MARKET_PRICE = "market_price"
     FOLLOW_UP = "follow_up"
+    
+    # NEW - Financial Tracking (5 intents)
+    FINANCE_REPORT = "finance_report"           # "मेरा मुनाफा बताओ"
+    ADD_EXPENSE = "add_expense"                  # "मैंने 5000 रुपये बीज पर खर्च किए"
+    ADD_INCOME = "add_income"                    # "मैंने गेहूं 50000 में बेची"
+    COST_ANALYSIS = "cost_analysis"              # "कहां ज्यादा खर्च हो रहा?"
+    OPTIMIZATION_ADVICE = "optimization_advice"   # "खर्च कैसे कम करूं?"
+    
+    # NEW - Collaborative Farming (4 intents)
+    EQUIPMENT_RENTAL = "equipment_rental"        # "ट्रैक्टर किराए पर चाहिए"
+    LAND_POOLING = "land_pooling"               # "साझे में खेती करनी है"
+    RESIDUE_MANAGEMENT = "residue_management"    # "पराली कहां बेचूं?"
+    VIEW_MARKETPLACE = "view_marketplace"        # "आसपास कौनसे उपकरण मिलेंगे?"
+    
+    # NEW - Inventory (3 intents)
+    CHECK_STOCK = "check_stock"                  # "मेरा स्टॉक कितना है?"
+    SELL_RECOMMENDATION = "sell_recommendation"   # "अभी बेचूं या नहीं?"
+    SPOILAGE_ALERT = "spoilage_alert"           # "खराब होने वाला माल बताओ"
+    
+    # NEW - Alerts (2 intents)
+    CHECK_ALERTS = "check_alerts"                # "मेरे लिए कोई अलर्ट है?"
+    REMINDER_CHECK = "reminder_check"            # "कल क्या करना है?"
+    
+    # NEW - Advanced Farming (3 intents)
+    DISEASE_DIAGNOSIS = "disease_diagnosis"      # "पत्ते पीले हो रहे हैं"
+    HARVEST_TIMING = "harvest_timing"            # "कटाई कब करूं?"
+    POST_HARVEST_QUERY = "post_harvest_query"    # "भंडारण कैसे करूं?"
+    
     UNKNOWN = "unknown"
 
 
@@ -106,7 +135,7 @@ class LLMIntentClassifier:
                 self.api_key = config.llm_api_key
             
             genai.configure(api_key=self.api_key)
-            self.model = self.model or "gemini-pro"  # Stable model
+            self.model = self.model or "gemini-1.5-flash"  # Updated to new model
             self.client = genai.GenerativeModel(self.model)
             print(f"✅ Gemini client initialized with model: {self.model}")
             
@@ -246,6 +275,7 @@ Confidence must be between 0.0 and 1.0.
     def get_intent_description(self, intent: Intent) -> str:
         """Get human-readable description of intent"""
         descriptions = {
+            # Existing intents
             Intent.CROP_PLANNING: "Crop selection and planning",
             Intent.STORAGE_DECISION: "Storage decision making",
             Intent.SELLING_DECISION: "Selling and market decision",
@@ -257,6 +287,34 @@ Confidence must be between 0.0 and 1.0.
             Intent.WEATHER_QUERY: "Weather information",
             Intent.MARKET_PRICE: "Market price information",
             Intent.FOLLOW_UP: "Follow-up question",
+            
+            # Financial Tracking
+            Intent.FINANCE_REPORT: "Profit/loss report and financial summary",
+            Intent.ADD_EXPENSE: "Record farming expense",
+            Intent.ADD_INCOME: "Record income from sales",
+            Intent.COST_ANALYSIS: "Analyze where money is being spent",
+            Intent.OPTIMIZATION_ADVICE: "Get suggestions to reduce costs",
+            
+            # Collaborative Farming
+            Intent.EQUIPMENT_RENTAL: "Find and rent farming equipment",
+            Intent.LAND_POOLING: "Find partners for cooperative farming",
+            Intent.RESIDUE_MANAGEMENT: "Sell or manage crop residue",
+            Intent.VIEW_MARKETPLACE: "Browse available equipment and land pools",
+            
+            # Inventory
+            Intent.CHECK_STOCK: "Check current inventory status",
+            Intent.SELL_RECOMMENDATION: "Get recommendation on when to sell",
+            Intent.SPOILAGE_ALERT: "Check for items at risk of spoilage",
+            
+            # Alerts
+            Intent.CHECK_ALERTS: "View pending alerts and notifications",
+            Intent.REMINDER_CHECK: "Check scheduled reminders",
+            
+            # Advanced Farming
+            Intent.DISEASE_DIAGNOSIS: "Diagnose crop disease from symptoms",
+            Intent.HARVEST_TIMING: "Get harvest timing recommendations",
+            Intent.POST_HARVEST_QUERY: "Post-harvest storage and processing advice",
+            
             Intent.UNKNOWN: "Unknown intent",
         }
         return descriptions.get(intent, "Unknown")
