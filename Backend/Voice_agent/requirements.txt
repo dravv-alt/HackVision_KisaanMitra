@@ -1,0 +1,32 @@
+# Voice Agent Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+python>=3.10
+
+# Speech-to-Text
+openai-whisper>=20231117
+torch>=2.0.0
+torchaudio>=2.0.0
+
+# Translation
+argostranslate>=1.9.0
+
+# LLM Providers
+groq>=0.4.0
+google-generativeai>=0.3.0
+
+# LangGraph for agent orchestration
+langgraph>=0.0.40
+langchain>=0.1.0
+langchain-core>=0.1.0
+
+# Data handling
+pydantic>=2.0.0
+numpy>=1.24.0
+
+# Optional: MongoDB
+pymongo>=4.0.0
+
+# Utilities
+python-dotenv>=1.0.0
