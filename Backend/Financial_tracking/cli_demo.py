@@ -5,6 +5,13 @@ Run this to test the complete financial tracking flow
 """
 
 import sys
+from pathlib import Path
+
+# Add Backend directory to Python path for imports
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
 from datetime import datetime
 from financial_tracking.service import get_finance_tracking_service
 from financial_tracking.constants import SeasonType, ExpenseCategory, IncomeCategory

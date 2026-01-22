@@ -3,9 +3,16 @@ CLI Demo - Manual Testing Runner for Collaborative Farming
 """
 
 import sys
+from pathlib import Path
+
+# Add Backend directory to Python path for imports
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
 from datetime import datetime, timedelta
-from .service import CollaborativeFarmingService
-from .constants import EquipmentType, PoolRequestType, RentalStatus
+from collaborative_farming.service import CollaborativeFarmingService
+from collaborative_farming.constants import EquipmentType, PoolRequestType, RentalStatus
 
 
 def print_header(text: str):

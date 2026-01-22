@@ -4,10 +4,12 @@ Manual testing interface for the voice agent
 """
 
 import sys
-import os
+from pathlib import Path
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add Backend directory to Python path for imports
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
 
 from voice_agent.core import get_voice_agent
 

@@ -2,9 +2,17 @@
 CLI Demo - Manual Testing Runner for Alerts & Notifications
 """
 
+import sys
+from pathlib import Path
+
+# Add Backend directory to Python path for imports
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
 from datetime import datetime, timedelta
-from .service import AlertsService
-from .constants import Language
+from alerts.service import AlertsService
+from alerts.constants import Language
 
 
 def run_demo():
