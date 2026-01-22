@@ -4,7 +4,7 @@ Farmer Context - Normalized input for decision engine
 
 from dataclasses import dataclass
 from datetime import date
-from utils.time import days_between
+from farm_management.post_harvest_stage.utils.time import days_between
 
 
 @dataclass

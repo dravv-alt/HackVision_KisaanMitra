@@ -3,7 +3,7 @@ Transport Cost Estimator
 Calculates transport costs based on distance and quantity
 """
 
-from utils import haversine_distance, kg_to_quintal
+from ..utils import haversine_distance, kg_to_quintal
 
 
 class TransportCostEstimator:

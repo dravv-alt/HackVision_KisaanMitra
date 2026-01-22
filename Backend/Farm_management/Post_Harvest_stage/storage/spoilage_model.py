@@ -5,7 +5,7 @@ Determines spoilage risk based on crop characteristics and storage duration
 
 from dataclasses import dataclass
 from enum import Enum
-from data_access import get_crop_metadata, StorageType
+from farm_management.post_harvest_stage.data_access import get_crop_metadata, StorageType
 
 
 class SpoilageRisk(str, Enum):

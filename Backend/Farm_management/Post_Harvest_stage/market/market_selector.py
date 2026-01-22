@@ -5,10 +5,10 @@ Selects best market based on net profit
 
 from dataclasses import dataclass
 from typing import List
-from market.transport import TransportCostEstimator
-from market.profit_calculator import ProfitCalculator, NetProfit
-from market.price_model import PriceTrendForecaster
-from data_access import get_all_mandis, get_mandi_price
+from .transport import TransportCostEstimator
+from .profit_calculator import ProfitCalculator, NetProfit
+from .price_model import PriceTrendForecaster
+from farm_management.post_harvest_stage.data_access import get_all_mandis, get_mandi_price
 
 
 @dataclass
@@ -59,7 +59,7 @@ class MarketSelector:
         Returns:
             MarketRecommendation with best market and alternatives
         """
-        from utils import haversine_distance
+        from farm_management.post_harvest_stage.utils import haversine_distance
         
         # Get all mandis
         all_mandis = get_all_mandis()

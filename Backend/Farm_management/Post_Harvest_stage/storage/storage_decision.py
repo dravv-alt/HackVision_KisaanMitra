@@ -6,8 +6,8 @@ Core logic for sell-now vs store-and-sell decision
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
-from storage.spoilage_model import SpoilageRisk, SpoilageAssessment
-from storage.storage_options import StorageOption
+from farm_management.post_harvest_stage.storage.spoilage_model import SpoilageRisk, SpoilageAssessment
+from farm_management.post_harvest_stage.storage.storage_options import StorageOption
 
 
 class StorageDecision(str, Enum):
