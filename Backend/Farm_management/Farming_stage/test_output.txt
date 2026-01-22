@@ -1,0 +1,44 @@
+﻿python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python main_driver.py 2>&1 
+| Out-File -FilePath 
+test_output.txt -Enco ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Traceba  
+  ck (most recent call las   
+ t)::String) [], RemoteEx    
+ception
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+  File "C:\College\Hackathons
+\HackVision\HackVision_Kisaan
+Mitra\Backend\Farm_management
+\Farming_stage\main_driver.py
+", line 354, in <module>
+    main()
+    ~~~~^^
+  File "C:\College\Hackathons
+\HackVision\HackVision_Kisaan
+Mitra\Backend\Farm_management
+\Farming_stage\main_driver.py
+", line 316, in main
+    print("\n" + 
+"\U0001f69c" * 35)
+    ~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bhavik Sheth
+\AppData\Local\Programs\Pytho
+n\Python313\Lib\encodings\cp1
+252.py", line 19, in encode
+    return codecs.charmap_enc
+ode(input,self.errors,encodin
+g_table)[0]
+           ~~~~~~~~~~~~~~~~~~
+~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't encode 
+characters in position 2-36: 
+character maps to <undefined>
