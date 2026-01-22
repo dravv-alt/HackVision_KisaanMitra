@@ -6,7 +6,7 @@ Simple deterministic price forecasting without heavy ML
 from dataclasses import dataclass
 from typing import Dict, List
 from datetime import date, timedelta
-from data_access import get_mandi_price, PricePoint
+from farm_management.post_harvest_stage.data_access import get_mandi_price, PricePoint
 
 
 @dataclass

@@ -139,7 +139,7 @@ def get_storage_by_location(lat: float, lon: float, max_distance_km: float = 50)
     Returns:
         List of nearby facilities
     """
-    from utils.geo import haversine_distance
+    from ..utils.geo import haversine_distance
     
     nearby = []
     for facility in STORAGE_FACILITIES:

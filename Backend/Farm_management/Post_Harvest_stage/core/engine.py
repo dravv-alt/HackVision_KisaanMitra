@@ -5,8 +5,8 @@ Orchestrates all decision logic
 
 from dataclasses import dataclass
 from typing import List
-from core.context import FarmerContext
-from storage import (
+from farm_management.post_harvest_stage.core.context import FarmerContext
+from farm_management.post_harvest_stage.storage import (
     SpoilageRiskCalculator,
     StorageMatcher,
     StorageDecisionMaker,
@@ -14,12 +14,12 @@ from storage import (
     SpoilageAssessment,
     StorageDecision
 )
-from market import (
+from farm_management.post_harvest_stage.market import (
     PriceTrendForecaster,
     MarketSelector,
     MarketOption
 )
-from data_access import StorageType, get_crop_metadata
+from farm_management.post_harvest_stage.data_access import StorageType, get_crop_metadata
 
 
 @dataclass
