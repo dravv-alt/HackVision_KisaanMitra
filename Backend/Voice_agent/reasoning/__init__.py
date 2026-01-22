@@ -1,7 +1,7 @@
 """Reasoning package"""
 
-from voice_agent.reasoning.planner import ReasoningPlanner, get_reasoning_planner
-from voice_agent.reasoning.synthesizer import Synthesizer, get_synthesizer
+from Voice_agent.reasoning.planner import ReasoningPlanner, get_reasoning_planner
+from Voice_agent.reasoning.synthesizer import Synthesizer, get_synthesizer
 
 __all__ = [
     "ReasoningPlanner",

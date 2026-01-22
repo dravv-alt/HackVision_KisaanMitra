@@ -3,7 +3,7 @@ Market Card - Market price card
 """
 
 from dataclasses import dataclass
-from voice_agent.cards.base_card import BaseCard
+from Voice_agent.cards.base_card import BaseCard
 
 
 @dataclass

@@ -29,7 +29,7 @@ class WhisperSTT:
         """
         # Auto-detect model from config if not specified
         if model_name is None:
-            from voice_agent.config import get_config
+            from Voice_agent.config import get_config
             config = get_config()
             model_name = config.whisper_model
         

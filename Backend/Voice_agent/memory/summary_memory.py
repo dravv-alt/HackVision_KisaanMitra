@@ -3,7 +3,7 @@ Summary Memory - Rolling session summary
 Maintains a condensed summary of the conversation
 """
 
-from typing import List, Optional
+from typing import List, Optional, Any
 from dataclasses import dataclass
 from datetime import datetime
 

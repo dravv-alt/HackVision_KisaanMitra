@@ -3,8 +3,8 @@ Retriever - RAG-style information retrieval
 """
 
 from typing import List, Dict, Any
-from voice_agent.core.intent import Intent
-from voice_agent.retrieval.sources import get_knowledge_registry, KnowledgeSource
+from Voice_agent.core.intent import Intent
+from Voice_agent.retrieval.sources import get_knowledge_registry, KnowledgeSource
 
 
 class Retriever:

@@ -3,8 +3,8 @@ Synthesizer - Combines retrieved information into structured reasoning
 """
 
 from typing import List, Dict, Any
-from voice_agent.core.intent import Intent
-from voice_agent.cards import CropCard, WeatherCard, MarketCard, SchemeCard
+from Voice_agent.core.intent import Intent
+from Voice_agent.cards import CropCard, WeatherCard, MarketCard, SchemeCard
 
 
 class Synthesizer:

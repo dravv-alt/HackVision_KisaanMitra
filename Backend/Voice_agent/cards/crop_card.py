@@ -4,7 +4,7 @@ Crop Card - Crop recommendation card
 
 from dataclasses import dataclass
 from typing import List
-from voice_agent.cards.base_card import BaseCard
+from Voice_agent.cards.base_card import BaseCard
 
 
 @dataclass

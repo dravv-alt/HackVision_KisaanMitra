@@ -7,14 +7,14 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from voice_agent.input_processing import get_translator, get_speech_to_text
-from voice_agent.core.intent import get_intent_classifier, Intent
-from voice_agent.core.context import ConversationContext
-from voice_agent.memory import get_session_memory
-from voice_agent.retrieval import get_retriever
-from voice_agent.reasoning import get_reasoning_planner, get_synthesizer
-from voice_agent.explain import get_explanation_builder
-from voice_agent.cards import BaseCard
+from Voice_agent.input_processing import get_translator, get_speech_to_text
+from Voice_agent.core.intent import get_intent_classifier, Intent
+from Voice_agent.core.context import ConversationContext
+from Voice_agent.memory import get_session_memory
+from Voice_agent.retrieval import get_retriever
+from Voice_agent.reasoning import get_reasoning_planner, get_synthesizer
+from Voice_agent.explain import get_explanation_builder
+from Voice_agent.cards import BaseCard
 
 
 @dataclass
@@ -61,7 +61,7 @@ class VoiceAgent:
             db_client: MongoDB client (optional, auto-configured from .env)
         """
         # Load config
-        from voice_agent.config import get_config
+        from Voice_agent.config import get_config
         config = get_config()
         
         # Initialize components
@@ -73,10 +73,15 @@ class VoiceAgent:
         if db_client is None and config.mongodb_uri:
             try:
                 from pymongo import MongoClient
-                db_client = MongoClient(config.mongodb_uri)[config.mongodb_db_name]
+                # Set a short timeout for the initial connection check
+                temp_client = MongoClient(config.mongodb_uri, serverSelectionTimeoutMS=2000)
+                # Verify connection
+                temp_client.admin.command('ping')
+                
+                db_client = temp_client[config.mongodb_db_name]
                 print(f"✅ Connected to MongoDB: {config.mongodb_db_name}")
             except Exception as e:
-                print(f"⚠️  MongoDB connection failed: {e}")
+                print(f"⚠️  MongoDB connection failed (Server unreachable): {e}")
                 print("   Using in-memory storage")
                 db_client = None
         
@@ -182,7 +187,7 @@ class VoiceAgent:
             retrieved_sources=len(retrieved_docs),
             timestamp=datetime.now(),
             metadata={
-                "matched_keywords": intent_result.matched_keywords,
+                "reasoning": intent_result.reasoning,
                 "factors_considered": reasoning_plan.factors_to_consider,
             }
         )

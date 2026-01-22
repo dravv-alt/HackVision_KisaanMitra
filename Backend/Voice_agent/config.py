@@ -43,7 +43,7 @@ class ConfigManager:
         """Load environment variables from .env file"""
         # Find .env file in Backend directory
         current_dir = Path(__file__).resolve().parent
-        backend_dir = current_dir.parent.parent  # Go up to Backend/
+        backend_dir = current_dir.parent  # Go up to Backend/
         env_path = backend_dir / ".env"
         
         if env_path.exists():
