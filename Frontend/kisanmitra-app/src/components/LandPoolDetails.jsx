@@ -11,6 +11,7 @@ import {
     Check
 } from 'lucide-react';
 import '../styles/global.css';
+import MapComponent from './MapComponent';
 
 const LandPoolDetails = ({ pool, onBack, onJoin }) => {
     return (
@@ -91,6 +92,17 @@ const LandPoolDetails = ({ pool, onBack, onJoin }) => {
                         </div>
 
                         <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid var(--color-border)' }}>
+                            <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>Pooled Land Location</h4>
+                            <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--color-border)', marginBottom: '24px' }}>
+                                <MapComponent
+                                    lat={30.9010}
+                                    lon={75.8573}
+                                    height="200px"
+                                    zoom={14}
+                                    markers={[{ lat: 30.9010, lon: 75.8573, popupText: "Pooled Land Area (60 Bigha)" }]}
+                                />
+                            </div>
+
                             <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>Current Members</h4>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <div style={{ display: 'flex', marginLeft: '12px' }}>

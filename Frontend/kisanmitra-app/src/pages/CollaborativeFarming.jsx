@@ -18,6 +18,7 @@ import LandPoolingOverview from '../components/LandPoolingOverview';
 import LandPoolingList from '../components/LandPoolingList';
 import LandPoolDetails from '../components/LandPoolDetails';
 import '../styles/global.css';
+import MapComponent from '../components/MapComponent';
 
 const CollaborativeFarming = () => {
     const [activeTab, setActiveTab] = useState('equipment'); // equipment | land
@@ -216,26 +217,22 @@ const EquipmentRentalSection = ({ onSelectEquipment }) => {
                 </button>
             </div>
 
-            {/* Map Placeholder */}
-            <div style={{
-                height: '200px',
-                backgroundColor: '#E3F2FD',
-                borderRadius: '16px',
-                marginBottom: '20px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid #BBDEFB',
-                position: 'relative',
-                overflow: 'hidden'
-            }}>
-                <MapPin size={40} color="#1976D2" style={{ marginBottom: '8px' }} />
-                <span style={{ color: '#1565C0', fontWeight: '500' }}>Equipment Near You (Map View)</span>
-                {/* Mock Map Elements */}
-                <div style={{ position: 'absolute', top: '20px', left: '40px', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#EF5350', opacity: 0.6 }}></div>
-                <div style={{ position: 'absolute', bottom: '50px', right: '80px', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#EF5350', opacity: 0.6 }}></div>
-                <div style={{ position: 'absolute', top: '60px', right: '30px', width: '16px', height: '16px', borderRadius: '50%', backgroundColor: '#43A047', border: '2px solid white' }}></div>
+            {/* Map Placeholder - REPLACED WITH REAL MAP */}
+            <div className="card" style={{ padding: '0', overflow: 'hidden', marginBottom: '20px', border: '1px solid var(--color-border)' }}>
+                <MapComponent
+                    lat={30.9010}
+                    lon={75.8573}
+                    height="200px"
+                    zoom={12}
+                    markers={[
+                        { lat: 30.91, lon: 75.85, popupText: "Mahindra Tractor (2.5 km)" },
+                        { lat: 30.89, lon: 75.87, popupText: "Combine Harvester (5 km)" },
+                        { lat: 30.92, lon: 75.82, popupText: "Spraying Drone" }
+                    ]}
+                />
+                <div style={{ padding: '8px 12px', background: '#E3F2FD', color: '#1565C0', fontSize: '0.9rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <MapPin size={16} /> Viewing equipment near you
+                </div>
             </div>
 
             {/* Equipment List */}

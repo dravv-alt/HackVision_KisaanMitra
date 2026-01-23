@@ -14,6 +14,7 @@ import Finance from './pages/Finance';
 
 import ActiveCrops from './pages/ActiveCrops';
 import PriorityAlerts from './pages/PriorityAlerts';
+import FarmingCalendarPage from './pages/FarmingCalendarPage';
 
 // Placeholder components for other routes
 const Placeholder = ({ title }) => (
@@ -39,6 +40,7 @@ function App() {
           <Route path="inventory" element={<Inventory />} />
           <Route path="finance" element={<Finance />} />
           <Route path="schemes" element={<GovernmentSchemes />} />
+          <Route path="farm-management/calendar" element={<FarmingCalendarPage />} />
 
           {/* Catch-all redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
