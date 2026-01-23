@@ -57,6 +57,10 @@ class Retriever:
             # Market for context
             retrieved.extend(self._retrieve_market_info(query_text))
         
+        elif intent == Intent.FINANCE_REPORT or intent == Intent.COST_ANALYSIS or intent == Intent.OPTIMIZATION_ADVICE:
+             # Try retrieving semantic financial context
+             retrieved.extend(self._retrieve_financial_info(query_text))
+
         elif intent == Intent.STORAGE_DECISION or intent == Intent.SELLING_DECISION:
             retrieved.extend(self._retrieve_market_info(query_text))
         
@@ -68,6 +72,10 @@ class Retriever:
         
         elif intent == Intent.MARKET_PRICE:
             retrieved.extend(self._retrieve_market_info(query_text))
+            
+        elif intent == Intent.FOLLOW_UP or intent == Intent.UNKNOWN:
+            # For general conversation, search history
+            retrieved.extend(self._retrieve_conversation_history(query_text))
         
         return retrieved
     
@@ -151,6 +159,48 @@ class Retriever:
                 "data": res["data"]
             })
         
+        return docs
+
+    def _retrieve_conversation_history(self, query: str) -> List[Dict[str, Any]]:
+        """Retrieve relevant conversation history"""
+        if not self.vector_store:
+            return []
+            
+        results = self.vector_store.search(
+            query=query,
+            limit=3,
+            type_filter="conversation"
+        )
+        
+        docs = []
+        for res in results:
+            docs.append({
+                "source": "memory_rag",
+                "type": "conversation_history",
+                "data": res["data"],
+                "text": res["text"]
+            })
+        return docs
+
+    def _retrieve_financial_info(self, query: str) -> List[Dict[str, Any]]:
+        """Retrieve financial context"""
+        if not self.vector_store:
+            return []
+            
+        results = self.vector_store.search(
+            query=query,
+            limit=2,
+            type_filter="financial_info"
+        )
+        
+        docs = []
+        for res in results:
+            docs.append({
+                "source": "financial_rag",
+                "type": "financial_info",
+                "data": res["data"],
+                "text": res["text"]
+            })
         return docs
 
 

@@ -123,6 +123,25 @@ class FinanceTrackingService:
         print("→ Caching summary...")
         self.summary_repo.save_summary(totals)
         
+        # Step 8b: Ingest into RAG Vector Store
+        try:
+            # We import here to avoid circular dependencies if any
+            from voice_agent.retrieval.vector_store import get_vector_store
+            vector_store = get_vector_store()
+            
+            fin_summary_data = {
+                "season": season,
+                "totalIncome": totals.totalIncome,
+                "totalExpense": totals.totalExpense,
+                "profitOrLoss": totals.profitOrLoss,
+                "timestamp": output.generatedAt.isoformat() if hasattr(output, "generatedAt") else None,
+                "lossCauses": [{"description": lc.description} for lc in loss_causes]
+            }
+            vector_store.ingest_financial_summary(fin_summary_data)
+            print("✓ Ingested financial summary into VectorDB")
+        except Exception as e:
+            print(f"⚠️  Failed to ingest finance info into VectorDB: {e}")
+        
         print(f"\n{'='*60}")
         print("✓ Financial report generated successfully")
         print(f"{'='*60}\n")

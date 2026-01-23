@@ -68,6 +68,8 @@ class Synthesizer:
             return self._synthesize_collaborative_marketplace(context)  # Part of marketplace
         
         # Inventory Intents
+        elif intent == Intent.ADD_STOCK:
+            return self._synthesize_add_stock(context)
         elif intent == Intent.CHECK_STOCK:
             return self._synthesize_inventory_check(context)
         elif intent == Intent.SELL_RECOMMENDATION:
@@ -358,6 +360,33 @@ class Synthesizer:
         
         return {"cards": [], "reasoning": result["message"]}
     
+    def _synthesize_add_stock(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """Synthesize add stock"""
+        farmer_id = context.get("farmer_id", "F001")
+        crop_name = context.get("crop_name")
+        quantity = context.get("quantity")
+        language = context.get("language", "hi")
+        
+        if not crop_name or not quantity:
+            msg = "Please specify the crop name and quantity." if language == "en" else "कृपया फसल का नाम और मात्रा बताएं।"
+            return {"cards": [], "reasoning": msg}
+        
+        try:
+            quantity = float(quantity)
+        except (ValueError, TypeError):
+             msg = "Invalid quantity provided." if language == "en" else "मात्रा सही नहीं है।"
+             return {"cards": [], "reasoning": msg}
+            
+        connector = get_inventory_connector()
+        result = connector.add_stock(farmer_id, crop_name, quantity)
+        
+        if result["success"]:
+            msg = f"Added {quantity}kg of {crop_name} to your stock." if language == "en" else f"{crop_name} का {quantity} किलो स्टॉक जोड़ा गया।"
+        else:
+            msg = f"Failed to update stock: {result.get('message')}"
+            
+        return {"cards": [], "reasoning": msg}
+
     def _synthesize_inventory_check(
         self,
         context: Dict[str, Any]

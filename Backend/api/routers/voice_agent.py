@@ -77,8 +77,8 @@ async def process_audio_input(
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(audio.file, buffer)
         
-        # Transcribe (assuming Hindi input)
-        hindi_text = stt.transcribe(temp_path, language="hi")
+        # Transcribe (auto-detect language)
+        hindi_text = stt.transcribe(temp_path, language=None)
         
         # Cleanup temp file
         os.remove(temp_path)
@@ -97,7 +97,9 @@ async def process_audio_input(
             session_id=session_id
         )
         
-        return response.to_dict()
+        response_dict = response.to_dict()
+        response_dict["transcription"] = hindi_text
+        return response_dict
         
     except Exception as e:
         # Clean up temp file on error

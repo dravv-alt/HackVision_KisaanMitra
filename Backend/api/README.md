@@ -6,8 +6,9 @@ This is the main backend API for the KisaanMitra application, consolidating vari
 
 ### Prerequisites
 
-- Python 3.9+
-- MongoDB (running locally or URI in .env)
+- Python 3.13+
+- FFmpeg (for audio processing with Whisper)
+- MongoDB (optional - running locally or URI in .env)
 - Environment variables configured in `.env` inside `Backend/` directory.
 
 ### Installation

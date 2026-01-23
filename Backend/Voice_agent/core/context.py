@@ -140,6 +140,11 @@ class ConversationContext:
         """Get a context variable"""
         return self.context_variables.get(key, default)
     
+    def update_from_dict(self, data: Dict[str, Any]):
+        """Update context variables from dictionary"""
+        self.context_variables.update(data)
+        self.last_updated = datetime.now()
+    
     def set_pending_confirmation(self, action: str, data: Dict[str, Any]):
         """Set a pending confirmation"""
         self.pending_confirmation = {

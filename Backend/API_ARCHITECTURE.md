@@ -87,21 +87,33 @@ This flow handles image processing for plant pathology.
     *   The temporary file is deleted `os.remove()` to prevent storage bloat.
 6.  **Response**: JSON result containing disease name, confidence, and cure.
 
-### B. Voice Command (`/voice/process`)
-This flow powers the "Voice-First" experience, handling audio and text transparency.
+### B. Voice Commands (`/voice/process` and `/voice/process-audio`)
+This flow powers the "Voice-First" experience with separate endpoints for text and audio.
 
-1.  **Trigger**: User asks a question via microphone ("What is the price of tomatoes?") or text.
+#### B1. Text Input (`/voice/process`)
+1.  **Trigger**: User submits text query via JSON request body.
 2.  **API Layer**: 
-    *   Accepts `audio` (file) or `text` (string).
-    *   Resolves `farmer_id` and `session_id`.
-3.  **Normalization**:
-    *   **If Audio**: File saved to `temp_voice/` -> `WhisperSTT` transcribes Hindi to Text -> File deleted.
-    *   **If Text**: Raw text is used directly.
-4.  **Agent Layer**:
-    *   `VoiceAgent` receives the text.
-    *   It queries the LLM (Gemini/Groq) to understand intent.
-    *   Fetches context from MongoDB (e.g., user's location, past crops).
-5.  **Response**: Natural language response (and potentially audio synthesis URL).
+    *   Accepts JSON with `hindi_text`, `farmer_id` (optional), `session_id` (optional).
+    *   Using Pydantic `VoiceTextRequest` model for validation.
+3.  **Agent Layer**:
+    *   `VoiceAgent` receives the text directly.
+    *   Queries LLM (Gemini/Groq) to understand intent.
+    *   Fetches context from MongoDB (user location, past crops, session history).
+4.  **Response**: JSON with cards, explanations (Hindi/English), and reasoning.
+
+#### B2. Audio Input (`/voice/process-audio`)
+1.  **Trigger**: User uploads audio file (wav, mp3, m4a).
+2.  **API Layer**:
+    *   Accepts multipart/form-data with `audio` file.
+    *   Optional `farmer_id` and `session_id` as form fields.
+3.  **Audio Processing**:
+    *   File saved to `temp_voice/` temporarily.
+    *   `WhisperSTT` transcribes audio to Hindi text (requires FFmpeg).
+    *   Temporary file deleted after transcription.
+4.  **Agent Layer** (same as text input):
+    *   Transcribed text sent to `VoiceAgent`.
+    *   LLM intent classification and RAG retrieval.
+5.  **Response**: Same JSON format as text endpoint.
 
 ### C. Crop Planning (`/planning/pre-seeding`)
 This flow provides agronomic advice based on land parameters.

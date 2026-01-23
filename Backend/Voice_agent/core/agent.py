@@ -55,7 +55,7 @@ class VoiceAgent:
     
     def __init__(self, db_client=None):
         """
-        Initialize Voice Agent
+        Initialize Voice Agent with Llama 2 Classifier
         
         Args:
             db_client: MongoDB client (optional, auto-configured from .env)
@@ -66,8 +66,18 @@ class VoiceAgent:
         
         # Initialize components
         self.translator = get_translator()
-        self.stt = get_speech_to_text()  # Uses config for model
-        self.intent_classifier = get_intent_classifier()  # Uses config for provider
+        self.stt = get_speech_to_text()  # Uses config for Whisper model
+        
+        # NEW: Use Llama 2 Intent Classifier with Pydantic schemas
+        from voice_agent.core.llama_classifier import get_llama2_classifier
+        try:
+            self.intent_classifier = get_llama2_classifier()
+            print("✅ Voice Agent using Llama 3.1 8B classifier (lightweight & fast)")
+        except Exception as e:
+            print(f"⚠️  Llama 2 classifier init failed: {e}")
+            print("   Falling back to legacy classifier")
+            from voice_agent.core.intent import get_intent_classifier
+            self.intent_classifier = get_intent_classifier()
         
         # MongoDB - use provided client or try to connect from config
         if db_client is None and config.mongodb_uri:
@@ -122,6 +132,9 @@ class VoiceAgent:
         intent = intent_result.intent
         confidence = intent_result.confidence
         
+        if intent_result.entities:
+            context.update_from_dict(intent_result.entities)
+        
         # Step 4: Create reasoning plan
         reasoning_plan = self.reasoning_planner.create_plan(intent)
         
@@ -133,10 +146,14 @@ class VoiceAgent:
         )
         
         # Step 6: Synthesize information into cards
+        synth_context = context.to_dict()
+        # Flatten context variables for easier access in synthesizer
+        synth_context.update(context.context_variables)
+        
         synthesis_result = self.synthesizer.synthesize(
             intent=intent,
             retrieved_docs=retrieved_docs,
-            context=context.to_dict()
+            context=synth_context
         )
         
         cards = synthesis_result["cards"]
@@ -175,6 +192,25 @@ class VoiceAgent:
         # Step 9: Save context to memory
         self.session_memory.save_context(context)
         
+        # Step 9b: Ingest turn into Vector RAG (Dynamic Memory)
+        try:
+            from voice_agent.retrieval.vector_store import get_vector_store
+            vector_store = get_vector_store()
+            
+            # Get the latest turn we just added
+            latest_turn = context.conversation_history[-1]
+            
+            turn_data = {
+                "turn_id": latest_turn.turn_id,
+                "timestamp": latest_turn.timestamp.isoformat(),
+                "user_input_english": latest_turn.user_input_english,
+                "agent_response_english": latest_turn.agent_response_english,
+                "intent": latest_turn.detected_intent.value
+            }
+            vector_store.ingest_conversation_turn(turn_data)
+        except Exception as e:
+            print(f"⚠️  Failed to ingest turn into VectorDB: {e}")
+        
         # Step 10: Build response
         response = AgentResponse(
             session_id=context.session_id,
@@ -189,6 +225,7 @@ class VoiceAgent:
             metadata={
                 "reasoning": intent_result.reasoning,
                 "factors_considered": reasoning_plan.factors_to_consider,
+                "user_input_english": english_text,
             }
         )
         

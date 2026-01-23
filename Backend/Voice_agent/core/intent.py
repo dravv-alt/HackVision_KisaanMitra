@@ -4,7 +4,7 @@ LLM-based intent detection using Groq or Gemini
 """
 
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
 import os
 import json
@@ -38,7 +38,8 @@ class Intent(str, Enum):
     RESIDUE_MANAGEMENT = "residue_management"    # "पराली कहां बेचूं?"
     VIEW_MARKETPLACE = "view_marketplace"        # "आसपास कौनसे उपकरण मिलेंगे?"
     
-    # NEW - Inventory (3 intents)
+    # NEW - Inventory (Stock)
+    ADD_STOCK = "add_stock"                      # "Add 50kg rice"
     CHECK_STOCK = "check_stock"                  # "मेरा स्टॉक कितना है?"
     SELL_RECOMMENDATION = "sell_recommendation"   # "अभी बेचूं या नहीं?"
     SPOILAGE_ALERT = "spoilage_alert"           # "खराब होने वाला माल बताओ"
@@ -61,6 +62,7 @@ class IntentResult:
     intent: Intent
     confidence: float
     reasoning: str
+    entities: Dict[str, Any] = None
 
 
 class LLMIntentClassifier:
@@ -185,12 +187,25 @@ Classify the following farmer query into ONE of these intents:
 
 Farmer Query: "{text}"
 
+Extract relevant entities if applicable:
+- ADD_STOCK: crop_name, quantity (number only)
+- ADD_EXPENSE: category, amount
+- ADD_INCOME: category, amount
+- EQUIPMENT_RENTAL: equipment_type
+
 Respond ONLY with a JSON object in this exact format:
 {{
     "intent": "intent_name",
     "confidence": 0.95,
-    "reasoning": "Brief explanation"
+    "reasoning": "Brief explanation",
+    "entities": {{
+        "crop_name": "Wheat",
+        "quantity": 50,
+        "amount": 5000,
+        "category": "Seeds"
+    }}
 }}
+(Leave entities empty or null if not applicable)
 
 Intent must be one of: {', '.join([i.value for i in Intent if i != Intent.UNKNOWN])}
 Confidence must be between 0.0 and 1.0.
@@ -203,7 +218,7 @@ Confidence must be between 0.0 and 1.0.
             model=self.model,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.1,  # Low temperature for consistent classification
-            max_tokens=150
+            max_tokens=250
         )
         return response.choices[0].message.content
     
@@ -213,7 +228,7 @@ Confidence must be between 0.0 and 1.0.
             prompt,
             generation_config={
                 "temperature": 0.1,
-                "max_output_tokens": 150
+                "max_output_tokens": 250
             }
         )
         return response.text
@@ -234,6 +249,7 @@ Confidence must be between 0.0 and 1.0.
             intent_str = data.get("intent", "unknown")
             confidence = float(data.get("confidence", 0.5))
             reasoning = data.get("reasoning", "")
+            entities = data.get("entities", {})
             
             # Convert to Intent enum
             try:
@@ -244,7 +260,8 @@ Confidence must be between 0.0 and 1.0.
             return IntentResult(
                 intent=intent,
                 confidence=confidence,
-                reasoning=reasoning
+                reasoning=reasoning,
+                entities=entities
             )
             
         except Exception as e:
@@ -253,7 +270,8 @@ Confidence must be between 0.0 and 1.0.
             return IntentResult(
                 intent=Intent.UNKNOWN,
                 confidence=0.0,
-                reasoning="Failed to parse LLM response"
+                reasoning="Failed to parse LLM response",
+                entities={}
             )
     
     def _fallback_classify(self, text: str) -> IntentResult:
@@ -302,6 +320,7 @@ Confidence must be between 0.0 and 1.0.
             Intent.VIEW_MARKETPLACE: "Browse available equipment and land pools",
             
             # Inventory
+            Intent.ADD_STOCK: "Add crops to inventory/stock",
             Intent.CHECK_STOCK: "Check current inventory status",
             Intent.SELL_RECOMMENDATION: "Get recommendation on when to sell",
             Intent.SPOILAGE_ALERT: "Check for items at risk of spoilage",

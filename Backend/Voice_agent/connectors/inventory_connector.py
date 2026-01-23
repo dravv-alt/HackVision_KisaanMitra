@@ -66,6 +66,24 @@ class InventoryConnector:
         ]
         
         return to_sell
+    
+    def add_stock(
+        self,
+        farmer_id: str,
+        crop_name: str,
+        quantity: float,
+        notes: str = None
+    ) -> Dict[str, Any]:
+        """Add stock via voice"""
+        if not self.service:
+            return {"success": False, "message": "Inventory service unavailable"}
+            
+        return self.service.add_stock(
+            farmer_id=farmer_id,
+            crop_name=crop_name,
+            quantity_kg=quantity,
+            notes=notes
+        )
 
 
 # Singleton

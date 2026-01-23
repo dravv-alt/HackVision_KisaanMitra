@@ -61,7 +61,7 @@ class WhisperSTT:
     def transcribe(
         self,
         audio_data: Union[str, bytes, np.ndarray],
-        language: str = "hi"
+        language: str = None  # None = precise auto-detection
     ) -> str:
         """
         Transcribe audio to text

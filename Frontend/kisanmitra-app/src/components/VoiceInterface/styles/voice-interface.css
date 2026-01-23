@@ -142,6 +142,93 @@
     }
 }
 
+/* Recording Animations */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes pulse-mic {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        height: 8px;
+    }
+
+    50% {
+        height: 40px;
+    }
+}
+
+/* Typing Indicator */
+@keyframes typingBounce {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-8px);
+    }
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    background: var(--success-green);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
 /* Common Components */
 .top-bar {
     height: 60px;
@@ -236,6 +323,15 @@
     outline: none;
 }
 
+.send-btn {
+    height: 48px;
+    border-radius: var(--radius-md);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .mic-btn-small {
     width: 48px;
     height: 48px;
@@ -248,16 +344,37 @@
     border: none;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(102, 187, 106, 0.3);
+    transition: all 0.2s;
+}
+
+.mic-btn-small:hover {
+    transform: scale(1.05);
 }
 
 /* Cards */
-.smart-card {
+.smart-card,
+.voice-card {
     background-color: var(--card-bg);
     border: 2px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: 20px;
     margin-top: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.voice-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.voice-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-primary);
 }
 
 .card-cta {

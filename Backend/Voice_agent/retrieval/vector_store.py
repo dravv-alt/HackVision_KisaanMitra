@@ -90,7 +90,7 @@ class VectorStore:
         
         # Add to collection
         if documents:
-            self.collection.add(
+            self.collection.upsert(
                 documents=documents,
                 metadatas=metadatas,
                 ids=ids
@@ -135,6 +135,85 @@ class VectorStore:
                 })
                 
         return parsed_results
+
+    def add_text(self, text: str, metadata: Dict[str, Any], doc_id: str):
+        """Generic method to add text to vector store"""
+        # Ensure ID is unique string
+        doc_id = str(doc_id)
+        
+        # Serialize complex nested data in metadata
+        if "data" in metadata:
+            metadata["data_json"] = json.dumps(metadata.pop("data"))
+            
+        self.collection.upsert(
+            documents=[text],
+            metadatas=[metadata],
+            ids=[doc_id]
+        )
+        # print(f"✓ Ingested doc {doc_id} into Vector DB")
+
+    def ingest_scheme(self, scheme_data: Dict[str, Any]):
+        """Ingest single scheme"""
+        scheme_id = scheme_data.get("id") or scheme_data.get("name")
+        text = f"{scheme_data.get('name')} ({scheme_data.get('name_hindi')}). "
+        text += f"{scheme_data.get('description')}. "
+        text += f"Eligibility: {scheme_data.get('eligibility')}."
+        
+        self.add_text(
+            text=text,
+            metadata={
+                "type": "scheme_info",
+                "id": str(scheme_id),
+                "name": scheme_data.get("name"),
+                "data": scheme_data
+            },
+            doc_id=f"scheme_{scheme_id}"
+        )
+
+    def ingest_financial_summary(self, summary_data: Dict[str, Any]):
+        """Ingest financial summary"""
+        season = summary_data.get("season", "Current")
+        text = f"Financial Summary for {season}. "
+        text += f"Total Income: {summary_data.get('totalIncome')}. "
+        text += f"Total Expense: {summary_data.get('totalExpense')}. "
+        text += f"Profit: {summary_data.get('profitOrLoss')}. "
+        
+        # Add high cost reasoning for context
+        if summary_data.get("lossCauses"):
+            text += f"Issues: {', '.join([c.get('description') for c in summary_data.get('lossCauses', [])])}"
+
+        self.add_text(
+            text=text,
+            metadata={
+                "type": "financial_info",
+                "id": f"fin_{season}",
+                "name": f"Finance {season}",
+                "data": summary_data
+            },
+            doc_id=f"fin_{season}_{summary_data.get('timestamp', '')}"
+        )
+
+    def ingest_conversation_turn(self, turn_data: Dict[str, Any]):
+        """Ingest conversation history"""
+        # We only want to index semantic content, not system metadata
+        user_text = turn_data.get("user_input_english")
+        agent_text = turn_data.get("agent_response_english")
+        turn_id = turn_data.get("turn_id")
+        timestamp = turn_data.get("timestamp")
+        
+        text = f"User: {user_text}\nAssistant: {agent_text}"
+        
+        self.add_text(
+            text=text,
+            metadata={
+                "type": "conversation",
+                "id": str(turn_id),
+                "name": f"Turn {turn_id}",
+                "timestamp": str(timestamp), 
+                "data": turn_data
+            },
+            doc_id=f"chat_{turn_id}_{timestamp}"
+        )
 
 # Singleton
 _vector_store = None

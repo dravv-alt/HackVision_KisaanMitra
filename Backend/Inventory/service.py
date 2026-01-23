@@ -250,3 +250,91 @@ class inventoryService:
         
         # Return updated dashboard
         return self.get_inventory_dashboard(farmer_id, include_reminders=False)
+    def add_stock(
+        self,
+        farmer_id: str,
+        crop_name: str,
+        quantity_kg: float,
+        storage_type: Optional[str] = None,
+        notes: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Add stock to inventory (Agentic Feature)
+        
+        Args:
+            farmer_id: Farmer ID
+            crop_name: Name of crop (e.g. "Wheat")
+            quantity_kg: Quantity to add
+            storage_type: Storage type
+            notes: Notes
+            
+        Returns:
+            Result dict with success status and message
+        """
+        from .models import inventoryItem
+        from .constants import StockStage, HealthStatus, QualityGrade, SHELF_LIFE_DAYS, StorageType
+        import uuid
+        
+        # 1. Check if crop already exists
+        crop_key = crop_name.lower().replace(" ", "_")
+        existing_items = self.inventory_repo.list_items(farmer_id)
+        
+        target_item = None
+        for item in existing_items:
+            if item.cropKey == crop_key:
+                target_item = item
+                break
+        
+        if target_item:
+            # Update existing
+            new_quantity = target_item.quantityKg + quantity_kg
+            self.inventory_repo.update_item(
+                target_item.itemId,
+                {
+                    "quantityKg": new_quantity,
+                    "updatedAt": datetime.now(),
+                    "notes": f"{target_item.notes or ''} | Added {quantity_kg}kg on {datetime.now().strftime('%d/%m')}"
+                }
+            )
+            message = f"Updated {crop_name} stock. New quantity: {new_quantity}kg"
+            action = "updated"
+        else:
+            # Create new
+            shelf_life = SHELF_LIFE_DAYS.get(crop_key, 30) # Default 30 days
+            now = datetime.now()
+            
+            new_item = inventoryItem(
+                itemId=str(uuid.uuid4()),
+                farmerId=farmer_id,
+                cropKey=crop_key,
+                cropName=crop_name.capitalize(),
+                quantityKg=quantity_kg,
+                qualityGrade=QualityGrade.A, # Default
+                storageType=storage_type or StorageType.HOME,
+                storedAt=now,
+                shelfLifeDays=shelf_life,
+                expectedSellBy=now + timedelta(days=shelf_life - 5),
+                stage=StockStage.STORED,
+                healthStatus=HealthStatus.GOOD,
+                spoilageRisk="low",
+                notes=notes or f"Added via Voice Agent on {now.strftime('%d/%m')}"
+            )
+            self.inventory_repo.add_item(new_item)
+            message = f"Added new stock: {quantity_kg}kg of {crop_name}"
+            action = "added"
+
+        # Log action
+        self.audit_repo.log(
+            farmer_id,
+            "add_stock_voice",
+            {"crop": crop_name, "quantity": quantity_kg, "action": action}
+        )
+        
+        return {
+            "success": True,
+            "message": message,
+            "crop_name": crop_name,
+            "item_id": target_item.itemId if target_item else new_item.itemId,
+            "quantity_added": quantity_kg,
+            "total_quantity": target_item.quantityKg + quantity_kg if target_item else quantity_kg
+        }

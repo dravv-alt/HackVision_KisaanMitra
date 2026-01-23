@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Mic } from 'lucide-react';
+import { Mic, Send, Square } from 'lucide-react';
 import CropCard from './cards/CropCard';
 import MarketPriceCard from './cards/MarketPriceCard';
 import SchemeCard from './cards/SchemeCard';
@@ -9,7 +9,15 @@ import ContextIndicator from './ContextIndicator';
 import AudioPlayer from './AudioPlayer';
 import TranscriptBox from './TranscriptBox';
 
-const ConversationView = ({ messages, onMicClick }) => {
+const ConversationView = ({
+    messages,
+    onMicClick,
+    inputText,
+    onInputChange,
+    onSubmit,
+    isLoading,
+    isRecording
+}) => {
     const chatEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -20,19 +28,59 @@ const ConversationView = ({ messages, onMicClick }) => {
         scrollToBottom();
     }, [messages]);
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            onSubmit(inputText);
+        }
+    };
+
+    const handleSendClick = () => {
+        onSubmit(inputText);
+    };
+
     const renderCard = (cardData) => {
         if (!cardData) return null;
+
+        // Extract data for easier access
+        const data = cardData.data || {};
+
         switch (cardData.type) {
             case 'cropRecommendation':
-                return <CropCard {...cardData.data} />;
+                return <CropCard data={data} />;
             case 'marketPrice':
-                return <MarketPriceCard {...cardData.data} />;
+                return <MarketPriceCard {...data} />;
             case 'governmentScheme':
-                return <SchemeCard {...cardData.data} />;
+                return <SchemeCard {...data} />;
             case 'financialInsight':
-                return <FinanceCard {...cardData.data} />;
+                return <FinanceCard {...data} />;
             case 'confirmation':
-                return <ConfirmationCard {...cardData.data} />;
+                return <ConfirmationCard {...data} />;
+            case 'genericCard':
+                return (
+                    <div className="voice-card">
+                        <div className="voice-card-header">
+                            <span className="voice-card-title">{data.title}</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {data.items && data.items.map((item, idx) => (
+                                <div key={idx} style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    borderBottom: idx < data.items.length - 1 ? '1px solid rgba(0,0,0,0.05)' : 'none',
+                                    paddingBottom: '4px'
+                                }}>
+                                    <span style={{ fontWeight: '600', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                                        {item.label}:
+                                    </span>
+                                    <span style={{ fontWeight: '500', color: 'var(--text-primary)', textAlign: 'right' }}>
+                                        {item.value}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
             default:
                 return null;
         }
@@ -45,7 +93,11 @@ const ConversationView = ({ messages, onMicClick }) => {
             <div className="chat-area">
                 {messages.length === 0 && (
                     <div style={{ textAlign: 'center', color: 'var(--text-secondary)', marginTop: '40px' }}>
-                        Start speaking to see conversation here...
+                        <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>👋 नमस्ते! KisanMitra में आपका स्वागत है</p>
+                        <p style={{ fontSize: '0.9rem' }}>🎤 Click the mic to speak or type below...</p>
+                        <p style={{ fontSize: '0.85rem', marginTop: '12px', opacity: 0.7 }}>
+                            Try: "प्याज की कीमत क्या है?" or "Which crop should I grow?"
+                        </p>
                     </div>
                 )}
 
@@ -88,6 +140,23 @@ const ConversationView = ({ messages, onMicClick }) => {
                         </div>
                     </div>
                 ))}
+
+                {/* Loading Indicator */}
+                {isLoading && (
+                    <div className="message-bubble message-ai" style={{ opacity: 0.6 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div className="typing-indicator">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                                KisanMitra is processing...
+                            </span>
+                        </div>
+                    </div>
+                )}
+
                 <div ref={chatEndRef} />
             </div>
 
@@ -95,11 +164,43 @@ const ConversationView = ({ messages, onMicClick }) => {
             <div className="input-bar">
                 <input
                     type="text"
-                    placeholder="Type or speak..."
+                    placeholder={isRecording ? "🔴 Recording..." : "Type in Hindi or English... (Press Enter)"}
                     className="text-input"
+                    value={inputText}
+                    onChange={(e) => onInputChange(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    disabled={isLoading || isRecording}
                 />
-                <button className="mic-btn-small" onClick={onMicClick}>
-                    <Mic size={24} />
+                <button
+                    className="send-btn"
+                    onClick={handleSendClick}
+                    disabled={!inputText.trim() || isLoading || isRecording}
+                    style={{
+                        padding: '10px 16px',
+                        backgroundColor: 'var(--color-primary-green)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '12px',
+                        cursor: (inputText.trim() && !isLoading && !isRecording) ? 'pointer' : 'not-allowed',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        opacity: (inputText.trim() && !isLoading && !isRecording) ? 1 : 0.5
+                    }}
+                >
+                    <Send size={20} />
+                </button>
+                <button
+                    className="mic-btn-small"
+                    onClick={onMicClick}
+                    disabled={isLoading}
+                    style={{
+                        backgroundColor: isRecording ? '#D32F2F' : 'var(--color-accent-ochre)',
+                        animation: isRecording ? 'pulse 1.5s infinite' : 'none'
+                    }}
+                    title={isRecording ? 'Stop Recording' : 'Start Recording'}
+                >
+                    {isRecording ? <Square size={24} /> : <Mic size={24} />}
                 </button>
             </div>
         </div>
