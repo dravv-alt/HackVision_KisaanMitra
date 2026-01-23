@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Menu, User, BarChart, Plus, ArrowRight, Sprout,
     Leaf, Droplets, Tractor, AlertTriangle, ArrowLeft,
     Clock, RefreshCw, AlertCircle, TrendingUp, MoreVertical,
-    Home, CheckCircle, Search, Package
+    Home, CheckCircle, Search, Package, X, DollarSign, Minus
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/global.css';
@@ -20,9 +20,87 @@ const COLORS = {
     textSec: "#6B6358"
 };
 
+const FARMER_ID = "FARMER001"; // Hardcoded for demo
+
 const Inventory = () => {
     const navigate = useNavigate();
-    const [view, setView] = useState('dashboard'); // 'dashboard', 'fertilizers', 'harvest', 'add'
+    const [view, setView] = useState('dashboard'); // 'dashboard', 'fertilizers', 'harvest'
+    const [inventoryData, setInventoryData] = useState(null);
+    const [historyData, setHistoryData] = useState([]);
+
+    // Modals
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showHistoryModal, setShowHistoryModal] = useState(false);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    // Form Stats
+    const [addItemForm, setAddItemForm] = useState({ name: '', category: 'Seeds', quantity: '', unit: 'kg' });
+
+    useEffect(() => {
+        fetchInventory();
+    }, []);
+
+    const fetchInventory = async () => {
+        try {
+            const res = await fetch(`/api/v1/inventory/${FARMER_ID}`);
+            const data = await res.json();
+            setInventoryData(data);
+        } catch (error) {
+            console.error("Failed to fetch inventory:", error);
+        }
+    };
+
+    const fetchHistory = async () => {
+        try {
+            const res = await fetch(`/api/v1/inventory/${FARMER_ID}/history`);
+            const data = await res.json();
+            setHistoryData(data);
+            setShowHistoryModal(true);
+        } catch (error) {
+            console.error("Failed to fetch history:", error);
+            // Fallback mock
+            setHistoryData([
+                { id: 1, action: "Added", item: "Urea", qty: "50 kg", date: "2025-01-20", icon: Plus },
+                { id: 2, action: "Used", item: "DAP", qty: "20 kg", date: "2025-01-18", icon: Minus },
+            ]);
+            setShowHistoryModal(true);
+        }
+    };
+
+    const handleAddItem = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch(`/api/v1/inventory/${FARMER_ID}/add`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(addItemForm)
+            });
+            const result = await res.json();
+            if (result.success) {
+                alert(`Successfully added ${addItemForm.quantity} ${addItemForm.unit} of ${addItemForm.name}!`);
+                setShowAddModal(false);
+                setAddItemForm({ name: '', category: 'Seeds', quantity: '', unit: 'kg' });
+                fetchInventory(); // Refresh
+            }
+        } catch (error) {
+            console.error("Add failed:", error);
+            alert("Failed to add item. See console.");
+        }
+    };
+
+    const handleOrderNow = () => {
+        // Mock order flow
+        const confirm = window.confirm("Place order for 10 bags of Urea from Pradhan Mantri Kisan Samridhi Kendra?");
+        if (confirm) {
+            alert("Order Placed Successfully! Reference ID: OR-998877");
+        }
+    };
+
+    const handleViewDetails = (item) => {
+        setSelectedItem(item || { name: "Sample Item", details: "Sample Details" });
+        setShowDetailsModal(true);
+    };
 
     // --- Render Functions ---
 
@@ -36,7 +114,7 @@ const Inventory = () => {
                         <p style={{ fontSize: '1.1rem', color: COLORS.textSec, marginTop: '8px' }}>Manage seeds, fertilizers, crops, and farm equipment.</p>
                     </div>
                     <div style={{ display: 'flex', gap: '12px' }}>
-                        <button style={{
+                        <button onClick={fetchHistory} style={{
                             display: 'flex', alignItems: 'center', gap: '8px',
                             padding: '12px 24px', borderRadius: '12px',
                             backgroundColor: COLORS.cardBeige, color: COLORS.textMain,
@@ -45,7 +123,7 @@ const Inventory = () => {
                         }}>
                             <BarChart size={20} /> View History
                         </button>
-                        <button onClick={() => setView('add')} style={{
+                        <button onClick={() => setShowAddModal(true)} style={{
                             display: 'flex', alignItems: 'center', gap: '8px',
                             padding: '12px 24px', borderRadius: '12px',
                             backgroundColor: COLORS.primary, color: 'white',
@@ -153,7 +231,7 @@ const Inventory = () => {
                             <p style={{ fontSize: '1rem', color: COLORS.textMain, marginBottom: '24px', lineHeight: 1.5 }}>
                                 Your current stock is <strong style={{ color: '#D32F2F' }}>2 bags</strong>. Upcoming sowing cycle requires approx <strong>10 bags</strong>.
                             </p>
-                            <button style={{ backgroundColor: '#D32F2F', color: 'white', padding: '12px 24px', borderRadius: '12px', border: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                            <button onClick={handleOrderNow} style={{ backgroundColor: '#D32F2F', color: 'white', padding: '12px 24px', borderRadius: '12px', border: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                                 Order Now <ArrowRight size={18} />
                             </button>
                         </div>
@@ -171,7 +249,7 @@ const Inventory = () => {
                             <p style={{ fontSize: '1rem', color: COLORS.textMain, marginBottom: '24px', lineHeight: 1.5 }}>
                                 High moisture levels detected in <strong style={{ color: '#E65100' }}>Silo #2</strong>. Inspection recommended.
                             </p>
-                            <button style={{ backgroundColor: 'white', color: '#EF6C00', padding: '12px 24px', borderRadius: '12px', border: '2px solid #FFE082', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                            <button onClick={() => handleViewDetails({ name: 'Wheat Silo #2', details: 'Moisture level at 16%. Risk of fungal growth.' })} style={{ backgroundColor: 'white', color: '#EF6C00', padding: '12px 24px', borderRadius: '12px', border: '2px solid #FFE082', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                                 View Details <ArrowRight size={18} />
                             </button>
                         </div>
@@ -238,7 +316,7 @@ const Inventory = () => {
                         <p style={{ color: COLORS.textSec }}>Track stored crops & spoilage risks</p>
                     </div>
                 </div>
-                <button style={{ backgroundColor: COLORS.primary, color: 'white', padding: '10px 20px', borderRadius: '8px', border: 'none', fontWeight: 'bold', display: 'flex', gap: '8px', cursor: 'pointer' }}>
+                <button onClick={() => setShowAddModal(true)} style={{ backgroundColor: COLORS.primary, color: 'white', padding: '10px 20px', borderRadius: '8px', border: 'none', fontWeight: 'bold', display: 'flex', gap: '8px', cursor: 'pointer' }}>
                     <Plus size={18} /> Add Harvest
                 </button>
             </div>
@@ -285,6 +363,7 @@ const Inventory = () => {
                     riskLevel={45}
                     riskColor={COLORS.accentOchre}
                     statusText="Check moisture"
+                    onDetails={() => handleViewDetails({ name: 'Wheat (Warehouse A)', details: 'Harvested on Apr 15. Moisture 12%. Risk: Medium.' })}
                 />
                 <HarvestItem
                     crop="Mustard"
@@ -295,6 +374,7 @@ const Inventory = () => {
                     riskLevel={15}
                     riskColor={COLORS.primary}
                     statusText="Safe condition"
+                    onDetails={() => handleViewDetails({ name: 'Mustard (Home Silo)', details: 'Harvested on Mar 20. Moisture 9%. Risk: Low.' })}
                 />
                 <HarvestItem
                     crop="Soybean"
@@ -305,17 +385,9 @@ const Inventory = () => {
                     riskLevel={85}
                     riskColor={COLORS.accentAlert}
                     statusText="Pests detected!"
+                    onDetails={() => handleViewDetails({ name: 'Soybean (Warehouse B)', details: 'Harvested Oct 10. Warning: Pests detected!' })}
                 />
             </div>
-        </div>
-    );
-
-    // Reusing user's wizard concept but just simpler placeholder as per the HTML flow focus
-    const renderAddWizard = () => (
-        <div style={{ textAlign: 'center', padding: '40px' }}>
-            <h2 style={{ fontSize: '2rem' }}>Add Item Wizard</h2>
-            <p style={{ marginBottom: '20px' }}>Wizard steps 1-3 would go here...</p>
-            <button onClick={() => setView('dashboard')} style={{ padding: '10px 20px', borderRadius: '8px', backgroundColor: COLORS.primary, color: 'white', border: 'none', cursor: 'pointer' }}>Back to Dashboard</button>
         </div>
     );
 
@@ -324,7 +396,122 @@ const Inventory = () => {
             {view === 'dashboard' && renderDashboard()}
             {view === 'fertilizers' && renderFertilizers()}
             {view === 'harvest' && renderHarvest()}
-            {view === 'add' && renderAddWizard()}
+
+            {/* --- MODALS --- */}
+
+            {/* Add Item Modal */}
+            {showAddModal && (
+                <div className="modal-overlay" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+                    <div className="modal-content" style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', width: '90%', maxWidth: '500px', position: 'relative' }}>
+                        <button onClick={() => setShowAddModal(false)} style={{ position: 'absolute', top: '16px', right: '16px', border: 'none', background: 'transparent', cursor: 'pointer' }}><X size={24} /></button>
+                        <h2 style={{ marginTop: 0, color: COLORS.textMain }}>Add Inventory Item</h2>
+                        <form onSubmit={handleAddItem} style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Category</label>
+                                <select
+                                    value={addItemForm.category}
+                                    onChange={(e) => setAddItemForm({ ...addItemForm, category: e.target.value })}
+                                    style={{ width: '100%', padding: '12px', borderRadius: '8px', border: `1px solid ${COLORS.textSec}`, fontSize: '1rem' }}
+                                >
+                                    <option>Seeds</option>
+                                    <option>Fertilizers</option>
+                                    <option>Pesticides</option>
+                                    <option>Equipment</option>
+                                    <option>Harvested Crop</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Item Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Wheat Seeds (Sharbati)"
+                                    value={addItemForm.name}
+                                    onChange={(e) => setAddItemForm({ ...addItemForm, name: e.target.value })}
+                                    required
+                                    style={{ width: '100%', padding: '12px', borderRadius: '8px', border: `1px solid ${COLORS.textSec}`, fontSize: '1rem' }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', gap: '16px' }}>
+                                <div style={{ flex: 1 }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Quantity</label>
+                                    <input
+                                        type="number"
+                                        placeholder="0.0"
+                                        value={addItemForm.quantity}
+                                        onChange={(e) => setAddItemForm({ ...addItemForm, quantity: e.target.value })}
+                                        required
+                                        style={{ width: '100%', padding: '12px', borderRadius: '8px', border: `1px solid ${COLORS.textSec}`, fontSize: '1rem' }}
+                                    />
+                                </div>
+                                <div style={{ width: '100px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Unit</label>
+                                    <select
+                                        value={addItemForm.unit}
+                                        onChange={(e) => setAddItemForm({ ...addItemForm, unit: e.target.value })}
+                                        style={{ width: '100%', padding: '12px', borderRadius: '8px', border: `1px solid ${COLORS.textSec}`, fontSize: '1rem' }}
+                                    >
+                                        <option>kg</option>
+                                        <option>L</option>
+                                        <option>Quintal</option>
+                                        <option>Units</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" style={{ marginTop: '16px', backgroundColor: COLORS.primary, color: 'white', padding: '14px', borderRadius: '12px', border: 'none', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                                Add to Inventory
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* History Modal */}
+            {showHistoryModal && (
+                <div className="modal-overlay" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+                    <div className="modal-content" style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', width: '90%', maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto', position: 'relative' }}>
+                        <button onClick={() => setShowHistoryModal(false)} style={{ position: 'absolute', top: '16px', right: '16px', border: 'none', background: 'transparent', cursor: 'pointer' }}><X size={24} /></button>
+                        <h2 style={{ marginTop: 0, color: COLORS.textMain, display: 'flex', alignItems: 'center', gap: '12px' }}><Clock /> Inventory History</h2>
+
+                        <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {historyData.map((item, idx) => {
+                                const Icon = item.icon === 'Plus' ? Plus : item.icon === 'Minus' ? Minus : item.icon === 'DollarSign' ? DollarSign : Sprout;
+                                return (
+                                    <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #eee', borderRadius: '12px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                            <div style={{ padding: '10px', backgroundColor: COLORS.bgLight, borderRadius: '50%' }}>
+                                                <Icon size={20} color={COLORS.textSec} />
+                                            </div>
+                                            <div>
+                                                <div style={{ fontWeight: 'bold' }}>{item.action} {item.qty} of {item.item}</div>
+                                                <div style={{ fontSize: '0.8rem', color: COLORS.textSec }}>{item.date}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                            {historyData.length === 0 && <p style={{ textAlign: 'center', color: '#888' }}>No history available.</p>}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Details Modal */}
+            {showDetailsModal && selectedItem && (
+                <div className="modal-overlay" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+                    <div className="modal-content" style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', width: '90%', maxWidth: '500px', position: 'relative' }}>
+                        <button onClick={() => setShowDetailsModal(false)} style={{ position: 'absolute', top: '16px', right: '16px', border: 'none', background: 'transparent', cursor: 'pointer' }}><X size={24} /></button>
+                        <h2 style={{ marginTop: 0, color: COLORS.textMain }}>{selectedItem.name}</h2>
+                        <div style={{ padding: '16px', backgroundColor: COLORS.bgLight, borderRadius: '12px', marginTop: '16px', lineHeight: '1.6' }}>
+                            {selectedItem.details}
+                        </div>
+                        <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                            <button onClick={() => setShowDetailsModal(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}>Close</button>
+                            <button style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: COLORS.primary, color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Actions</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
@@ -395,7 +582,7 @@ const FertilizerItem = ({ name, qty, unit, status, lastUsed, icon: Icon, colorTh
     );
 };
 
-const HarvestItem = ({ crop, harvestDate, qty, location, risk, riskLevel, riskColor, statusText }) => (
+const HarvestItem = ({ crop, harvestDate, qty, location, risk, riskLevel, riskColor, statusText, onDetails }) => (
     <div className="hover-scale" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '24px', border: '1px solid #E6DCC8', position: 'relative', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', transition: 'transform 0.2s', cursor: 'pointer' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div style={{ display: 'flex', gap: '12px' }}>
@@ -435,8 +622,8 @@ const HarvestItem = ({ crop, harvestDate, qty, location, risk, riskLevel, riskCo
         </div>
 
         <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #E6DCC8', display: 'flex', gap: '12px' }}>
-            <button style={{ flex: 1, padding: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.primaryDark, backgroundColor: 'rgba(143, 168, 146, 0.1)', border: 'none', borderRadius: '8px' }}>Details</button>
-            <button style={{ flex: 1, padding: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.textMain, backgroundColor: COLORS.cardBeige, border: 'none', borderRadius: '8px' }}>Sell</button>
+            <button onClick={onDetails} style={{ flex: 1, padding: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.primaryDark, backgroundColor: 'rgba(143, 168, 146, 0.1)', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>Details</button>
+            <button style={{ flex: 1, padding: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.textMain, backgroundColor: COLORS.cardBeige, border: 'none', borderRadius: '8px', cursor: 'pointer' }}>Sell</button>
         </div>
     </div>
 );

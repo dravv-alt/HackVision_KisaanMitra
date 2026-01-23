@@ -1,171 +1,185 @@
-"""
-Finance Management API Router
-Handles financial transactions, income, expenses, and tracking
-"""
+from fastapi import APIRouter, Depends, HTTPException, Body, Query
+from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime, timedelta
-from bson import ObjectId
+# Import dependencies (using optional auth for flexibility in demo)
+from Backend.Financial_tracking.service import FinanceTrackingService
+from Backend.Financial_tracking.models import FinanceModuleOutput, FinanceTransaction
+from Backend.Financial_tracking.constants import SeasonType, TransactionType
 
-from Backend.api.dependencies import get_db_client
+router = APIRouter()
 
-router = APIRouter(prefix="/finance", tags=["Finance"])
+# --- Models ---
 
-# Request/Response Models
-class TransactionRequest(BaseModel):
-    farmer_id: str
-    type: str  # income or expense
+class TransactionCreate(BaseModel):
+    season: str = SeasonType.KHARIF.value
     category: str
     amount: float
-    description: str
-    date: Optional[str] = None
-    payment_method: Optional[str] = "cash"
+    notes: Optional[str] = None
+    relatedCropId: Optional[str] = None
+    type: str = "expense" # "expense" or "income"
 
-class TransactionResponse(BaseModel):
-    transaction_id: str
-    farmer_id: str
-    type: str
-    category: str
-    amount: float
-    description: str
-    date: str
-    payment_method: str
-    created_at: str
+class CropPerformance(BaseModel):
+    id: str
+    name: str
+    area: str
+    income: float
+    expense: float
+    profit: float
+    status: str
+    trend: str
 
-# API Endpoints
+class FinanceDashboardResponse(BaseModel):
+    totals: Any # FinanceTotals
+    crop_performance: List[CropPerformance]
+    recent_transactions: List[dict]
+    insights: Any # FinanceModuleOutput (or subset)
 
-@router.post("/transaction")
-async def add_transaction(
-    request: TransactionRequest,
-    db_client = Depends(get_db_client)
-):
-    """Add new financial transaction"""
-    try:
-        db = db_client["kisanmitra"]
-        
-        transaction = {
-            "farmer_id": request.farmer_id,
-            "type": request.type,
-            "category": request.category,
-            "amount": request.amount,
-            "description": request.description,
-            "date": request.date or datetime.utcnow().isoformat(),
-            "payment_method": request.payment_method,
-            "created_at": datetime.utcnow()
-        }
-        
-        result = db.financial_transactions.insert_one(transaction)
-        transaction["transaction_id"] = str(result.inserted_id)
-        transaction["_id"] = str(result.inserted_id)
-        
-        return {
-            "success": True,
-            "message": "Transaction added successfully",
-            "transaction": transaction
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# --- Service Helper ---
+def get_service():
+    return FinanceTrackingService()
 
-@router.get("/transactions/{farmer_id}")
-async def get_transactions(
+# --- Endpoints ---
+
+@router.get("/finance/{farmer_id}/dashboard", response_model=FinanceDashboardResponse)
+async def get_finance_dashboard(
     farmer_id: str,
-    type: Optional[str] = None,
-    limit: int = 50,
-    db_client = Depends(get_db_client)
+    season: str = SeasonType.KHARIF.value,
+    language: str = "en"
 ):
-    """Get all transactions for a farmer"""
+    """
+    Get complete financial dashboard data in one go.
+    Aggregates report, crop performance, and transactions.
+    """
     try:
-        db = db_client["kisanmitra"]
+        service = get_service()
         
-        query = {"farmer_id": farmer_id}
-        if type:
-            query["type"] = type
-        
-        transactions = list(db.financial_transactions.find(query).sort("date", -1).limit(limit))
-        
-        for txn in transactions:
-            txn["_id"] = str(txn["_id"])
-            txn["transaction_id"] = txn.get("transaction_id", str(txn["_id"]))
-        
-        return {
-            "success": True,
-            "transactions": transactions,
-            "count": len(transactions)
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # 1. Get Main Report (Totals, Insights)
+        report = service.run_finance_report(
+            farmerId=farmer_id,
+            season=season,
+            language=language,
+            force_refresh=True # Ensure fresh data
+        )
 
-@router.get("/summary/{farmer_id}")
-async def get_financial_summary(
-    farmer_id: str,
-    days: int = 30,
-    db_client = Depends(get_db_client)
-):
-    """Get financial summary for a farmer"""
-    try:
-        db = db_client["kisanmitra"]
+        # 2. Get Raw Transactions
+        transactions = service.transaction_repo.list_transactions(farmer_id, season)
         
-        # Get transactions from last N days
-        start_date = datetime.utcnow() - timedelta(days=days)
+        # 3. Calculate Crop Performance
+        # Group transactions by crop (using relatedCropId or inferring from notes/mock)
+        # For this Hackathon demo, we might need to map raw transactions to the 'CropData' structure 
+        # expected by frontend if relatedCropId is not strictly set.
         
-        transactions = list(db.financial_transactions.find({
-            "farmer_id": farmer_id,
-            "created_at": {"$gte": start_date}
-        }))
-        
-        total_income = sum(t["amount"] for t in transactions if t["type"] == "आय" or t["type"] == "income")
-        total_expense = sum(t["amount"] for t in transactions if t["type"] == "खर्च" or t["type"] == "expense")
-        net_profit = total_income - total_expense
-        
-        # Category breakdown
-        expense_by_category = {}
-        income_by_category = {}
-        
-        for txn in transactions:
-            category = txn.get("category", "other")
-            amount = txn.get("amount", 0)
+        # Mocking Crop Metadata linkage for demo purposes since Repo might be simple
+        crops_map = {
+            "wheat": {"name": "Wheat", "area": "15 Acres", "income": 0, "expense": 0},
+            "mustard": {"name": "Mustard", "area": "5 Acres", "income": 0, "expense": 0},
+            "chana": {"name": "Chickpea (Chana)", "area": "8 Acres", "income": 0, "expense": 0},
+            "other": {"name": "General Farm", "area": "-", "income": 0, "expense": 0}
+        }
+
+        # Aggregate Real Transaction Data
+        recent_txs = []
+        for tx in transactions:
+            # Add to recent list (formatted)
+            recent_txs.append({
+                "id": str(tx.transactionId),
+                "title": tx.notes or tx.category,
+                "date": tx.ts.strftime("%b %d, %I:%M %p"),
+                "amount": f"{'-' if tx.type == TransactionType.EXPENSE else '+'} ₹{tx.amount:,.0f}",
+                "type": "expense" if tx.type == TransactionType.EXPENSE else "income",
+                "category": tx.category,
+                "iconColor": _get_category_color(tx.category)
+            })
+
+            # Crop Aggregation
+            # Simple heuristic matching for demo: checks if 'wheat', 'mustard', etc is in notes/category
+            cat_lower = (tx.category + " " + (tx.notes or "")).lower()
+            target_crop = "other"
+            if "wheat" in cat_lower: target_crop = "wheat"
+            elif "mustard" in cat_lower: target_crop = "mustard"
+            elif "chana" in cat_lower or "chickpea" in cat_lower: target_crop = "chana"
             
-            if txn["type"] in ["खर्च", "expense"]:
-                expense_by_category[category] = expense_by_category.get(category, 0) + amount
+            if tx.type == TransactionType.INCOME:
+                crops_map[target_crop]["income"] += tx.amount
             else:
-                income_by_category[category] = income_by_category.get(category, 0) + amount
-        
-        return {
-            "success": True,
-            "summary": {
-                "total_income": total_income,
-                "total_expense": total_expense,
-                "net_profit": net_profit,
-                "transaction_count": len(transactions),
-                "expense_by_category": expense_by_category,
-                "income_by_category": income_by_category,
-                "period_days": days
-            }
-        }
+                crops_map[target_crop]["expense"] += tx.amount
+
+        # Build Crop List
+        crop_list = []
+        for key, data in crops_map.items():
+            if data["income"] == 0 and data["expense"] == 0 and key != "wheat": continue # Skip empty non-defaults
+            
+            profit = data["income"] - data["expense"]
+            status = "Profitable" if profit > 0 else "Loss" if profit < 0 else "Neutral"
+            trend = "up" if profit > 10000 else "down"
+
+            crop_list.append(CropPerformance(
+                id=key,
+                name=data["name"],
+                area=data["area"],
+                income=data["income"],
+                expense=data["expense"],
+                profit=profit,
+                status=status,
+                trend=trend
+            ))
+            
+        # Ensure at least some dummy mock data if empty (for UI visual validation)
+        if not crop_list:
+             crop_list = [
+                CropPerformance(id="1", name='Wheat', area='15 Acres', income=450000, expense=180000, profit=270000, status='Profitable', trend='up'),
+                CropPerformance(id="2", name='Mustard', area='5 Acres', income=120000, expense=95000, profit=25000, status='Low Margin', trend='down')
+            ]
+
+        return FinanceDashboardResponse(
+            totals=report.totals,
+            crop_performance=crop_list,
+            recent_transactions=sorted(recent_txs, key=lambda x: x['date'], reverse=True)[:10], # Last 10
+            insights=report
+        )
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/finance/{farmer_id}/transaction")
+async def add_transaction(
+    farmer_id: str,
+    data: TransactionCreate
+):
+    """
+    Record a new transaction (expense or income)
+    """
+    try:
+        service = get_service()
+        if data.type.lower() == "income":
+            return service.add_income(
+                farmerId=farmer_id,
+                season=data.season,
+                category=data.category,
+                amount=data.amount,
+                notes=data.notes,
+                relatedCropId=data.relatedCropId
+            )
+        else:
+            return service.add_expense(
+                farmerId=farmer_id,
+                season=data.season,
+                category=data.category,
+                amount=data.amount,
+                notes=data.notes,
+                relatedCropId=data.relatedCropId
+            )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.delete("/transaction/{transaction_id}")
-async def delete_transaction(
-    transaction_id: str,
-    db_client = Depends(get_db_client)
-):
-    """Delete a transaction"""
-    try:
-        db = db_client["kisanmitra"]
-        
-        result = db.financial_transactions.delete_one({"_id": ObjectId(transaction_id)})
-        
-        if result.deleted_count == 0:
-            raise HTTPException(status_code=404, detail="Transaction not found")
-        
-        return {
-            "success": True,
-            "message": "Transaction deleted successfully"
-        }
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+def _get_category_color(category: str):
+    cat = category.lower()
+    if "seeds" in cat: return "green"
+    if "labor" in cat: return "orange"
+    if "fert" in cat: return "blue"
+    if "machin" in cat or "tractor" in cat: return "red"
+    return "blue" # default

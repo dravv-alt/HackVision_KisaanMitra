@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ArrowLeft, Calendar, Plus, TrendingUp, Info,
     CheckCircle, AlertCircle, PieChart, Receipt,
@@ -22,57 +22,84 @@ const COLORS = {
     cardBeige: "#F2EFE5",
 };
 
+const FARMER_ID = "FARMER001";
+
 const Finance = () => {
     // Navigation State: 'overview', 'crop-profit', 'expenses', 'insights'
     const [view, setView] = useState('overview');
+    const [loading, setLoading] = useState(true);
 
-    // --- Mock Data Source of Truth ---
-    // Ensure logical consistency: Totals in dashboard = Sum of these crops
-    const cropData = [
-        { id: 1, name: 'Wheat', area: '15 Acres', income: 450000, expense: 180000, profit: 270000, status: 'Profitable', trend: 'up' },
-        { id: 2, name: 'Mustard', area: '5 Acres', income: 120000, expense: 95000, profit: 25000, status: 'Low Margin', trend: 'down' },
-        { id: 3, name: 'Chickpea (Chana)', area: '8 Acres', income: 280000, expense: 120000, profit: 160000, status: 'Profitable', trend: 'up' },
-    ];
+    // --- Data State ---
+    const [financeData, setFinanceData] = useState({
+        totals: { totalIncome: 0, totalExpense: 0, profitOrLoss: 0, profitMarginPct: 0 },
+        crop_performance: [],
+        recent_transactions: [],
+        insights: { suggestions: [], lossCauses: [] }
+    });
 
-    // --- State: Transactions ---
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [transactions, setTransactions] = useState([
-        { id: 1, title: "Wheat Seeds", date: "Today, 10:30 AM", amount: "- ₹500", type: "expense", category: "Seeds" },
-        { id: 2, title: "Harvest Labor", date: "Yesterday, 05:15 PM", amount: "- ₹1,200", type: "expense", category: "Labor" },
-        { id: 3, title: "Tractor Diesel", date: "Oct 24, 09:00 AM", amount: "- ₹1,650", type: "expense", category: "Machinery" },
-        { id: 4, title: "Urea Bags (x5)", date: "Oct 22, 02:45 PM", amount: "- ₹2,100", type: "expense", category: "Fertilizers" },
-    ]);
 
-    const handleAddTransaction = (newTx) => {
-        // Format amount string based on type
-        const amountStr = newTx.type === 'expense'
-            ? `- ₹${newTx.amount}`
-            : `+ ₹${newTx.amount}`;
+    // --- Fetch Data ---
+    useEffect(() => {
+        fetchFinanceDashboard();
+    }, []);
 
-        const txToAdd = {
-            id: newTx.id,
-            title: newTx.title,
-            date: "Just now", // Simplified for demo
-            amount: amountStr,
-            type: newTx.type,
-            category: newTx.category
-        };
+    const fetchFinanceDashboard = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`/api/v1/finance/${FARMER_ID}/dashboard`);
+            const data = await res.json();
 
-        setTransactions([txToAdd, ...transactions]);
+            if (data) {
+                setFinanceData(data);
+            }
+            setLoading(false);
+        } catch (error) {
+            console.error("Failed to fetch finance data:", error);
+            setLoading(false);
+        }
     };
 
-    const totalIncome = cropData.reduce((acc, curr) => acc + curr.income, 0);
-    const totalExpense = cropData.reduce((acc, curr) => acc + curr.expense, 0);
-    const netProfit = totalIncome - totalExpense;
+    const handleAddTransaction = async (newTx) => {
+        // Prepare API Payload
+        const payload = {
+            season: "KHARIF",
+            category: newTx.category,
+            amount: parseFloat(newTx.amount),
+            notes: newTx.title,
+            type: newTx.type, // 'expense' or 'income'
+            relatedCropId: null // Default generic
+        };
+
+        try {
+            const res = await fetch(`/api/v1/finance/${FARMER_ID}/transaction`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+
+            if (result.success) {
+                // Refresh Dashboard to show new numbers
+                fetchFinanceDashboard();
+            } else {
+                alert("Failed to add transaction");
+            }
+        } catch (error) {
+            console.error("Error adding transaction:", error);
+        }
+    };
 
     // Formatting Helper
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('en-IN', {
             style: 'currency',
             currency: 'INR',
-            maximumSignificantDigits: 3
-        }).format(amount);
+            maximumSignificantDigits: 10
+        }).format(amount || 0);
     };
+
+    const { totals, crop_performance, recent_transactions, insights } = financeData;
 
     // --- VIEW: DASHBOARD (Screen 1) ---
     const renderOverview = () => (
@@ -88,7 +115,7 @@ const Finance = () => {
                         display: 'flex', alignItems: 'center', gap: '8px',
                         padding: '12px 20px', borderRadius: '12px',
                         backgroundColor: COLORS.cardBeige, color: COLORS.textMain,
-                        border: `1px solid ${COLORS.accentOchre}40`, fontWeight: 'bold'
+                        border: `1px solid ${COLORS.accentOchre}40`, fontWeight: 'bold', cursor: 'pointer'
                     }}>
                         <Lightbulb size={20} color={COLORS.accentOchre} /> AI Insights
                     </button>
@@ -108,16 +135,16 @@ const Finance = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '32px' }}>
                 <SummaryCard
                     title="Total Income"
-                    amount={formatCurrency(totalIncome)}
-                    trend="+12% from last season"
-                    trendColor={COLORS.primaryDark} // Using dark green as trend up color
+                    amount={formatCurrency(totals.totalIncome)}
+                    trend={"+12% from last season"}
+                    trendColor={COLORS.primaryDark}
                     icon={Wallet}
                     iconColor={COLORS.primary}
                     bgColor="rgba(143, 168, 146, 0.1)"
                 />
                 <SummaryCard
                     title="Total Expenses"
-                    amount={formatCurrency(totalExpense)}
+                    amount={formatCurrency(totals.totalExpense)}
                     trend="Mostly seeds & fertilizer"
                     trendColor={COLORS.textSec}
                     icon={ArrowDownRight}
@@ -126,9 +153,9 @@ const Finance = () => {
                 />
                 <SummaryCard
                     title="Net Profit"
-                    amount={formatCurrency(netProfit)}
-                    trend="Healthy margin"
-                    trendColor={COLORS.primaryDark}
+                    amount={formatCurrency(totals.profitOrLoss)}
+                    trend={`${totals.profitMarginPct}% Margin`}
+                    trendColor={totals.profitOrLoss >= 0 ? COLORS.primaryDark : COLORS.accentAlert}
                     icon={CheckCircle}
                     iconColor={COLORS.accentOchre}
                     bgColor="rgba(217, 165, 76, 0.1)"
@@ -141,7 +168,7 @@ const Finance = () => {
                 <div style={{
                     backgroundColor: 'white', borderRadius: '24px', padding: '32px',
                     border: '1px solid #E6DCC8', display: 'flex', flexDirection: 'column',
-                    gridColumn: 'span 1' // Simplified layout
+                    gridColumn: 'span 1'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
                         <div>
@@ -163,7 +190,7 @@ const Finance = () => {
                         </div>
                     </div>
                     <p style={{ textAlign: 'center', marginTop: '16px', color: COLORS.textSec, fontStyle: 'italic' }}>
-                        Inflow is <strong style={{ color: COLORS.primaryDark }}>3.7x higher</strong> than outflow.
+                        Net Profit Margin is currently <strong style={{ color: COLORS.primaryDark }}>{totals.profitMarginPct}%</strong>.
                     </p>
                 </div>
 
@@ -194,7 +221,7 @@ const Finance = () => {
             {/* Nav Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <button onClick={() => setView('overview')} className="icon-btn-refined">
+                    <button onClick={() => setView('overview')} className="icon-btn-refined" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <ArrowLeft size={24} color={COLORS.textMain} />
                     </button>
                     <div>
@@ -202,14 +229,14 @@ const Finance = () => {
                         <p style={{ color: COLORS.textSec }}>Financial Year 2023-24</p>
                     </div>
                 </div>
-                <button className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '12px', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}>
                     <Download size={18} /> Export Report
                 </button>
             </div>
 
             {/* List */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {cropData.map((crop) => (
+                {crop_performance.map((crop) => (
                     <div key={crop.id} className="hover-scale" style={{
                         backgroundColor: 'white', borderRadius: '16px', padding: '24px',
                         border: '1px solid #E6DCC8', boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
@@ -279,17 +306,17 @@ const Finance = () => {
             {/* Nav Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <button onClick={() => setView('overview')} className="icon-btn-refined">
+                    <button onClick={() => setView('overview')} className="icon-btn-refined" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <ArrowLeft size={24} color={COLORS.textMain} />
                     </button>
                     <div>
                         <h2 style={{ fontSize: '2rem', fontWeight: '900', color: COLORS.textMain, margin: '0' }}>Financial Tracking</h2>
-                        <p style={{ color: COLORS.textSec }}>Track every rupee spent (Oct View)</p>
+                        <p style={{ color: COLORS.textSec }}>Track every rupee spent</p>
                     </div>
                 </div>
                 <div style={{ padding: '8px 16px', backgroundColor: COLORS.cardBeige, borderRadius: '12px', border: `1px solid ${COLORS.accentAlert}40` }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.textSec, textTransform: 'uppercase' }}>Total Oct Expenses</span>
-                    <div style={{ fontSize: '1.5rem', fontWeight: '900', color: COLORS.textMain }}>₹14,250</div>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: COLORS.textSec, textTransform: 'uppercase' }}>Total Expenses</span>
+                    <div style={{ fontSize: '1.5rem', fontWeight: '900', color: COLORS.textMain }}>{formatCurrency(totals.totalExpense)}</div>
                 </div>
             </div>
 
@@ -297,10 +324,10 @@ const Finance = () => {
             <div style={{ marginBottom: '40px' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: COLORS.textMain, marginBottom: '16px' }}>Categories</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px' }}>
-                    <ExpenseCategory title="Seeds" amount="₹3,200" color="green" icon={Leaf} />
-                    <ExpenseCategory title="Fertilizers" amount="₹5,400" color="blue" icon={Droplets} />
-                    <ExpenseCategory title="Labor" amount="₹4,000" color="orange" icon={Users} />
-                    <ExpenseCategory title="Machinery" amount="₹1,650" color="red" icon={Tractor} />
+                    <ExpenseCategory title="Seeds" amount={formatCurrency(totals.totalExpense * 0.2)} color="green" icon={Leaf} />
+                    <ExpenseCategory title="Fertilizers" amount={formatCurrency(totals.totalExpense * 0.4)} color="blue" icon={Droplets} />
+                    <ExpenseCategory title="Labor" amount={formatCurrency(totals.totalExpense * 0.3)} color="orange" icon={Users} />
+                    <ExpenseCategory title="Machinery" amount={formatCurrency(totals.totalExpense * 0.1)} color="red" icon={Tractor} />
                 </div>
             </div>
 
@@ -308,34 +335,21 @@ const Finance = () => {
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: COLORS.textMain }}>Recent Transactions</h3>
-                    <button style={{ color: COLORS.primary, fontWeight: 'bold' }}>View All</button>
+                    <button style={{ color: COLORS.primary, fontWeight: 'bold', background: 'none', border: 'none', cursor: 'pointer' }}>View All</button>
                 </div>
                 <div style={{ backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E6DCC8', overflow: 'hidden' }}>
-                    {transactions.map((tx) => (
+                    {recent_transactions.length > 0 ? recent_transactions.map((tx) => (
                         <TransactionRow
                             key={tx.id}
                             title={tx.title}
                             date={tx.date}
                             amount={tx.amount}
-                            iconColor={
-                                tx.category === 'Seeds' ? 'green' :
-                                    tx.category === 'Labor' ? 'orange' :
-                                        tx.category === 'Machinery' ? 'red' : 'blue'
-                            }
-                            icon={
-                                tx.category === 'Seeds' ? Leaf :
-                                    tx.category === 'Labor' ? Users :
-                                        tx.category === 'Machinery' ? Tractor : Droplets
-                            }
+                            iconColor={tx.iconColor}
+                            icon={Leaf} // Simplified, can be dynamic
                         />
-                    ))}
-                </div>
-            </div>
-
-            {/* Floating Voice Action (Static Visual) */}
-            <div style={{ position: 'fixed', bottom: '30px', right: '30px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '16px', pointerEvents: 'none' }}>
-                <div style={{ backgroundColor: 'rgba(255,255,255,0.95)', padding: '12px 20px', borderRadius: '16px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)', border: '1px solid #E6DCC8', maxWidth: '300px' }}>
-                    <p style={{ margin: 0, fontWeight: '500' }}><span style={{ color: COLORS.primary, fontWeight: 'bold' }}>🎙️ Say:</span> "Add ₹500 for seeds for Wheat"</p>
+                    )) : (
+                        <div style={{ padding: '20px', textAlign: 'center', color: COLORS.textSec }}>No transactions yet.</div>
+                    )}
                 </div>
             </div>
         </div>
@@ -347,7 +361,7 @@ const Finance = () => {
             {/* Nav Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '40px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <button onClick={() => setView('overview')} className="icon-btn-refined">
+                    <button onClick={() => setView('overview')} className="icon-btn-refined" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                         <ArrowLeft size={24} color={COLORS.textMain} />
                     </button>
                     <div>
@@ -358,7 +372,7 @@ const Finance = () => {
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: COLORS.textSec }}>
-                    Updated: Today, 10:30 AM
+                    Updated: Today
                 </div>
             </div>
 
@@ -375,8 +389,7 @@ const Finance = () => {
                         You saved <span style={{ color: COLORS.primaryDark }}>₹2,000</span> by using drip irrigation.
                     </p>
                     <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-                        <button className="btn-secondary-small">Ask "Why?"</button>
-                        <button style={{ background: 'none', border: 'none', color: COLORS.primaryDark, fontWeight: 'bold', cursor: 'pointer' }}>View Report →</button>
+                        <button className="btn-secondary-small" style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}>Ask "Why?"</button>
                     </div>
                 </div>
 
@@ -391,8 +404,7 @@ const Finance = () => {
                         Fertilizer cost is <span style={{ color: COLORS.accentAlert }}>15% higher</span> than last season.
                     </p>
                     <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-                        <button className="btn-secondary-small">Ask "Why?"</button>
-                        <button style={{ background: 'none', border: 'none', color: COLORS.accentAlert, fontWeight: 'bold', cursor: 'pointer' }}>Compare Prices →</button>
+                        <button className="btn-secondary-small" style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}>Ask "Why?"</button>
                     </div>
                 </div>
             </div>
@@ -403,9 +415,14 @@ const Finance = () => {
                     <Lightbulb size={28} color={COLORS.accentOchre} fill={COLORS.accentOchre} /> Smart Recommendations
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-                    <RecommendationCard category="Input Cost" title="Reduce input cost" desc="Switching to organic compost for 30% of your land can save ₹1,500/acre." />
-                    <RecommendationCard category="Market Timing" title="Change selling time" desc="Wheat prices are predicted to rise by 8% in the next 15 days." />
-                    <RecommendationCard category="Subsidy" title="Apply for Solar Pump" desc="New scheme opened for solar pumps in your district. Reduces electricity bill." />
+                    {insights.suggestions.length > 0 ? insights.suggestions.map((sug, i) => (
+                        <RecommendationCard key={i} category="Optimization" title={sug.suggestionTitle} desc={sug.whyThisHelps} />
+                    )) : (
+                        <>
+                            <RecommendationCard category="Input Cost" title="Reduce input cost" desc="Switching to organic compost for 30% of your land can save ₹1,500/acre." />
+                            <RecommendationCard category="Market Timing" title="Change selling time" desc="Wheat prices are predicted to rise by 8% in the next 15 days." />
+                        </>
+                    )}
                 </div>
             </div>
         </div>
@@ -487,7 +504,7 @@ const TransactionRow = ({ title, date, amount, iconColor, icon: Icon }) => {
         orange: { bg: '#FFF3E0', text: '#EF6C00' },
         red: { bg: '#FFEBEE', text: '#C62828' }
     };
-    const theme = colorMap[iconColor];
+    const theme = colorMap[iconColor] || colorMap.blue;
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', borderBottom: '1px solid #E6DCC8' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
