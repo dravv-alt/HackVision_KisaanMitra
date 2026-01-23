@@ -24,7 +24,11 @@ pip install -r requirements.txt
 Run the following command from the `Backend` directory:
 
 ```bash
+# Option 1: Using Python module
 python -m api.main
+
+# Option 2: Using uvicorn directly
+uvicorn api.main:app --reload
 ```
 
 The server will start at `http://localhost:8000`.
