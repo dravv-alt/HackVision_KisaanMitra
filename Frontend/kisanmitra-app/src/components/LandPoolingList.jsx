@@ -8,7 +8,8 @@ import {
     Truck,
     Store,
     Settings,
-    ArrowRight
+    ArrowRight,
+    Wheat
 } from 'lucide-react';
 import '../styles/global.css';
 import MapComponent from './MapComponent';
@@ -228,7 +229,11 @@ const PoolCard = ({ tag, tagColor, title, location, totalLand, crop, benefit, be
                 <div style={{ backgroundColor: 'rgba(255,255,255,0.6)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.05)' }}>
                     <p style={{ fontSize: '0.75rem', fontWeight: 'bold', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>CROP</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Leaf size={16} color="var(--color-accent-ochre)" />
+                        {crop === 'Wheat' ? (
+                            <Wheat size={16} color="var(--color-accent-ochre)" />
+                        ) : (
+                            <Leaf size={16} color="var(--color-accent-ochre)" />
+                        )}
                         <p style={{ fontSize: '1.1rem', fontWeight: '900', margin: 0 }}>{crop}</p>
                     </div>
                 </div>

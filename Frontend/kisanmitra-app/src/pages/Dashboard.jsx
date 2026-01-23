@@ -16,7 +16,9 @@ import {
     Bug,
     CalendarClock,
     ChevronRight,
-    MapPin
+    MapPin,
+    Wheat,
+    Flower2
 } from 'lucide-react';
 import FarmingCalendar from '../components/Calendar/FarmingCalendar';
 import '../styles/global.css';
@@ -70,9 +72,9 @@ const Dashboard = () => {
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            <CropRow name="Wheat (Rabi)" status="Healthy" statusColor="green" planted="45 days ago" iconChar="W" iconBg="#E8F5E9" iconColor="#2E7D32" />
-                            <CropRow name="Mustard" status="Needs Water" statusColor="yellow" planted="Flowering Stage" iconChar="M" iconBg="#FFF8E1" iconColor="#F57F17" />
-                            <CropRow name="Potato" status="Monitoring" statusColor="gray" planted="Harvest in 2 weeks" iconChar="P" iconBg="#EFEBE9" iconColor="#5D4037" />
+                            <CropRow name="Wheat (Rabi)" status="Healthy" statusColor="green" planted="45 days ago" icon={Wheat} iconBg="#E8F5E9" iconColor="#2E7D32" />
+                            <CropRow name="Mustard" status="Needs Water" statusColor="yellow" planted="Flowering Stage" icon={Flower2} iconBg="#FFF8E1" iconColor="#F57F17" />
+                            <CropRow name="Potato" status="Monitoring" statusColor="gray" planted="Harvest in 2 weeks" icon={Sprout} iconBg="#EFEBE9" iconColor="#5D4037" />
                         </div>
                     </div>
                 </Link>
@@ -186,7 +188,7 @@ const Dashboard = () => {
 };
 
 // Helper Components
-const CropRow = ({ name, status, statusColor, planted, iconChar, iconBg, iconColor }) => {
+const CropRow = ({ name, status, statusColor, planted, icon: Icon, iconBg, iconColor }) => {
     let badgeBg, badgeText;
     if (statusColor === 'green') { badgeBg = '#E8F5E9'; badgeText = '#2E7D32'; }
     else if (statusColor === 'yellow') { badgeBg = '#FFF8E1'; badgeText = '#F57F17'; }
@@ -195,8 +197,8 @@ const CropRow = ({ name, status, statusColor, planted, iconChar, iconBg, iconCol
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', borderRadius: '12px', backgroundColor: 'white', border: '1px solid transparent' }} className="hover-border-primary">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: iconBg, color: iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                    {iconChar}
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: iconBg, color: iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon size={20} />
                 </div>
                 <div>
                     <div style={{ fontWeight: 'bold', fontSize: '1rem' }}>{name}</div>
