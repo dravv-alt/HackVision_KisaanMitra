@@ -3,13 +3,13 @@ import {
     Tractor,
     Users,
     MapPin,
-    Search,
     Filter,
-    ArrowRight,
-    PhoneCall,
     Star,
-    Share2,
-    Calendar
+    Layers,
+    Mic,
+    RefreshCcw,
+    Clock,
+    ArrowRight
 } from 'lucide-react';
 import ActivePoolDashboard from '../components/ActivePoolDashboard';
 import EquipmentRentalDetails from '../components/EquipmentRentalDetails';
@@ -17,8 +17,8 @@ import RentalConfirmation from '../components/RentalConfirmation';
 import LandPoolingOverview from '../components/LandPoolingOverview';
 import LandPoolingList from '../components/LandPoolingList';
 import LandPoolDetails from '../components/LandPoolDetails';
-import '../styles/global.css';
 import MapComponent from '../components/MapComponent';
+import '../styles/global.css';
 
 const CollaborativeFarming = () => {
     const [activeTab, setActiveTab] = useState('equipment'); // equipment | land
@@ -57,25 +57,12 @@ const CollaborativeFarming = () => {
     };
 
     // ----- Handlers: Land Pooling -----
-
-    // 1. Overview -> List
-    const handleJoinClick = () => {
-        setPoolingStage('list');
-    };
-
-    // 2. List -> Details
+    const handleJoinClick = () => setPoolingStage('list');
     const handleSelectPool = (pool) => {
         setSelectedPool(pool);
         setPoolingStage('details');
     };
-
-    // 3. Details -> Dashboard (Join)
-    const handleJoinPool = () => {
-        // Here we would have a confirmation, but for now go straight to dashboard
-        setPoolingStage('dashboard');
-    };
-
-    // Back Navigation
+    const handleJoinPool = () => setPoolingStage('dashboard');
     const handleBackToOverview = () => setPoolingStage('overview');
     const handleBackToList = () => {
         setPoolingStage('list');
@@ -83,25 +70,19 @@ const CollaborativeFarming = () => {
     };
     const handleBackToDetails = () => setPoolingStage('details');
 
-
     // Render Logic for Land Pooling Tab
     const renderLandPoolingContent = () => {
         switch (poolingStage) {
-            case 'overview':
-                return <LandPoolingOverview onJoinClick={handleJoinClick} />;
-            case 'list':
-                return <LandPoolingList onSelectPool={handleSelectPool} />;
-            case 'details':
-                return <LandPoolDetails pool={selectedPool} onBack={handleBackToList} onJoin={handleJoinPool} />;
-            case 'dashboard':
-                return <ActivePoolDashboard onBack={handleBackToDetails} />;
-            default:
-                return <LandPoolingOverview onJoinClick={handleJoinClick} />;
+            case 'overview': return <LandPoolingOverview onJoinClick={handleJoinClick} />;
+            case 'list': return <LandPoolingList onSelectPool={handleSelectPool} />;
+            case 'details': return <LandPoolDetails pool={selectedPool} onBack={handleBackToList} onJoin={handleJoinPool} />;
+            case 'dashboard': return <ActivePoolDashboard onBack={handleBackToDetails} />;
+            default: return <LandPoolingOverview onJoinClick={handleJoinClick} />;
         }
     };
 
     return (
-        <div style={{ paddingBottom: '80px' }}>
+        <div style={{ backgroundColor: '#F9FBF4', minHeight: 'calc(100vh - 60px)', padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             {/* Conditional Rental Confirmation Overlay */}
             {showConfirmation && currentBooking && (
                 <RentalConfirmation
@@ -111,63 +92,54 @@ const CollaborativeFarming = () => {
                 />
             )}
 
-            {/* HEADER & TABS (Only show if NOT in deep detail views that should take over screen) */}
-            {/* Note: In this design, we keep the header/tabs visible for Overview/List/Search, but maybe hide for Details/Dashboard */}
-
-            {/* Logic: Hide Tabs/Header if:
-                - Active Tab is Equipment AND Stage is 'details'
-                - Active Tab is Land AND Stage is 'details' OR 'dashboard'
-            */}
+            {/* HEADER & TABS - RESTORED TO ORIGINAL CLEAN DESIGN */}
             {!(activeTab === 'equipment' && bookingStage === 'details') &&
                 !(activeTab === 'land' && (poolingStage === 'details' || poolingStage === 'dashboard')) && (
                     <>
                         <div style={{ marginBottom: '24px' }}>
-                            <h2 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Collaborative Farming</h2>
-                            <p style={{ color: 'var(--color-text-muted)' }}>Share resources to reduce costs and increase profit.</p>
+                            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-text-dark)', marginBottom: '8px' }}>Collaborative Farming</h2>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem' }}>Share resources to reduce costs and increase profit.</p>
                         </div>
 
                         <div style={{
                             display: 'flex',
+                            width: 'fit-content',
                             backgroundColor: '#EAEAEA',
                             borderRadius: '12px',
                             padding: '4px',
-                            marginBottom: '24px'
+                            marginBottom: '32px'
                         }}>
                             <button
                                 onClick={() => setActiveTab('equipment')}
                                 style={{
-                                    flex: 1,
-                                    padding: '12px',
+                                    padding: '10px 30px',
                                     borderRadius: '10px',
                                     backgroundColor: activeTab === 'equipment' ? 'white' : 'transparent',
                                     color: activeTab === 'equipment' ? 'var(--color-primary-green)' : 'var(--color-text-muted)',
                                     fontWeight: '600',
-                                    boxShadow: activeTab === 'equipment' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
+                                    boxShadow: activeTab === 'equipment' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
                                     gap: '8px'
                                 }}
                             >
-                                <Tractor size={20} /> Equipment Rental
+                                <Tractor size={18} /> Equipment Rental
                             </button>
                             <button
                                 onClick={() => setActiveTab('land')}
                                 style={{
-                                    flex: 1,
-                                    padding: '12px',
+                                    padding: '10px 30px',
                                     borderRadius: '10px',
                                     backgroundColor: activeTab === 'land' ? 'white' : 'transparent',
                                     color: activeTab === 'land' ? 'var(--color-primary-green)' : 'var(--color-text-muted)',
                                     fontWeight: '600',
-                                    boxShadow: activeTab === 'land' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
+                                    boxShadow: activeTab === 'land' ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
                                     gap: '8px'
                                 }}
                             >
-                                <Users size={20} /> Land Pooling
+                                <Users size={18} /> Land Pooling
                             </button>
                         </div>
                     </>
@@ -187,179 +159,228 @@ const CollaborativeFarming = () => {
             ) : (
                 renderLandPoolingContent()
             )}
+
+            {/* FLOATING VOICE ASSIST */}
+            <div style={{
+                position: 'fixed',
+                bottom: '30px',
+                right: '30px',
+                backgroundColor: 'var(--color-primary-green)',
+                color: 'white',
+                padding: '14px 24px',
+                borderRadius: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.3)',
+                cursor: 'pointer',
+                zIndex: 1000
+            }}>
+                <Mic size={20} />
+                <span style={{ fontWeight: '600' }}>Voice Assist</span>
+            </div>
         </div>
     );
 };
-
-/* -------------------------------------------------------------------------- */
-/* EQUIPMENT RENTAL SECTION                                                    */
-/* -------------------------------------------------------------------------- */
 
 const EquipmentRentalSection = ({ onSelectEquipment }) => {
     return (
         <div>
-            {/* Search Bar */}
-            <div className="card" style={{ padding: '12px', display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <Search size={20} color="var(--color-text-muted)" />
-                <input
-                    type="text"
-                    placeholder="Find tractor, harvester, sprayer..."
-                    style={{
-                        border: 'none',
-                        outline: 'none',
-                        fontSize: '1rem',
-                        flex: 1,
-                        backgroundColor: 'transparent'
-                    }}
-                />
-                <button style={{ padding: '8px', backgroundColor: 'var(--color-bg-beige)', borderRadius: '8px' }}>
-                    <Filter size={20} />
-                </button>
-            </div>
+            {/* Hero & Map Grid - RESTORED TO PROPER DESIGN */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1.8fr 1fr',
+                gap: '24px',
+                marginBottom: '24px'
+            }}>
+                {/* Hero Card */}
+                <div style={{
+                    position: 'relative',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    height: '350px',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
+                }}>
+                    <img
+                        src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1000"
+                        alt="Farming Banner"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.4), transparent)',
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        padding: '40px'
+                    }}>
+                        <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'white', maxWidth: '70%', lineHeight: '1.2' }}>
+                            Connecting Farmers, Growing Together
+                        </h2>
+                    </div>
+                </div>
 
-            {/* Map Placeholder - REPLACED WITH REAL MAP */}
-            <div className="card" style={{ padding: '0', overflow: 'hidden', marginBottom: '20px', border: '1px solid var(--color-border)' }}>
-                <MapComponent
-                    lat={30.9010}
-                    lon={75.8573}
-                    height="200px"
-                    zoom={12}
-                    markers={[
-                        { lat: 30.91, lon: 75.85, popupText: "Mahindra Tractor (2.5 km)" },
-                        { lat: 30.89, lon: 75.87, popupText: "Combine Harvester (5 km)" },
-                        { lat: 30.92, lon: 75.82, popupText: "Spraying Drone" }
-                    ]}
-                />
-                <div style={{ padding: '8px 12px', background: '#E3F2FD', color: '#1565C0', fontSize: '0.9rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <MapPin size={16} /> Viewing equipment near you
+                {/* Map Card */}
+                <div style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', backgroundColor: 'white', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+                    <div style={{ flex: 1, position: 'relative' }}>
+                        <MapComponent
+                            lat={30.9010}
+                            lon={75.8573}
+                            height="100%"
+                            zoom={12}
+                            markers={[
+                                { lat: 30.91, lon: 75.85, popupText: "Tractor (2.5 km)" },
+                                { lat: 30.89, lon: 75.87, popupText: "Harvester (5.0 km)" }
+                            ]}
+                        />
+                        <div style={{
+                            position: 'absolute',
+                            top: '16px',
+                            right: '16px',
+                            backgroundColor: 'white',
+                            padding: '8px',
+                            borderRadius: '10px',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                            cursor: 'pointer'
+                        }}>
+                            <Filter size={20} color="var(--color-primary-green)" />
+                        </div>
+                    </div>
+                    <div style={{
+                        padding: '16px 20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        backgroundColor: 'white',
+                        borderTop: '1px solid #F0F0F0'
+                    }}>
+                        <span style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--color-text-dark)' }}>Show Weather Overlay</span>
+                        <div style={{ width: '40px', height: '20px', backgroundColor: '#E0E0E0', borderRadius: '10px', position: 'relative' }}>
+                            <div style={{ width: '16px', height: '16px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '2px', left: '2px' }} />
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Equipment List */}
-            <h3 style={{ marginBottom: '12px' }}>Available Nearby</h3>
+            {/* Viewing Near Status Indicator */}
+            <div style={{
+                backgroundColor: '#E3F2FD',
+                color: '#1565C0',
+                padding: '10px 20px',
+                borderRadius: '30px',
+                marginBottom: '32px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '0.9rem',
+                fontWeight: '600'
+            }}>
+                <MapPin size={16} /> Viewing equipment near you
+            </div>
 
+            {/* List Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-text-dark)' }}>Available Nearby</h3>
+                <button style={{
+                    backgroundColor: 'var(--color-primary-green)',
+                    color: 'white',
+                    padding: '10px 24px',
+                    borderRadius: '12px',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                }}>
+                    <Tractor size={20} /> Rent Now
+                </button>
+            </div>
+
+            {/* Equipment List - ACCURATE IMAGES AND CONTENT */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <EquipmentCard
-                    image="https://placehold.co/400x300/F5F5F5/4CAF50?text=Tractor"
-                    name="Mahindra 575 DI Tractor"
-                    owner="Ramesh Kumar"
-                    distance="2.5 km"
-                    price="₹800/hr"
+                    image="/assets/tractor.png"
+                    name="Mahindra Novo 755 DI"
                     rating="4.8"
-                    available="Today"
-                    onClick={() => onSelectEquipment({
-                        image: "https://placehold.co/400x300/F5F5F5/4CAF50?text=Tractor",
-                        name: "Mahindra 575 DI Tractor",
-                        owner: "Ramesh Kumar",
-                        distance: "2.5 km",
-                        price: "₹800/hr",
-                        rating: "4.8",
-                    })}
+                    price="₹800/hr"
+                    distance="2.5 km"
+                    owner="Surjit Singh"
+                    onClick={() => onSelectEquipment({ name: "Mahindra Novo 755 DI", price: "₹800/hr", rating: "4.8", owner: "Surjit Singh", distance: "2.5 km" })}
                 />
                 <EquipmentCard
-                    image="https://placehold.co/400x300/F5F5F5/FBC02D?text=Harvester"
-                    name="Combine Harvester"
-                    owner="Suresh Patel"
-                    distance="5.0 km"
+                    image="/assets/harvester.png"
+                    name="Class Dominator Harvester"
+                    rating="4.9"
                     price="₹2,500/acre"
-                    rating="4.5"
-                    available="Tomorrow"
-                    onClick={() => onSelectEquipment({
-                        image: "https://placehold.co/400x300/F5F5F5/FBC02D?text=Harvester",
-                        name: "Combine Harvester",
-                        owner: "Suresh Patel",
-                        distance: "5.0 km",
-                        price: "₹2,500/acre",
-                        rating: "4.5",
-                    })}
+                    distance="5.0 km"
+                    owner="Gurpreet Farms"
+                    onClick={() => onSelectEquipment({ name: "Class Dominator Harvester", price: "₹2,500/acre", rating: "4.9", owner: "Gurpreet Farms", distance: "5.0 km" })}
                 />
                 <EquipmentCard
-                    image="https://placehold.co/400x300/F5F5F5/29B6F6?text=Drone"
-                    name="Spraying Drone (10L)"
-                    owner="AgriTech Hub"
-                    distance="12 km"
-                    price="₹400/acre"
-                    rating="New"
-                    available="Today"
-                    onClick={() => onSelectEquipment({
-                        image: "https://placehold.co/400x300/F5F5F5/29B6F6?text=Drone",
-                        name: "Spraying Drone (10L)",
-                        owner: "AgriTech Hub",
-                        distance: "12 km",
-                        price: "₹400/acre",
-                        rating: "New",
-                    })}
+                    image="/assets/drone.png"
+                    name="DJI Agras T30 Spraying Drone"
+                    rating="4.7"
+                    price="₹1,200/day"
+                    distance="3.2 km"
+                    owner="Village Cooperative"
+                    onClick={() => onSelectEquipment({ name: "DJI Agras T30 Spraying Drone", price: "₹1,200/day", rating: "4.7", owner: "Village Cooperative", distance: "3.2 km" })}
                 />
             </div>
         </div>
     );
 };
 
-const EquipmentCard = ({ image, name, owner, distance, price, rating, available, onClick }) => (
-    <div className="card" onClick={onClick} style={{ padding: '0', overflow: 'hidden', cursor: 'pointer' }}>
-        <div style={{ display: 'flex', height: '120px' }}>
-            {/* Image Side */}
-            <div style={{ width: '120px', backgroundColor: '#f0f0f0' }}>
-                <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-
-            {/* Content Side */}
-            <div style={{ flex: 1, padding: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                        <h4 style={{ margin: 0, fontSize: '1rem', color: 'var(--color-text-dark)' }}>{name}</h4>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
-                            <Star size={12} fill="#FBC02D" color="#FBC02D" /> {rating}
-                        </div>
-                    </div>
-                    <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Owned by {owner}</p>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                        <MapPin size={12} style={{ display: 'inline', marginRight: '4px' }} /> {distance}
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontWeight: 'bold', color: 'var(--color-primary-green)', fontSize: '1.1rem' }}>{price}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {/* Footer Actions */}
-        <div style={{
-            padding: '12px',
-            borderTop: '1px solid var(--color-border)',
+const EquipmentCard = ({ image, name, rating, price, distance, owner, onClick }) => (
+    <div
+        onClick={onClick}
+        style={{
+            backgroundColor: 'white',
+            borderRadius: '16px',
+            padding: '16px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: '#FAFAFA'
-        }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', color: '#388E3C', fontWeight: '500' }}>
-                <Calendar size={16} /> Available {available}
+            gap: '24px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+            cursor: 'pointer',
+            transition: 'transform 0.2s ease',
+            border: '1px solid transparent'
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = 'var(--color-primary-green)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'transparent'; }}
+    >
+        <div style={{ width: '150px', height: '100px', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#F8F9F3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src={image} style={{ width: '90%', height: '90%', objectFit: 'contain' }} alt={name} />
+        </div>
+        <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                    <h4 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--color-text-dark)' }}>{name}</h4>
+                    <p style={{ margin: '4px 0 0 0', color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>Owned by: {owner}</p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#FBC02D', fontWeight: 'bold' }}>
+                    <Star size={18} fill="#FBC02D" /> {rating}
+                </div>
             </div>
-            <button style={{
-                padding: '6px 16px',
-                backgroundColor: 'var(--color-primary-green)',
-                color: 'white',
-                borderRadius: '6px',
-                fontSize: '0.9rem',
-                fontWeight: '600',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px'
-            }}>
-                <PhoneCall size={16} /> Rent Now
-            </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px', alignItems: 'center' }}>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <MapPin size={16} color="var(--color-primary-green)" /> {distance} away
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <span style={{ fontWeight: 'bold', color: 'var(--color-primary-green)', fontSize: '1.2rem' }}>{price}</span>
+                    <button style={{
+                        padding: '8px 20px',
+                        backgroundColor: 'var(--color-primary-green)',
+                        color: 'white',
+                        borderRadius: '8px',
+                        fontWeight: 'bold',
+                        fontSize: '0.9rem',
+                        border: 'none'
+                    }}>
+                        Rent Now
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 );
-
-
-/* -------------------------------------------------------------------------- */
-/* LAND POOLING SECTION                                                       */
-/* -------------------------------------------------------------------------- */
-
-
 
 export default CollaborativeFarming;

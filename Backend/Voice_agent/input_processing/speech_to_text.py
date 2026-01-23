@@ -27,6 +27,17 @@ class WhisperSTT:
                        - small: Better accuracy
                        - medium/large: Best accuracy, slower
         """
+        # Check FFmpeg availability first
+        import subprocess
+        try:
+            subprocess.run(['ffmpeg', '-version'], capture_output=True, check=True, timeout=5)
+        except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            raise RuntimeError(
+                "FFmpeg not found. Whisper requires FFmpeg to process audio.\\n"
+                "Install FFmpeg: https://ffmpeg.org/download.html\\n"
+                "Add ffmpeg.exe to your system PATH, or use: choco install ffmpeg"
+            )
+        
         # Auto-detect model from config if not specified
         if model_name is None:
             from Backend.Voice_agent.config import get_config
