@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class SchemeAPIClient:
     """
     API client for fetching government schemes
-    Integrated with external REST API for real-time data
+    Integrated with data.gov.in for real-time data
     """
     
     def __init__(self):
@@ -31,12 +31,15 @@ class SchemeAPIClient:
         Fetch schemes from API or return mock data based on configuration.
         Ensures the demo never fails by falling back to mock data.
         """
+        # Forced override for demo purposes if keys aren't loaded properly
+        # But here we assume they are loaded via settings.
+        
         if self.settings.is_mock_mode():
             logger.info("Running in MOCK_MODE: Fetching mock schemes.")
             return self._get_mock_schemes()
         
         try:
-            logger.info(f"Attempting to fetch schemes from API: {self.settings.api_base_url}")
+            logger.info(f"Attempting to fetch schemes from Data.gov.in")
             schemes = self._fetch_from_real_api()
             if not schemes:
                 logger.warning("API returned empty list, falling back to mock schemes.")
@@ -48,39 +51,61 @@ class SchemeAPIClient:
 
     def _fetch_from_real_api(self) -> List[SchemeRecord]:
         """
-        Real API integration using requests.
-        Expects a JSON response with a list of scheme objects.
+        Real API integration for data.gov.in
         """
-        if not self.settings.api_base_url or self.settings.api_base_url == "mock":
-            raise ValueError("API Base URL not configured correctly for real API mode.")
-
-        headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
+        # Get credentials from settings
+        api_key = self.settings.schemes_api_key
+        resource_id = self.settings.schemes_resource_id
         
-        if self.settings.api_token:
-            headers["Authorization"] = f"Bearer {self.settings.api_token}"
+        if not api_key or not resource_id:
+             logger.warning("Missing API Key or Resource ID for data.gov.in")
+             return []
+
+        # Construct URL for data.gov.in
+        # typical format: https://api.data.gov.in/resource/{resource_id}?api-key={key}&format=json
+        base_url = "https://api.data.gov.in/resource/" + resource_id
+        params = {
+            "api-key": api_key,
+            "format": "json",
+            "limit": 10  # Limit to 10 for safety/speed
+        }
 
         response = requests.get(
-            f"{self.settings.api_base_url}/schemes",
-            headers=headers,
+            base_url,
+            params=params,
             timeout=self.settings.api_timeout
         )
         
-        # Raise an exception for 4xx/5xx errors
         response.raise_for_status()
-        
         data = response.json()
         
-        # Validate and convert to SchemeRecord objects
-        # Handles both a direct list or an 'items' key in the response
-        schemes_data = data.get("items", data) if isinstance(data, dict) else data
+        # data.gov.in responses usually have a "records" list inside
+        records = data.get("records", [])
         
-        if not isinstance(schemes_data, list):
-            raise ValueError("Invalid API response format: expected a list of schemes.")
+        # We need to map these dynamic records to our SchemeRecord model
+        # The field names from data.gov.in vary by dataset. 
+        # We'll do a best-effort mapping or partial logic.
+        
+        mapped_schemes = []
+        for item in records:
+            # Fallback logic to find 'title' or 'name' fields
+            scheme_name = item.get("scheme_name") or item.get("title") or item.get("name") or "Unknown Scheme"
+            desc = item.get("description") or item.get("details") or "No description available"
+            # Using defaults for other fields not guaranteed in dataset
+            
+            scheme = SchemeRecord(
+                schemeId=str(uuid.uuid4()),
+                schemeName=scheme_name,
+                category=SchemeCategory.SUBSIDY, # Defaulting category as inference is hard
+                description=desc,
+                state=item.get("state_name"),
+                benefits="Check official details",
+                officialLink=item.get("url") or item.get("link") or "https://mylibrary.data.gov.in",
+                isActive=True
+            )
+            mapped_schemes.append(scheme)
 
-        return [SchemeRecord(**item) for item in schemes_data]
+        return mapped_schemes
     
     def _get_mock_schemes(self) -> List[SchemeRecord]:
         """

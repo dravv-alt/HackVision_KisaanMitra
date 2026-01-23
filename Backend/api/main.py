@@ -10,7 +10,8 @@ from .routers import (
     gov_schemes,
     financial,
     collaborative,
-    dashboard
+    dashboard,
+    inventory
 )
 
 app = FastAPI(
@@ -36,6 +37,7 @@ app.include_router(gov_schemes.router, prefix=settings.API_V1_STR, tags=["Govern
 app.include_router(financial.router, prefix=settings.API_V1_STR, tags=["Financial Tracking"])
 app.include_router(collaborative.router, prefix=settings.API_V1_STR, tags=["Collaborative Farming"])
 app.include_router(dashboard.router, prefix=settings.API_V1_STR, tags=["Dashboard"])
+app.include_router(inventory.router, prefix=settings.API_V1_STR, tags=["Inventory"])
 
 # Mount static files for uploads (optional)
 # os.makedirs("temp_uploads", exist_ok=True)
