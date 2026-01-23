@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Select Soil Type</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#84A98C", // Muted Sage Green
+                        "primary-hover": "#6E9175", 
+                        "background-light": "#F9F6F0", // Warm, Soft Beige
+                        "background-dark": "#1A1D1A",
+                        "card-beige": "#EFE6D8", // Light Creamy Brownish-Beige
+                        "card-beige-hover": "#E5DCCB",
+                        "highlight-ochre": "#D6B875", // Soft Muted Ochre
+                        "info-blue": "#E0F0F2", // Pastel Sky Blue
+                        "text-dark": "#2C3329",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-dark dark:text-white font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#E6E0D0] dark:border-b-[#2a3825] px-6 lg:px-40 py-4 bg-[#FDFBF7] dark:bg-[#1a2615]">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary flex items-center justify-center bg-primary/20 rounded-full p-1.5">
+<span class="material-symbols-outlined text-2xl font-bold">agriculture</span>
+</div>
+<h2 class="text-text-dark dark:text-white text-xl font-bold tracking-tight">KisanMitra</h2>
+</div>
+<button class="flex items-center gap-2 rounded-xl bg-info-blue dark:bg-[#2a3825] px-3 py-2 text-sm font-semibold transition-colors hover:bg-[#D1E6EA] dark:hover:bg-[#364630] text-text-dark dark:text-white">
+<span class="material-symbols-outlined text-lg">translate</span>
+<span>English / हिंदी</span>
+</button>
+</header>
+<main class="flex-1 flex justify-center py-8 px-4 lg:px-0">
+<div class="flex flex-col w-full max-w-[960px] gap-8">
+<div class="flex flex-col gap-3 px-4">
+<div class="flex justify-between items-center">
+<p class="text-text-dark dark:text-white text-sm font-medium">Step 2 of 4</p>
+<span class="text-xs text-gray-500 dark:text-gray-400">Onboarding</span>
+</div>
+<div class="h-2 w-full rounded-full bg-[#E6E0D0] dark:bg-[#2a3825]">
+<div class="h-2 rounded-full bg-primary" style="width: 50%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-4">
+<h1 class="text-3xl lg:text-4xl font-black leading-tight tracking-tight text-text-dark dark:text-white">
+                        Aapki Mitti Ka Prakar
+                    </h1>
+<p class="text-[#6E9175] dark:text-[#8ea885] text-lg font-normal">
+                        Select the soil type that matches your farm
+                    </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-24">
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="alluvial"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#2a2720] border-2 border-transparent p-4 transition-all hover:shadow-md peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[#E3DACB] dark:bg-[#38342a]">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Fertile river bank soil texture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACmU_ScrLyd6JEWguS4AdJrMHun8ee4gOcgOuDzCUIJz97jr3gO74wbawjl_6l3toWFZpM0OPIOBRdBAB4ZW0JUty1ErdjnirrrsFXEdJ_El6w0MoK9LkPhhjFV6-iMPZApeZsyAH5TScj-aVaf2p7gOmbwyRKG38ZL39bNJuddV_SNJjXXCjmlCvYKQDo7vUzi_1SYBc9TwFhqOjV2YKdI_H_UtcEUgOkQM_VsicWcy2hRRhF7zaG0pdzLuYOqSAdKd-5wWGy4SU');"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Alluvial (Jalodh)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Found near rivers, highly fertile.</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="black"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#2a2720] border-2 border-transparent p-4 transition-all hover:shadow-md peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[#E3DACB] dark:bg-[#38342a]">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Rich dark black cotton soil chunks" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWKapg48fxywJg5LRHrg9gxsI2cYPiJtNr6NS36SDk71AhcSn23JgoUzxVvlrk68rTW-U6DKhGb_I0HDfDVQgIss06v1aVpPPA7AaoD8bf5r__NB1OJtUHLJY6FCCp9Qd839rH3xOPCnbTrxID8ZALI0CT90SrH7OtSVshcmI3h6BYhCWHQUPlLQBHXMhZI9yS7NfIwV07tjYc_jBmC3QS6FY5825KSONfBa8PJxLChI30MZ6y4DkLwJ2XclgrXyxAgAPDyC-jJ5E');"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Black (Kaali)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Dark color, retains moisture well.</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="red"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#2a2720] border-2 border-transparent p-4 transition-all hover:shadow-md peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[#E3DACB] dark:bg-[#38342a]">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Dry reddish brown earth texture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCINpcVeJfgOGisTNqO0m4p1GFvilzv2F1k_0C5VibmzYlCI0FyUYPxOFuTMRZqFFeWhtw7_VdRv1IOvHVkrpyX1ei-ZOg7DWgFT1Q9-bHYuXxUZOmzuCEishSPRYkv5dkTeLJ7QEpMjnfllsI5wmSIeDjar7QdI6bOU-0ADgpXhI2jkmhAAckTYZTcc-7yzsNMrNtZzdezfqL38hJAoMmq-UaJCyv13iEU1dMinXUZeZPLDMOq-Xu3NggHcy8ITKqvPU1ogm-V0nA');"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Red (Laal)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Rich in iron, reddish texture.</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="sandy"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#2a2720] border-2 border-transparent p-4 transition-all hover:shadow-md peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[#E3DACB] dark:bg-[#38342a]">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Loose golden sand grains texture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqG499qm6AfLZ7VP92vL41J5W4rv6vr4Mh9nYsUgCnzEPmuhDfw1JCPVW_A_cQKIUsf8dCgy9MtHTKuKHXf4IpYnnBCoddFSacifxZhN7y-ddHjYLpRwfG_KEu6prfZRkxG9XF7W_weG1F1yi_fZgEWrwYYDVB6zHgdeQKoGlmlO1aKv0GxY9wXjfzwS6JE4TrbLwXzp54gVpgOEB3CoKx2aKjBp014eMPJLMlTLy5lfVLfySyaZYmodaT25NNWpStZkMkY54mNeQ');"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Sandy (Retili)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Loose particles, drains water fast.</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="clay"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#2a2720] border-2 border-transparent p-4 transition-all hover:shadow-md peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[#E3DACB] dark:bg-[#38342a]">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Cracked dry heavy clay ground" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVeyvDj7cb_dIyYkED6hpMdAyAQ_lkJDPcF26FkGEyIZ2NdKyQNCVMDpYPrY6rSlnLK09AbcerhQI_gPE4vPIzBVHpwg_eKHfGd8PXKvw62XLA2h8cvGdzFr7jPhT9dJD9HZ-Fp0Bxea30BVv3hriB2FMUd2v7yGB7PdgkRncuySTY1rpSdA--C_p_g7E3LksS279Y4IuPTD4yqIZf8Sh1CMl-D0W3OzQiTM3jA52gxnkGcuJEExu9w9BxPzipvZ6ffqXRF34FlBg');"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Clay (Chickni)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Sticky when wet, hard when dry.</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="soil-type" type="radio" value="dont-know"/>
+<div class="flex flex-col h-full rounded-2xl bg-card-beige dark:bg-[#3a352b] border-2 border-dashed border-highlight-ochre dark:border-[#6b5f4d] p-4 transition-all hover:bg-card-beige-hover dark:hover:bg-[#453f33] hover:shadow-md peer-checked:border-primary peer-checked:border-solid peer-checked:bg-primary/10 dark:peer-checked:bg-green-900/20">
+<div class="mb-4 flex aspect-video w-full items-center justify-center rounded-xl bg-[#E5DCCB] dark:bg-[#2e2a22]">
+<span class="material-symbols-outlined text-6xl text-highlight-ochre dark:text-[#a89b85]">location_on</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold text-text-dark dark:text-white">Pata Nahi</h3>
+<p class="text-sm text-primary font-medium leading-snug">Hum location se andaza laga lenge</p>
+</div>
+<div class="absolute top-4 right-4 opacity-0 transition-opacity peer-checked:opacity-100">
+<div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-text-dark">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</div>
+</div>
+</label>
+</div>
+</div>
+</main>
+<button class="fixed bottom-24 right-6 lg:right-12 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#FDFBF7] dark:bg-[#2a3825] text-primary shadow-lg border border-primary/30 transition-transform hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/20">
+<span class="material-symbols-outlined text-3xl">mic</span>
+</button>
+<div class="fixed bottom-0 left-0 right-0 border-t border-[#E6E0D0] dark:border-[#2a3825] bg-[#F9F6F0]/95 dark:bg-[#152111]/95 px-4 py-4 backdrop-blur-sm">
+<div class="mx-auto flex w-full max-w-[960px] justify-center">
+<button class="flex h-12 w-full max-w-[400px] cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-8 text-base font-bold tracking-wide text-text-dark shadow-sm transition-all hover:bg-primary-hover hover:shadow-md active:scale-[0.98]">
+<span>Aage Badhein (Continue)</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

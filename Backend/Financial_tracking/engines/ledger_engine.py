@@ -6,8 +6,8 @@ Handles recording and validating financial transactions
 from typing import List
 from datetime import datetime
 import uuid
-from financial_tracking.models import FinanceTransaction, FinanceTotals
-from financial_tracking.constants import TransactionType, ExpenseCategory, IncomeCategory
+from Backend.Financial_tracking.models import FinanceTransaction, FinanceTotals
+from Backend.Financial_tracking.constants import TransactionType, ExpenseCategory, IncomeCategory
 
 
 class LedgerEngine:

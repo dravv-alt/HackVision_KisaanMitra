@@ -3,13 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 
-from api.config import settings
-from api.routers import (
+from .config import settings
+from .routers import (
     farm_management,
     voice_agent,
     gov_schemes,
     financial,
-    collaborative
+    collaborative,
+    dashboard
 )
 
 app = FastAPI(
@@ -34,6 +35,7 @@ app.include_router(voice_agent.router, prefix=settings.API_V1_STR, tags=["Voice 
 app.include_router(gov_schemes.router, prefix=settings.API_V1_STR, tags=["Government Schemes"])
 app.include_router(financial.router, prefix=settings.API_V1_STR, tags=["Financial Tracking"])
 app.include_router(collaborative.router, prefix=settings.API_V1_STR, tags=["Collaborative Farming"])
+app.include_router(dashboard.router, prefix=settings.API_V1_STR, tags=["Dashboard"])
 
 # Mount static files for uploads (optional)
 # os.makedirs("temp_uploads", exist_ok=True)

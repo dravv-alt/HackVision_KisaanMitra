@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KisanMitra - Farm Size Input</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#9AB8A0", // Soft, pastel Sage Green
+                        "primary-dark": "#85A38B", // Slightly darker grounded green
+                        "primary-content": "#1E281F", // Dark text for contrast
+                        "background-light": "#F2EFE7", // Light, warm Beige
+                        "background-dark": "#1C1F1C",
+                        "surface-beige": "#FAF9F6", // Very light beige for card surface
+                        "surface-dark": "#232623",
+                        "sage-green": "#657A69", // Muted Sage for text/icons
+                        "muted-beige": "#E8E6DC", // Muted beige for secondary elements/toggles
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 8px 30px -4px rgba(101, 122, 105, 0.1)',
+                        'glow': '0 0 20px rgba(154, 184, 160, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }.input-underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #E8E6DC;transition: all 0.3s ease;
+        }
+        input:focus ~ .input-underline {
+            background-color: #9AB8A0;height: 3px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen w-full flex flex-col font-display selection:bg-primary/30">
+<div class="layout-container flex h-full grow flex-col items-center justify-center p-4 sm:p-8">
+<div class="relative w-full max-w-[440px] h-[85vh] max-h-[840px] flex flex-col bg-surface-beige dark:bg-surface-dark rounded-[32px] shadow-2xl border-[6px] border-white dark:border-[#222] overflow-hidden">
+<header class="flex items-center justify-between px-6 py-5 z-10">
+<button aria-label="Menu" class="size-10 flex items-center justify-center rounded-full text-sage-green/60 cursor-not-allowed hover:bg-transparent" disabled="">
+<span class="material-symbols-outlined" style="font-size: 28px;">menu</span>
+</button>
+<div class="flex items-center gap-2 select-none">
+<span class="material-symbols-outlined text-primary-dark dark:text-primary">agriculture</span>
+<h2 class="text-primary-content dark:text-white text-lg font-bold tracking-tight">KisanMitra</h2>
+</div>
+<div class="size-10"></div>
+</header>
+<main class="flex-1 flex flex-col items-center px-6 relative overflow-y-auto no-scrollbar">
+<div class="w-full flex-1 flex flex-col items-center justify-center -mt-10">
+<h1 class="text-primary-content dark:text-white text-[32px] sm:text-[36px] font-bold leading-[1.15] text-center mb-10 tracking-tight">
+                        Aapki Zameen <br/> Kitni Hai?
+                    </h1>
+<div class="w-full max-w-[240px] relative mb-10 group">
+<input class="w-full bg-transparent border-none text-center text-7xl sm:text-8xl font-bold text-primary-content dark:text-white placeholder:text-[#CEDBD0] dark:placeholder:text-[#333] focus:outline-none focus:ring-0 py-2 font-display" placeholder="0" type="number"/>
+<div class="input-underline"></div>
+</div>
+<div class="w-full max-w-[260px] bg-muted-beige dark:bg-[#252f26] p-1.5 rounded-xl flex items-center mb-14">
+<label class="flex-1 cursor-pointer h-11 relative">
+<input checked="" class="peer sr-only" name="land_unit" type="radio" value="Bigha"/>
+<div class="absolute inset-0 flex items-center justify-center rounded-lg text-sm font-bold text-sage-green dark:text-gray-400 transition-all duration-200 z-10 peer-checked:text-primary-content">
+                                Bigha
+                            </div>
+<div class="absolute inset-0 bg-transparent rounded-lg transition-all duration-200 peer-checked:bg-primary peer-checked:shadow-sm"></div>
+</label>
+<label class="flex-1 cursor-pointer h-11 relative">
+<input class="peer sr-only" name="land_unit" type="radio" value="Acre"/>
+<div class="absolute inset-0 flex items-center justify-center rounded-lg text-sm font-bold text-sage-green dark:text-gray-400 transition-all duration-200 z-10 peer-checked:text-primary-content">
+                                Acre
+                            </div>
+<div class="absolute inset-0 bg-transparent rounded-lg transition-all duration-200 peer-checked:bg-primary peer-checked:shadow-sm"></div>
+</label>
+</div>
+<div class="flex flex-col items-center gap-4 animate-fade-in-up">
+<button class="group relative size-16 flex items-center justify-center bg-white dark:bg-[#252f26] rounded-full shadow-soft hover:shadow-glow transition-all duration-300 hover:scale-105 active:scale-95 border border-muted-beige dark:border-[#333]">
+<span class="material-symbols-outlined text-[32px] text-primary group-hover:text-primary-dark transition-colors">mic</span>
+<div class="absolute inset-0 rounded-full border border-primary/30 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500"></div>
+</button>
+<p class="text-sage-green dark:text-[#8aa] text-base font-medium text-center">
+                            Bol kar bhi bata sakte hain
+                        </p>
+</div>
+</div>
+</main>
+<div class="p-6 pb-8 bg-gradient-to-t from-surface-beige via-surface-beige to-transparent dark:from-surface-dark dark:via-surface-dark w-full z-20">
+<button class="w-full h-14 bg-primary hover:bg-primary-dark text-primary-content text-lg font-bold rounded-xl shadow-lg shadow-primary/25 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group">
+                    Continue
+                    <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="mt-6 text-sage-green text-sm hidden sm:block">
+            Press <span class="font-mono bg-white dark:bg-[#222] px-1.5 py-0.5 rounded text-xs border border-muted-beige dark:border-[#444] text-primary-content">Enter</span> to continue
+        </div>
+</div>
+
+</body></html>

@@ -5,12 +5,12 @@ Builds comprehensive profit/loss reports with category breakdown
 
 from typing import List, Dict, Tuple
 from collections import defaultdict
-from financial_tracking.models import (
+from Backend.Financial_tracking.models import (
     FinanceTransaction,
     FinanceTotals,
     ExpenseBreakdown,
 )
-from financial_tracking.constants import (
+from Backend.Financial_tracking.constants import (
     TransactionType,
     ExpenseCategory,
     EXPENSE_CATEGORY_NAMES,

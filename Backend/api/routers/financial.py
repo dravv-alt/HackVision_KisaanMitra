@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException, Body
 from typing import Optional
 from pydantic import BaseModel
 
-from api.dependencies import get_current_user
-from financial_tracking.service import FinanceTrackingService
-from financial_tracking.models import FinanceModuleOutput, FinanceTransaction
-from financial_tracking.constants import SeasonType
+from Backend.api.dependencies import get_current_user
+from Backend.Financial_tracking.service import FinanceTrackingService
+from Backend.Financial_tracking.models import FinanceModuleOutput, FinanceTransaction
+from Backend.Financial_tracking.constants import SeasonType
 
 router = APIRouter()
 

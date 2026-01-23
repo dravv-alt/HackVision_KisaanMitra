@@ -5,7 +5,7 @@ Integrates with voice_agent translator for proper translations
 """
 
 from typing import List
-from financial_tracking.models import (
+from Backend.Financial_tracking.models import (
     FinanceTotals,
     ExpenseBreakdown,
     LossCause,
@@ -13,11 +13,11 @@ from financial_tracking.models import (
     FinanceModuleOutput,
     FinanceCard,
 )
-from financial_tracking.constants import UrgencyLevel
+from Backend.Financial_tracking.constants import UrgencyLevel
 
 # Import voice_agent translator
 try:
-    from voice_agent.input_processing.translator import get_translator
+    from Backend.Voice_agent.input_processing.translator import get_translator
     TRANSLATOR_AVAILABLE = True
 except ImportError:
     TRANSLATOR_AVAILABLE = False

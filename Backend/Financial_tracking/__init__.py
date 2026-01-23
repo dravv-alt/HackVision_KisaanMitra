@@ -3,11 +3,11 @@ Financial Tracking Module
 Backend module for farm financial tracking and profit/loss analysis
 """
 
-from financial_tracking.service import (
+from Backend.Financial_tracking.service import (
     FinanceTrackingService,
     get_finance_tracking_service,
 )
-from financial_tracking.models import (
+from Backend.Financial_tracking.models import (
     FinanceTransaction,
     FinanceTotals,
     LossCause,
@@ -15,7 +15,7 @@ from financial_tracking.models import (
     FinanceModuleOutput,
     FinanceCard,
 )
-from financial_tracking.constants import (
+from Backend.Financial_tracking.constants import (
     TransactionType,
     ExpenseCategory,
     IncomeCategory,

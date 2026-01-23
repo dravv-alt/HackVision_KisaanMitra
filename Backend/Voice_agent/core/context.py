@@ -6,7 +6,7 @@ Tracks session state, farmer profile, and conversation history
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from voice_agent.core.intent import Intent
+from Backend.Voice_agent.core.intent import Intent
 
 
 @dataclass

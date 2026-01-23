@@ -3,8 +3,8 @@ Explanation Builder - Generates simple, spoken-style explanations
 """
 
 from typing import List, Dict, Any
-from voice_agent.core.intent import Intent
-from voice_agent.input_processing.translator import get_translator
+from Backend.Voice_agent.core.intent import Intent
+from Backend.Voice_agent.input_processing.translator import get_translator
 
 
 class ExplanationBuilder:

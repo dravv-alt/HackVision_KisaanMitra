@@ -5,8 +5,8 @@ Finds suitable storage facilities for farmer's needs
 
 from dataclasses import dataclass
 from typing import List, Optional
-from farm_management.post_harvest_stage.data_access import StorageFacility, get_storage_by_location, get_storage_by_capacity, StorageType
-from farm_management.post_harvest_stage.utils import haversine_distance
+from Backend.Farm_management.Post_Harvest_stage.data_access import StorageFacility, get_storage_by_location, get_storage_by_capacity, StorageType
+from Backend.Farm_management.Post_Harvest_stage.utils import haversine_distance
 
 
 @dataclass

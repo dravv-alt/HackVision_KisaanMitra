@@ -3,18 +3,18 @@ Retriever - RAG-style information retrieval
 """
 
 from typing import List, Dict, Any
-from voice_agent.core.intent import Intent
-from voice_agent.retrieval.weather_service import get_weather_service
-from voice_agent.retrieval.market_service import get_market_service
+from Backend.Voice_agent.core.intent import Intent
+from Backend.Voice_agent.retrieval.weather_service import get_weather_service
+from Backend.Voice_agent.retrieval.market_service import get_market_service
 
 # Optional imports - graceful fallback if not available
 try:
-    from voice_agent.retrieval.sources import get_knowledge_registry
+    from Backend.Voice_agent.retrieval.sources import get_knowledge_registry
 except ImportError:
     get_knowledge_registry = None
 
 try:
-    from voice_agent.retrieval.vector_store import get_vector_store
+    from Backend.Voice_agent.retrieval.vector_store import get_vector_store
 except ImportError:
     get_vector_store = None
 

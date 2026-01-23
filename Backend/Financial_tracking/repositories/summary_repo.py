@@ -4,7 +4,7 @@ Caches computed financial summaries for performance
 """
 
 from typing import Optional, Dict
-from financial_tracking.models import FinanceTotals
+from Backend.Financial_tracking.models import FinanceTotals
 
 
 class SummaryRepo:

@@ -13,7 +13,7 @@ from datetime import datetime
 # Import the inventory service
 import sys
 sys.path.insert(0, 'D:\\KissanMitra\\HackVision_KisaanMitra\\Backend')
-from inventory import inventoryService, inventoryModuleOutput
+from Backend.Inventory import Backend.InventoryService, inventoryModuleOutput
 
 # Initialize FastAPI app
 app = FastAPI(

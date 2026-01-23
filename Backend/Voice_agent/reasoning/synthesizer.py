@@ -3,17 +3,17 @@ Synthesizer - Combines retrieved information into structured reasoning
 """
 
 from typing import List, Dict, Any, Optional
-from voice_agent.core.intent import Intent
-from voice_agent.cards import CropCard, WeatherCard, MarketCard, SchemeCard
-from voice_agent.config import get_config
+from Backend.Voice_agent.core.intent import Intent
+from Backend.Voice_agent.cards import CropCard, WeatherCard, MarketCard, SchemeCard
+from Backend.Voice_agent.config import get_config
 
 # Import logic from Farm Management
-from farm_management.planning_stage.service import PreSeedingService
-from farm_management.planning_stage.models import PlanningRequest, PreSeedingOutput
-from farm_management.planning_stage.repositories import FarmerRepository, CropRepository, SchemeRepository, ReminderRepository
+from Backend.Farm_management.Planning_stage.service import PreSeedingService
+from Backend.Farm_management.Planning_stage.models import PlanningRequest, PreSeedingOutput
+from Backend.Farm_management.Planning_stage.repositories import FarmerRepository, CropRepository, SchemeRepository, ReminderRepository
 
 # Import service connectors
-from voice_agent.connectors import (
+from Backend.Voice_agent.connectors import (
     get_financial_connector,
     get_collaborative_connector,
     get_inventory_connector,

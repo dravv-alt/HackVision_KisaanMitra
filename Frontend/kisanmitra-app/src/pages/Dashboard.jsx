@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     CloudSun,
@@ -22,6 +22,37 @@ import FarmingCalendar from '../components/Calendar/FarmingCalendar';
 import '../styles/global.css';
 
 const Dashboard = () => {
+    const [stats, setStats] = useState(null);
+    const [finance, setFinance] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch Dashboard Stats
+                const statsRes = await fetch('/api/v1/dashboard/stats');
+                const statsData = await statsRes.json();
+                setStats(statsData);
+
+                // Fetch Finance Summary
+                const financeRes = await fetch('/api/v1/dashboard/finance');
+                const financeData = await financeRes.json();
+                setFinance(financeData);
+
+                setLoading(false);
+            } catch (error) {
+                console.error("Failed to fetch dashboard data:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div className="fade-in" style={{ padding: '40px', textAlign: 'center' }}>Loading your farm data...</div>;
+    }
+
     return (
         <div className="fade-in" style={{ paddingBottom: '80px' }}>
 
@@ -37,14 +68,14 @@ const Dashboard = () => {
                     <div style={{ paddingRight: '24px', borderRight: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <CloudSun size={32} color="var(--color-accent-ochre)" />
                         <div>
-                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>32°C</div>
-                            <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>SUNNY</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats?.weather?.temp || 32}°C</div>
+                            <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>{stats?.weather?.condition || 'SUNNY'}</div>
                         </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <Droplet size={24} color="var(--color-primary-green)" />
                         <div>
-                            <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>10%</div>
+                            <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{stats?.weather?.chance_of_rain || 10}%</div>
                             <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>CHANCE OF RAIN</div>
                         </div>
                     </div>
@@ -127,19 +158,19 @@ const Dashboard = () => {
                     <div style={{ display: 'flex', gap: '16px', height: '100%' }}>
                         <FinanceCard
                             title="Total Revenue"
-                            amount="₹1,24,500"
+                            amount={`₹${finance?.revenue?.toLocaleString() || '0'}`}
                             barPercent="75%"
                             barColor="var(--color-primary-green)"
-                            change="+12% from last month"
+                            change={finance?.revenue_change || "+0%"}
                             changeColor="var(--color-primary-green)"
                             icon={TrendingUp}
                         />
                         <FinanceCard
                             title="Total Expenses"
-                            amount="₹45,200"
+                            amount={`₹${finance?.expenses?.toLocaleString() || '0'}`}
                             barPercent="40%"
                             barColor="#D9724C"
-                            change="Mainly fertilizers & labor"
+                            change={finance?.expenses_change || "No Data"}
                             changeColor="var(--color-text-muted)"
                             icon={ShoppingCart}
                         />

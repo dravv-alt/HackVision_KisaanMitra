@@ -4,13 +4,13 @@ Generates actionable recommendations to improve profit margins
 """
 
 from typing import List
-from financial_tracking.models import (
+from Backend.Financial_tracking.models import (
     LossCause,
     FinanceTotals,
     ExpenseBreakdown,
     OptimizationSuggestion,
 )
-from financial_tracking.constants import ExpenseCategory
+from Backend.Financial_tracking.constants import ExpenseCategory
 
 
 class OptimizationEngine:

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import Optional
 
-from api.dependencies import get_current_user
-from gov_schemes.service import GovSchemesDisplayService
-from gov_schemes.models import GovSchemesOutput, SchemeRecord
-from gov_schemes.constants import SchemeCategory
+from Backend.api.dependencies import get_current_user
+from Backend.Gov_Schemes.service import GovSchemesDisplayService
+from Backend.Gov_Schemes.models import GovSchemesOutput, SchemeRecord
+from Backend.Gov_Schemes.constants import SchemeCategory
 
 router = APIRouter()
 

@@ -3,10 +3,10 @@ from typing import Optional, Dict
 from datetime import datetime
 from pydantic import BaseModel
 
-from api.dependencies import get_current_user
-from collaborative_farming.service import CollaborativeFarmingService
-from collaborative_farming.models import CollaborativeOutput, EquipmentListing, RentalRequest, LandPoolRequest
-from collaborative_farming.constants import EquipmentType, PaymentMethod, PoolRequestType
+from Backend.api.dependencies import get_current_user
+from Backend.Collaborative_Farming.service import CollaborativeFarmingService
+from Backend.Collaborative_Farming.models import CollaborativeOutput, EquipmentListing, RentalRequest, LandPoolRequest
+from Backend.Collaborative_Farming.constants import EquipmentType, PaymentMethod, PoolRequestType
 
 router = APIRouter()
 

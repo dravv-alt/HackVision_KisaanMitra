@@ -7,14 +7,14 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from voice_agent.input_processing import get_translator, get_speech_to_text
-from voice_agent.core.intent import get_intent_classifier, Intent
-from voice_agent.core.context import ConversationContext
-from voice_agent.memory import get_session_memory
-from voice_agent.retrieval import get_retriever
-from voice_agent.reasoning import get_reasoning_planner, get_synthesizer
-from voice_agent.explain import get_explanation_builder
-from voice_agent.cards import BaseCard
+from Backend.Voice_agent.input_processing import get_translator, get_speech_to_text
+from Backend.Voice_agent.core.intent import get_intent_classifier, Intent
+from Backend.Voice_agent.core.context import ConversationContext
+from Backend.Voice_agent.memory import get_session_memory
+from Backend.Voice_agent.retrieval import get_retriever
+from Backend.Voice_agent.reasoning import get_reasoning_planner, get_synthesizer
+from Backend.Voice_agent.explain import get_explanation_builder
+from Backend.Voice_agent.cards import BaseCard
 
 
 @dataclass
@@ -61,7 +61,7 @@ class VoiceAgent:
             db_client: MongoDB client (optional, auto-configured from .env)
         """
         # Load config
-        from voice_agent.config import get_config
+        from Backend.Voice_agent.config import get_config
         config = get_config()
         
         # Initialize components

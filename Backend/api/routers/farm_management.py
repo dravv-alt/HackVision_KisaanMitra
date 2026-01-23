@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from typing import Dict, Any, Optional
 
-from api.dependencies import get_db_client, get_current_user
-from farm_management.planning_stage.service import PreSeedingService
-from farm_management.planning_stage.models import PlanningRequest, PreSeedingOutput
-from farm_management.farming_stage.engines.vision_engine import VisionEngine
-from farm_management.farming_stage.engines.market_engine import MarketEngine
-from farm_management.post_harvest_stage.core.engine import PostHarvestDecisionEngine, DecisionResult as PostHarvestPlan
-from farm_management.post_harvest_stage.core.context import FarmerContext as HarvestContext
+from ..dependencies import get_db_client, get_current_user
+from Backend.Farm_management.Planning_stage.service import PreSeedingService
+from Backend.Farm_management.Planning_stage.models import PlanningRequest, PreSeedingOutput
+from Backend.Farm_management.Farming_stage.engines.vision_engine import VisionEngine
+from Backend.Farm_management.Farming_stage.engines.market_engine import MarketEngine
+from Backend.Farm_management.Post_Harvest_stage.core.engine import PostHarvestDecisionEngine, DecisionResult as PostHarvestPlan
+from Backend.Farm_management.Post_Harvest_stage.core.context import FarmerContext as HarvestContext
 
 router = APIRouter()
 

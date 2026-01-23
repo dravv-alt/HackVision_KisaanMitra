@@ -50,8 +50,8 @@ def test_financial_tracking():
     print_header("FINANCIAL TRACKING MODULE", level=1)
     
     try:
-        from financial_tracking import get_finance_tracking_service
-        from financial_tracking.constants import SeasonType
+        from Backend.Financial_tracking import get_finance_tracking_service
+        from Backend.Financial_tracking.constants import SeasonType
         
         service = get_finance_tracking_service()
         
@@ -105,7 +105,7 @@ def test_collaborative_farming():
     print_header("COLLABORATIVE FARMING MODULE", level=1)
     
     try:
-        from collaborative_farming.service import CollaborativeFarmingService
+        from Backend.Collaborative_Farming.service import CollaborativeFarmingService
         
         service = CollaborativeFarmingService()
         
@@ -144,7 +144,7 @@ def test_alerts():
     print_header("ALERTS & NOTIFICATIONS MODULE", level=1)
     
     try:
-        from alerts.service import AlertsService
+        from Backend.Alerts.service import AlertsService
         
         service = AlertsService()
         
@@ -178,7 +178,7 @@ def test_voice_agent():
     print_header("VOICE AGENT MODULE", level=1)
     
     try:
-        from voice_agent.core import get_voice_agent
+        from Backend.Voice_agent.core import get_voice_agent
         
         agent = get_voice_agent()
         

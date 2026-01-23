@@ -8,7 +8,7 @@ from typing import List
 from .transport import TransportCostEstimator
 from .profit_calculator import ProfitCalculator, NetProfit
 from .price_model import PriceTrendForecaster
-from farm_management.post_harvest_stage.data_access import get_all_mandis, get_mandi_price
+from Backend.Farm_management.Post_Harvest_stage.data_access import get_all_mandis, get_mandi_price
 
 
 @dataclass
@@ -59,7 +59,7 @@ class MarketSelector:
         Returns:
             MarketRecommendation with best market and alternatives
         """
-        from farm_management.post_harvest_stage.utils import haversine_distance
+        from Backend.Farm_management.Post_Harvest_stage.utils import haversine_distance
         
         # Get all mandis
         all_mandis = get_all_mandis()

@@ -17,8 +17,8 @@ backend_dir = Path(__file__).resolve().parent.parent
 if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
-from voice_agent.core import get_voice_agent
-from voice_agent.core.intent import Intent
+from Backend.Voice_agent.core import get_voice_agent
+from Backend.Voice_agent.core.intent import Intent
 
 
 def print_header(title, char="="):
