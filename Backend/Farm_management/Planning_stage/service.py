@@ -24,6 +24,7 @@ class PreSeedingService:
     
     def __init__(
         self,
+        db_client=None,
         farmer_repo: Optional[FarmerRepository] = None,
         crop_repo: Optional[CropRepository] = None,
         scheme_repo: Optional[SchemeRepository] = None,
@@ -34,6 +35,7 @@ class PreSeedingService:
         Initialize service with repositories and engines
         
         Args:
+            db_client: MongoDB client (optional)
             farmer_repo: Farmer repository (creates default if None)
             crop_repo: Crop repository (creates default if None)
             scheme_repo: Scheme repository (creates default if None)
@@ -41,10 +43,10 @@ class PreSeedingService:
             weather_api_key: OpenWeather API key (optional)
         """
         # Repositories
-        self.farmer_repo = farmer_repo or FarmerRepository()
-        self.crop_repo = crop_repo or CropRepository()
-        self.scheme_repo = scheme_repo or SchemeRepository()
-        self.reminder_repo = reminder_repo or ReminderRepository()
+        self.farmer_repo = farmer_repo or FarmerRepository(db_client)
+        self.crop_repo = crop_repo or CropRepository(db_client)
+        self.scheme_repo = scheme_repo or SchemeRepository(db_client)
+        self.reminder_repo = reminder_repo or ReminderRepository(db_client)
         
         # Engines
         self.weather_engine = WeatherEngine(api_key=weather_api_key)

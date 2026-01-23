@@ -12,8 +12,8 @@ if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
 from typing import Dict, Any, List, Optional
-from financial_tracking import get_finance_tracking_service
-from financial_tracking.constants import SeasonType, ExpenseCategory, IncomeCategory
+from Backend.Financial_tracking import get_finance_tracking_service
+from Backend.Financial_tracking.constants import SeasonType, ExpenseCategory, IncomeCategory
 
 
 class FinancialTrackingConnector:

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Current Crop Selection - KisanMitra</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#84A98C", // Sage Green
+                        "primary-dark": "#6B8F73", // Darker Sage
+                        "mustard": "#E3C565", // Muted Mustard Yellow
+                        "mustard-dark": "#D4B655",
+                        "background-light": "#F5F2E9", // Warm Beige
+                        "background-dark": "#1C211B",
+                        "surface-light": "#FEFDF5", // Soft, light brownish-yellow tint for cards (Cream)
+                        "surface-dark": "#2A3329",
+                        "text-main": "#2F3E32", // Grounded dark green/grey
+                        "text-secondary": "#6B7C6E", // Muted sage text
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }.crop-checkbox:checked + div {
+            border-color: #84A98C;background-color: #F0F6F1;}
+        .crop-checkbox:checked + div .check-indicator {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-gray-100 font-display min-h-screen flex flex-col">
+<header class="sticky top-0 z-20 w-full bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur border-b border-primary/20 dark:border-gray-800">
+<div class="px-6 md:px-10 py-4 max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="h-full w-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">KisanMitra</h2>
+</div>
+<button aria-label="Menu" class="flex items-center justify-center size-10 rounded-lg bg-primary/10 dark:bg-gray-800 text-text-main dark:text-gray-200 cursor-not-allowed opacity-70" disabled="">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-4 md:px-10 py-8 relative">
+<div class="flex flex-col gap-2 mb-8 animate-fade-in-up">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-text-main dark:text-white">
+                Kaunse Fasal Ugayi Ja Rahi Hai?
+            </h1>
+<p class="text-text-secondary dark:text-green-400 text-lg font-medium">
+                Which crops are you growing currently?
+            </p>
+</div>
+<div class="mb-8">
+<div class="inline-flex bg-surface-light dark:bg-surface-dark rounded-xl p-1 shadow-sm border border-primary/10 dark:border-gray-800">
+<button class="px-6 py-2.5 rounded-lg bg-mustard text-text-main font-bold shadow-sm transition-all duration-200">
+                    Kharif
+                </button>
+<button class="px-6 py-2.5 rounded-lg text-text-secondary dark:text-gray-400 hover:text-text-main dark:hover:text-white font-medium transition-all duration-200 hover:bg-mustard/20">
+                    Rabi
+                </button>
+<button class="px-6 py-2.5 rounded-lg text-text-secondary dark:text-gray-400 hover:text-text-main dark:hover:text-white font-medium transition-all duration-200 hover:bg-mustard/20">
+                    Zaid
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-12">
+<label class="relative cursor-pointer group">
+<input checked="" class="crop-checkbox hidden" type="checkbox"/>
+<div class="flex flex-col h-full bg-surface-light dark:bg-surface-dark border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200 group-hover:-translate-y-1">
+<div class="absolute top-3 right-3 size-6 rounded-full bg-primary flex items-center justify-center opacity-0 transform scale-75 transition-all duration-200 check-indicator shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold text-white">check</span>
+</div>
+<div class="w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Golden wheat field ready for harvest" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDAxUvts4D-bAip0W0Eyy6H5gis0e-wzr8chpRYItc6-1Uo6JbKARtts_MclTvPo5bt6r1hxB5LHeUJg-f3U2MZ5P7r_SsZ9M3JwlDxlbCbnSI143ZEUmdstyZ3Lp0DQ4uBCV28obvfyq_G9F2gdY2tdX66kpGC6EX6a5ArDakT101onxub0-S5tTJT_FKRl5da_MmgBEz_2uuBBg8q1INWZr2tI-uUq0KhDZk5PWPX-rFd8pwl9C5p1PHOlQelZ_1xVbqMU7EWmjQ');"></div>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Wheat</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Gehu</p>
+</div>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="crop-checkbox hidden" type="checkbox"/>
+<div class="flex flex-col h-full bg-surface-light dark:bg-surface-dark border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200 group-hover:-translate-y-1">
+<div class="absolute top-3 right-3 size-6 rounded-full bg-primary flex items-center justify-center opacity-0 transform scale-75 transition-all duration-200 check-indicator shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold text-white">check</span>
+</div>
+<div class="w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Close up of white fluffy cotton plant" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuADdWPsAUVBoknkT81I5ZxPhjxZznJojCwrXLy6v9FJ5tRH7MjNeJSpuExgPC5aaZOgYNJWNEEkNE802b3a3bQBaorn_959vDU9N5aFzitaXl-Me0BHLwwTQKu4yXbkQRjktadUdc1WYFo8UjOzkW3vS8aQ8BSDHZeKq_0_3r3ntWNO8t5Vqb4Dtjo02998Ghi-51gpTsc6YdhSnA_6rQ__HDOngZR6No1STwCV9nM85LXpz26q6JQBgWOxMRcY0ldrnI7wnGRIHJA');"></div>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Cotton</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Kapas</p>
+</div>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="crop-checkbox hidden" type="checkbox"/>
+<div class="flex flex-col h-full bg-surface-light dark:bg-surface-dark border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200 group-hover:-translate-y-1">
+<div class="absolute top-3 right-3 size-6 rounded-full bg-primary flex items-center justify-center opacity-0 transform scale-75 transition-all duration-200 check-indicator shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold text-white">check</span>
+</div>
+<div class="w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Green rice paddy field terraces" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAen8D1CLivsVfDnxsWVYNeLl8EBgvwQ0DwfHRv0rtpRlHWyzigG120B0sxuiZW0pucHxzVXytmn5Vwk51_MfCpy9akpTUU06o6hxqJL4s73o896ELLpxoufQvpGKGP-QvHpESrfB7ZMs7xYr0xwzM8eoukmoQSczpqfwJMpdqwdyE8ocCE-bPh0eSzCkmVmV-K9QOa4kXxenyxdS51T1alRmhnonbUDu01UrGzDiykJMAD8IMJtOxdyJWhOY5DucUvFefe9-Gn2mU');"></div>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Rice</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Chawal</p>
+</div>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="crop-checkbox hidden" type="checkbox"/>
+<div class="flex flex-col h-full bg-surface-light dark:bg-surface-dark border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200 group-hover:-translate-y-1">
+<div class="absolute top-3 right-3 size-6 rounded-full bg-primary flex items-center justify-center opacity-0 transform scale-75 transition-all duration-200 check-indicator shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold text-white">check</span>
+</div>
+<div class="w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Fresh yellow corn on the cob" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC55B9O-xFGj7Pa9d3gN4HkT9y0mtiB7ZOHyth87x9x9hKrGtllMbToQOH_OQUud2E1GZCm2WsnKClCADYlDiJKRVfCrzXZCNFITNiZ3Q6VnxYhU--Ocbg12al_PbUHP6bK30gK7aPQZoTjr3T4vqUvK4yW8FvFGXibEpFUR2Ny8c-x3yjHsqbpgwV_-W-D8Rnu2DZfEJ69VMINFa6wmI7-IIRL_vQhTVPsV-dDG_w34WULsMD21lWGUkbBhDfWIz2CGQh2xHGc8Zc');"></div>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Maize</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Makka</p>
+</div>
+</div>
+</label>
+<label class="relative cursor-pointer group">
+<input class="crop-checkbox hidden" type="checkbox"/>
+<div class="flex flex-col h-full bg-surface-light dark:bg-surface-dark border-2 border-transparent rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200 group-hover:-translate-y-1">
+<div class="absolute top-3 right-3 size-6 rounded-full bg-primary flex items-center justify-center opacity-0 transform scale-75 transition-all duration-200 check-indicator shadow-sm z-10">
+<span class="material-symbols-outlined text-sm font-bold text-white">check</span>
+</div>
+<div class="w-full aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Fresh potatoes harvested from soil" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAzzJbioZWuFSoYhS209RZCu3XZCb_pT5UeCJC1Y1pIvIK0MZfOqVauOb9YG1Hr2kaqnfXAa5LhtOXqnlDDvsQ09hDKrZgYRIyTVctunfF_nTOoFTpwoDaFnmCUFtE0743J9z9zk_NSv5mZs3ka781qx9xUTSHxNdbB88I2C8cICHesmjjz-aYEVOwEh-a8aJhpFbHUz2M7hW4hbGSN7yNDu2ZjEMbYRKWluT_P1395c6yd7S2WLFoHndp99Q4Hu4_3PO-sCAjJcvw');"></div>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-bold text-text-main dark:text-white">Potato</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Aloo</p>
+</div>
+</div>
+</label>
+<button class="relative cursor-pointer group flex flex-col h-full min-h-[220px] bg-surface-light dark:bg-surface-dark border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl hover:border-sky-300 hover:bg-sky-50 dark:hover:bg-sky-900/10 transition-all duration-200 items-center justify-center text-center p-4">
+<div class="size-12 rounded-full bg-sky-100 dark:bg-sky-900 flex items-center justify-center mb-3 group-hover:bg-sky-200 transition-colors">
+<span class="material-symbols-outlined text-sky-600 dark:text-sky-300 group-hover:text-sky-800">add</span>
+</div>
+<h3 class="text-lg font-bold text-text-main dark:text-white">Add Another</h3>
+<p class="text-sm text-text-secondary dark:text-gray-400">Aur jodein</p>
+</button>
+</div>
+<div class="fixed bottom-24 right-6 md:right-10 z-30">
+<button class="flex items-center justify-center size-14 bg-primary hover:bg-primary-dark text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 group">
+<span class="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform">mic</span>
+<div class="absolute right-full mr-4 bg-black/80 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none">
+                    Voice Search
+                </div>
+</button>
+</div>
+</main>
+<div class="sticky bottom-0 w-full bg-surface-light dark:bg-surface-dark border-t border-primary/10 dark:border-gray-800 p-4 z-20">
+<div class="max-w-[1200px] mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
+<div class="text-sm text-text-secondary dark:text-gray-400 font-medium">
+<span class="font-bold text-primary">1</span> crop selected
+            </div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<button class="hidden sm:flex px-6 py-3 rounded-xl text-text-secondary dark:text-gray-300 font-bold hover:bg-black/5 dark:hover:bg-gray-800 transition-colors">
+                    Skip
+                </button>
+<button class="flex-1 sm:flex-none w-full sm:w-auto px-10 py-3 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-base shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                    Continue
+                    <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

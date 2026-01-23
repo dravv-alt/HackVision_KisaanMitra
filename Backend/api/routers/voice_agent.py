@@ -4,9 +4,9 @@ from pydantic import BaseModel
 import os
 import shutil
 
-from api.dependencies import get_db_client, get_current_user
-from voice_agent.core.agent import get_voice_agent
-from voice_agent.input_processing.speech_to_text import get_speech_to_text, WhisperSTT as SpeechToText
+from Backend.api.dependencies import get_db_client, get_current_user
+from Backend.Voice_agent.core.agent import get_voice_agent
+from Backend.Voice_agent.input_processing.speech_to_text import get_speech_to_text, WhisperSTT as SpeechToText
 
 router = APIRouter()
 

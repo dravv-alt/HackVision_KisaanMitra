@@ -4,16 +4,16 @@ Coordinates all financial tracking operations
 """
 
 from typing import Optional
-from financial_tracking.models import FinanceModuleOutput, FinanceCard
-from financial_tracking.repositories import TransactionRepo, SummaryRepo, CropRepo
-from financial_tracking.engines import (
+from Backend.Financial_tracking.models import FinanceModuleOutput, FinanceCard
+from Backend.Financial_tracking.repositories import TransactionRepo, SummaryRepo, CropRepo
+from Backend.Financial_tracking.engines import (
     LedgerEngine,
     ProfitLossEngine,
     LossAnalysisEngine,
     OptimizationEngine,
     ResponseBuilder,
 )
-from financial_tracking.constants import SeasonType
+from Backend.Financial_tracking.constants import SeasonType
 
 
 class FinanceTrackingService:
@@ -289,8 +289,8 @@ class FinanceTrackingService:
         language: str,
     ) -> FinanceModuleOutput:
         """Generate empty report when no data available"""
-        from financial_tracking.models import FinanceTotals
-        from financial_tracking.constants import UrgencyLevel
+        from Backend.Financial_tracking.models import FinanceTotals
+        from Backend.Financial_tracking.constants import UrgencyLevel
         
         empty_totals = FinanceTotals(
             farmerId=farmerId,

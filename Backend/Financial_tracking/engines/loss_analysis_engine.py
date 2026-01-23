@@ -5,13 +5,13 @@ Analyzes transaction patterns to detect waste and inefficiency
 
 from typing import List, Dict
 from collections import defaultdict
-from financial_tracking.models import (
+from Backend.Financial_tracking.models import (
     FinanceTransaction,
     FinanceTotals,
     ExpenseBreakdown,
     LossCause,
 )
-from financial_tracking.constants import (
+from Backend.Financial_tracking.constants import (
     TransactionType,
     ExpenseCategory,
 )

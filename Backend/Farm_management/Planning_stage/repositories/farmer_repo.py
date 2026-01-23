@@ -4,6 +4,7 @@ In production: connects to MongoDB
 For hackathon: provides mock in-memory data
 """
 from typing import Optional
+from bson import ObjectId
 from ..models import FarmerProfile, Location
 from ..constants import SoilType, IrrigationType, Language, FarmerType
 
@@ -11,13 +12,15 @@ from ..constants import SoilType, IrrigationType, Language, FarmerType
 class FarmerRepository:
     """Repository for farmer profile operations"""
     
-    def __init__(self):
-        """Initialize with mock data for hackathon"""
+    def __init__(self, db_client=None):
+        """Initialize with DB client or mock data"""
+        self.db_client = db_client
         self._mock_farmers = self._create_mock_farmers()
     
     def get_farmer(self, farmer_id: str) -> Optional[FarmerProfile]:
         """
         Get farmer profile by ID
+        Prioritizes Database if available, falls back to mock data
         
         Args:
             farmer_id: Unique farmer identifier
@@ -25,8 +28,58 @@ class FarmerRepository:
         Returns:
             FarmerProfile if found, None otherwise
         """
+        # Try Database first
+        if self.db_client:
+            try:
+                # Handle ObjectId validation
+                if ObjectId.is_valid(farmer_id):
+                    doc = self.db_client.kisanmitra.farmers.find_one({"_id": ObjectId(farmer_id)})
+                    if doc:
+                        return self._map_doc_to_profile(doc)
+            except Exception as e:
+                print(f"DB Fetch Error: {e}")
+        
+        # Fallback to mock data
         return self._mock_farmers.get(farmer_id)
     
+    def _map_doc_to_profile(self, doc: dict) -> FarmerProfile:
+        """Map MongoDB document to Domain Model"""
+        loc_data = doc.get("location", {})
+        
+        # Determine Enum values safely
+        try:
+            soil_enum = SoilType(doc.get("soilType", "Alluvial").title())
+        except ValueError:
+            soil_enum = SoilType.ALLUVIAL
+            
+        try:
+            # Map DB language code to Enum
+            lang_code = doc.get("language", "en")
+            lang_map = {"hi": Language.HINDI, "mr": Language.MARATHI, "en": Language.ENGLISH}
+            lang_enum = lang_map.get(lang_code, Language.ENGLISH)
+        except ValueError:
+            lang_enum = Language.ENGLISH
+
+        profile = FarmerProfile(
+            farmer_id=str(doc["_id"]),
+            language=lang_enum,
+            location=Location(
+                state=loc_data.get("state", "Unknown"),
+                district=loc_data.get("district", "Unknown"),
+                village=loc_data.get("village"),
+                lat=loc_data.get("lat"),
+                lon=loc_data.get("lon")
+            ),
+            soil_type=soil_enum,
+            # Defaulting to TUBE_WELL as DB doesn't have this field yet
+            irrigation_type=IrrigationType.TUBE_WELL, 
+            land_size_acres=doc.get("landSizeAcres", 0.0)
+        )
+        
+        # Auto-compute farmer type
+        profile.farmer_type = profile.compute_farmer_type()
+        return profile
+
     def _create_mock_farmers(self) -> dict:
         """Create mock farmer data for testing"""
         return {

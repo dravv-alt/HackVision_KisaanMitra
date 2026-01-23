@@ -4,8 +4,8 @@ Weather Service - Live weather data from OpenWeatherMap
 
 import requests
 from typing import Dict, Any, Optional
-from voice_agent.config import get_config
-from voice_agent.retrieval.sources import get_knowledge_registry
+from Backend.Voice_agent.config import get_config
+from Backend.Voice_agent.retrieval.sources import get_knowledge_registry
 
 class WeatherService:
     """Service to fetch live weather data"""

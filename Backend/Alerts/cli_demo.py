@@ -11,8 +11,8 @@ if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
 from datetime import datetime, timedelta
-from alerts.service import AlertsService
-from alerts.constants import Language
+from Backend.Alerts.service import AlertsService
+from Backend.Alerts.constants import Language
 
 
 def run_demo():

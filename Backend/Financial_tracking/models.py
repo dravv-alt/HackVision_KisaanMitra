@@ -6,7 +6,7 @@ Pydantic schemas for type-safe data handling
 from pydantic import BaseModel, Field, validator
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from financial_tracking.constants import (
+from Backend.Financial_tracking.constants import (
     TransactionType,
     ExpenseCategory,
     IncomeCategory,

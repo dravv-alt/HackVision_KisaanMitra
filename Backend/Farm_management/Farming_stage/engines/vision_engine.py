@@ -265,3 +265,22 @@ class VisionEngine:
             "symptoms": "Consult agricultural expert",
             "causes": "Unknown"
         })
+
+    def detect_disease(self, image_path: str) -> DiseaseDetectionResult:
+        """
+        Analyze disease from an image file path
+        
+        Args:
+            image_path: Path to the image file
+            
+        Returns:
+            DiseaseDetectionResult
+        """
+        try:
+            with open(image_path, "rb") as f:
+                image_bytes = f.read()
+            return self.analyze_image(image_bytes)
+        except Exception as e:
+            print(f"⚠️  Failed to read image file: {e}")
+            # Return a safe fallback error result if needed, or re-raise
+            raise e

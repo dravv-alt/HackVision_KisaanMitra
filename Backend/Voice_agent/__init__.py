@@ -4,9 +4,9 @@ Processes Hindi voice input, detects intent, retrieves information,
 reasons about recommendations, and generates UI-ready cards.
 """
 
-from voice_agent.core.agent import VoiceAgent
-from voice_agent.core.intent import LLMIntentClassifier, Intent
-from voice_agent.cards.base_card import BaseCard
+from Backend.Voice_agent.core.agent import VoiceAgent
+from Backend.Voice_agent.core.intent import LLMIntentClassifier, Intent
+from Backend.Voice_agent.cards.base_card import BaseCard
 
 __version__ = "1.0.0"
 

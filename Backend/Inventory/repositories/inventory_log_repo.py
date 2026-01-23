@@ -45,7 +45,7 @@ class inventoryLogRepo:
         """Seed mock log data for testing"""
         now = datetime.now()
         
-        # Mock item IDs (would come from inventory in real scenario)
+        # Mock item IDs (would come from Backend.Inventory in real scenario)
         mock_item_id_1 = "ITEM001"
         mock_item_id_2 = "ITEM002"
         

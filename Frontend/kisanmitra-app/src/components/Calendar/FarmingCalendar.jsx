@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -20,37 +20,6 @@ const localizer = dateFnsLocalizer({
     getDay,
     locales,
 });
-
-// Mock Data
-const myEventsList = [
-    {
-        title: 'Wheat Irrigation',
-        start: new Date(new Date().setHours(10, 0, 0)),
-        end: new Date(new Date().setHours(12, 0, 0)),
-        type: 'water'
-    },
-    {
-        title: 'Apply Fertilizer (DAP)',
-        start: new Date(new Date().setDate(new Date().getDate() + 2)),
-        end: new Date(new Date().setDate(new Date().getDate() + 2)),
-        allDay: true,
-        type: 'fertilizer'
-    },
-    {
-        title: 'Pest Check (Aphids)',
-        start: new Date(new Date().setDate(new Date().getDate() + 5)),
-        end: new Date(new Date().setDate(new Date().getDate() + 5)),
-        allDay: true,
-        type: 'check'
-    },
-    {
-        title: 'Mandi Visit',
-        start: new Date(new Date().setDate(new Date().getDate() + 7)),
-        end: new Date(new Date().setDate(new Date().getDate() + 7)),
-        allDay: true,
-        type: 'market'
-    }
-];
 
 const EventComponent = ({ event }) => {
     let bgColor = '#4CAF50'; // Default Green
@@ -113,6 +82,30 @@ const FarmingCalendar = ({ compact = false, style }) => {
     // If compact (Dashboard), show Agenda or Week view with limited height
     // If full (Farm Management), show Month view with full height
 
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const res = await fetch('/api/v1/dashboard/timeline');
+                const data = await res.json();
+
+                // Convert string dates back to Date objects
+                const parsedEvents = data.map(evt => ({
+                    ...evt,
+                    start: new Date(evt.start),
+                    end: new Date(evt.end)
+                }));
+
+                setEvents(parsedEvents);
+            } catch (error) {
+                console.error("Failed to fetch calendar events:", error);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
     return (
         <div className={`card ${compact ? 'calendar-compact' : ''}`} style={{ ...style, height: compact ? '400px' : '550px', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -126,7 +119,7 @@ const FarmingCalendar = ({ compact = false, style }) => {
 
             <Calendar
                 localizer={localizer}
-                events={myEventsList}
+                events={events}
                 startAccessor="start"
                 endAccessor="end"
                 style={{ flex: 1 }}

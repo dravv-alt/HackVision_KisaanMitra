@@ -28,6 +28,10 @@ class Settings:
         # Additional settings
         self.api_timeout: int = int(os.getenv("API_TIMEOUT", "10"))
         self.cache_ttl_hours: int = int(os.getenv("CACHE_TTL_HOURS", "24"))
+        
+        # Data.gov.in specific
+        self.schemes_api_key: Optional[str] = os.getenv("SCHEMES_API_KEY")
+        self.schemes_resource_id: Optional[str] = os.getenv("SCHEMES_RESOURCE_ID")
     
     def _load_env_file(self):
         """

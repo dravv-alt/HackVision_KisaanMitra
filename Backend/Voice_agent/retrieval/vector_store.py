@@ -45,7 +45,7 @@ class VectorStore:
             
     def _bootstrap_knowledge(self):
         """Bootstrap vector DB with data from KnowledgeSourceRegistry"""
-        from voice_agent.retrieval.sources import get_knowledge_registry
+        from Backend.Voice_agent.retrieval.sources import get_knowledge_registry
         
         registry = get_knowledge_registry()
         documents = []

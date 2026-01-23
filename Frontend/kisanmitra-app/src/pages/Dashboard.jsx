@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     CloudSun,
@@ -16,12 +16,45 @@ import {
     Bug,
     CalendarClock,
     ChevronRight,
-    MapPin
+    MapPin,
+    Wheat,
+    Flower2
 } from 'lucide-react';
 import FarmingCalendar from '../components/Calendar/FarmingCalendar';
 import '../styles/global.css';
 
 const Dashboard = () => {
+    const [stats, setStats] = useState(null);
+    const [finance, setFinance] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch Dashboard Stats
+                const statsRes = await fetch('/api/v1/dashboard/stats');
+                const statsData = await statsRes.json();
+                setStats(statsData);
+
+                // Fetch Finance Summary
+                const financeRes = await fetch('/api/v1/dashboard/finance');
+                const financeData = await financeRes.json();
+                setFinance(financeData);
+
+                setLoading(false);
+            } catch (error) {
+                console.error("Failed to fetch dashboard data:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div className="fade-in" style={{ padding: '40px', textAlign: 'center' }}>Loading your farm data...</div>;
+    }
+
     return (
         <div className="fade-in" style={{ paddingBottom: '80px' }}>
 
@@ -37,14 +70,14 @@ const Dashboard = () => {
                     <div style={{ paddingRight: '24px', borderRight: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <CloudSun size={32} color="var(--color-accent-ochre)" />
                         <div>
-                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>32°C</div>
-                            <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>SUNNY</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats?.weather?.temp || 32}°C</div>
+                            <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>{stats?.weather?.condition || 'SUNNY'}</div>
                         </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <Droplet size={24} color="var(--color-primary-green)" />
                         <div>
-                            <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>10%</div>
+                            <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{stats?.weather?.chance_of_rain || 10}%</div>
                             <div style={{ fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>CHANCE OF RAIN</div>
                         </div>
                     </div>
@@ -70,9 +103,9 @@ const Dashboard = () => {
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            <CropRow name="Wheat (Rabi)" status="Healthy" statusColor="green" planted="45 days ago" iconChar="W" iconBg="#E8F5E9" iconColor="#2E7D32" />
-                            <CropRow name="Mustard" status="Needs Water" statusColor="yellow" planted="Flowering Stage" iconChar="M" iconBg="#FFF8E1" iconColor="#F57F17" />
-                            <CropRow name="Potato" status="Monitoring" statusColor="gray" planted="Harvest in 2 weeks" iconChar="P" iconBg="#EFEBE9" iconColor="#5D4037" />
+                            <CropRow name="Wheat (Rabi)" status="Healthy" statusColor="green" planted="45 days ago" icon={Wheat} iconBg="#E8F5E9" iconColor="#2E7D32" />
+                            <CropRow name="Mustard" status="Needs Water" statusColor="yellow" planted="Flowering Stage" icon={Flower2} iconBg="#FFF8E1" iconColor="#F57F17" />
+                            <CropRow name="Potato" status="Monitoring" statusColor="gray" planted="Harvest in 2 weeks" icon={Sprout} iconBg="#EFEBE9" iconColor="#5D4037" />
                         </div>
                     </div>
                 </Link>
@@ -127,19 +160,19 @@ const Dashboard = () => {
                     <div style={{ display: 'flex', gap: '16px', height: '100%' }}>
                         <FinanceCard
                             title="Total Revenue"
-                            amount="₹1,24,500"
+                            amount={`₹${finance?.revenue?.toLocaleString() || '0'}`}
                             barPercent="75%"
                             barColor="var(--color-primary-green)"
-                            change="+12% from last month"
+                            change={finance?.revenue_change || "+0%"}
                             changeColor="var(--color-primary-green)"
                             icon={TrendingUp}
                         />
                         <FinanceCard
                             title="Total Expenses"
-                            amount="₹45,200"
+                            amount={`₹${finance?.expenses?.toLocaleString() || '0'}`}
                             barPercent="40%"
                             barColor="#D9724C"
-                            change="Mainly fertilizers & labor"
+                            change={finance?.expenses_change || "No Data"}
                             changeColor="var(--color-text-muted)"
                             icon={ShoppingCart}
                         />
@@ -186,7 +219,7 @@ const Dashboard = () => {
 };
 
 // Helper Components
-const CropRow = ({ name, status, statusColor, planted, iconChar, iconBg, iconColor }) => {
+const CropRow = ({ name, status, statusColor, planted, icon: Icon, iconBg, iconColor }) => {
     let badgeBg, badgeText;
     if (statusColor === 'green') { badgeBg = '#E8F5E9'; badgeText = '#2E7D32'; }
     else if (statusColor === 'yellow') { badgeBg = '#FFF8E1'; badgeText = '#F57F17'; }
@@ -195,8 +228,8 @@ const CropRow = ({ name, status, statusColor, planted, iconChar, iconBg, iconCol
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', borderRadius: '12px', backgroundColor: 'white', border: '1px solid transparent' }} className="hover-border-primary">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: iconBg, color: iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                    {iconChar}
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: iconBg, color: iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon size={20} />
                 </div>
                 <div>
                     <div style={{ fontWeight: 'bold', fontSize: '1rem' }}>{name}</div>

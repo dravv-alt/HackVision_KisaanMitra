@@ -11,8 +11,8 @@ if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
 from datetime import datetime, timedelta
-from collaborative_farming.service import CollaborativeFarmingService
-from collaborative_farming.constants import EquipmentType, PoolRequestType, RentalStatus
+from Backend.Collaborative_Farming.service import CollaborativeFarmingService
+from Backend.Collaborative_Farming.constants import EquipmentType, PoolRequestType, RentalStatus
 
 
 def print_header(text: str):

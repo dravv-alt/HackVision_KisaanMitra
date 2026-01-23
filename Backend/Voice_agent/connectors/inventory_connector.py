@@ -20,7 +20,7 @@ class InventoryConnector:
     def __init__(self):
         # Import here to handle structure variations
         try:
-            from inventory.service import InventoryService
+            from Backend.Inventory.service import InventoryService
             self.service = InventoryService()
         except ImportError:
             print("⚠️  Inventory service not available")

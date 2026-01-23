@@ -13,7 +13,7 @@ if str(backend_dir) not in sys.path:
 
 from typing import Dict, Any, List
 from datetime import datetime, timedelta
-from alerts.service import AlertsService
+from Backend.Alerts.service import AlertsService
 
 
 class AlertsConnector:

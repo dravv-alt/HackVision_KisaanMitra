@@ -4,8 +4,8 @@ Market Service - Live Mandi prices from OGD India API
 
 import requests
 from typing import Dict, Any, List
-from voice_agent.config import get_config
-from voice_agent.retrieval.sources import get_knowledge_registry
+from Backend.Voice_agent.config import get_config
+from Backend.Voice_agent.retrieval.sources import get_knowledge_registry
 
 class MarketService:
     """Service to fetch live market prices"""

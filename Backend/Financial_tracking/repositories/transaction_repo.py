@@ -7,8 +7,8 @@ IMPORTANT: Mock fallback ONLY when DB unavailable or empty
 from typing import List, Optional, Dict
 from datetime import datetime, timedelta
 import uuid
-from financial_tracking.models import FinanceTransaction
-from financial_tracking.constants import (
+from Backend.Financial_tracking.models import FinanceTransaction
+from Backend.Financial_tracking.constants import (
     TransactionType,
     ExpenseCategory,
     IncomeCategory,

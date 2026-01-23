@@ -20,15 +20,15 @@ from .constants import Language, EquipmentType, PoolRequestType, PaymentMethod
 class CollaborativeFarmingService:
     """Main service providing orchestration for all collaborative farming features"""
     
-    def __init__(self):
+    def __init__(self, db_client=None):
         # Repositories
-        self.farmer_repo = FarmerRepo()
-        self.equipment_repo = EquipmentRepo()
-        self.rental_repo = RentalRepo()
-        self.land_pool_repo = LandPoolRepo()
-        self.residue_repo = ResidueRepo()
-        self.alert_repo = AlertRepo()
-        self.audit_repo = AuditRepo()
+        self.farmer_repo = FarmerRepo(db_client)
+        self.equipment_repo = EquipmentRepo(db_client)
+        self.rental_repo = RentalRepo(db_client)
+        self.land_pool_repo = LandPoolRepo(db_client)
+        self.residue_repo = ResidueRepo(db_client)
+        self.alert_repo = AlertRepo(db_client)
+        self.audit_repo = AuditRepo(db_client)
         
         # Engines
         self.equipment_engine = EquipmentEngine(self.equipment_repo)

@@ -13,8 +13,8 @@ if str(backend_dir) not in sys.path:
 
 from typing import Dict, Any, List
 from datetime import datetime, timedelta
-from collaborative_farming.service import CollaborativeFarmingService
-from collaborative_farming.constants import EquipmentType, PoolRequestType
+from Backend.Collaborative_Farming.service import CollaborativeFarmingService
+from Backend.Collaborative_Farming.constants import EquipmentType, PoolRequestType
 
 
 class CollaborativeFarmingConnector:
