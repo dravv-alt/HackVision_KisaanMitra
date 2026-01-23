@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnboarding } from '../../context/OnboardingContext';
 
 const FarmSizeInput = () => {
     const navigate = useNavigate();
-    const [size, setSize] = useState('');
-    const [unit, setUnit] = useState('Bigha'); // Default Bigha
+    const { onboardingData, updateOnboardingData } = useOnboarding();
+    const [size, setSize] = useState(onboardingData.farmSize || '');
+    const [unit, setUnit] = useState(onboardingData.farmSizeUnit || 'Bigha'); // Default Bigha
 
     return (
         <div className="bg-[#F2EFE7] dark:bg-[#1C1F1C] min-h-screen w-full flex flex-col font-['Space_Grotesk'] selection:bg-[#9AB8A0]/30 overflow-hidden">
@@ -41,8 +43,8 @@ const FarmSizeInput = () => {
                         <div className="size-10"></div>
                     </header>
                     <main className="flex-1 flex flex-col items-center px-6 relative overflow-y-auto no-scrollbar">
-                        <div className="w-full flex-1 flex flex-col items-center justify-center -mt-10">
-                            <h1 className="text-[#1E281F] dark:text-white text-[32px] sm:text-[36px] font-bold leading-[1.15] text-center mb-10 tracking-tight">
+                        <div className="w-full flex-1 flex flex-col items-center justify-center pt-8 pb-4">
+                            <h1 className="text-[#1E281F] dark:text-white text-[28px] sm:text-[36px] font-bold leading-normal text-center mb-8 px-2 tracking-tight break-words max-w-full">
                                 Aapki Zameen Kitni Hai?
                             </h1>
                             <div className="w-full max-w-[240px] relative mb-10 group">
@@ -82,7 +84,11 @@ const FarmSizeInput = () => {
                         </div>
                     </main>
                     <div className="p-6 pb-8 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6] to-transparent dark:from-[#232623] dark:via-[#232623] w-full z-20">
-                        <button onClick={() => navigate('/onboarding/crops')} className="w-full h-14 bg-[#9AB8A0] hover:bg-[#85A38B] text-[#1E281F] text-lg font-bold rounded-xl shadow-lg shadow-[#9AB8A0]/25 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group">
+                        <button onClick={() => {
+                            updateOnboardingData('farmSize', size);
+                            updateOnboardingData('farmSizeUnit', unit);
+                            navigate('/onboarding/crops');
+                        }} className="w-full h-14 bg-[#9AB8A0] hover:bg-[#85A38B] text-[#1E281F] text-lg font-bold rounded-xl shadow-lg shadow-[#9AB8A0]/25 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group">
                             Continue
                             <span className="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </button>

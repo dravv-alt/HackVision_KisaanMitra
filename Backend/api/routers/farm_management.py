@@ -26,8 +26,7 @@ async def get_pre_seeding_plan(
     """
     try:
         # Initialize service with user's DB connection if available
-        # Note: Repositories in the service will handle None client by using mock data
-        service = PreSeedingService() 
+        service = PreSeedingService(db_client=db_client) 
         output = service.run(request)
         return output
     except ValueError as e:

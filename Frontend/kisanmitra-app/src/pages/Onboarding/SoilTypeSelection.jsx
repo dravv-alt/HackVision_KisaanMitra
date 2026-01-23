@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnboarding } from '../../context/OnboardingContext';
 
 const SoilTypeSelection = () => {
     const navigate = useNavigate();
-    const [selected, setSelected] = useState('');
+    const { onboardingData, updateOnboardingData } = useOnboarding();
+    const [selected, setSelected] = useState(onboardingData.soilType || '');
 
     const soilTypes = [
         {
@@ -125,7 +127,10 @@ const SoilTypeSelection = () => {
             </button>
             <div className="fixed bottom-0 left-0 right-0 border-t border-[#E6E0D0] dark:border-[#2a3825] bg-[#F9F6F0]/95 dark:bg-[#152111]/95 px-4 py-4 backdrop-blur-sm">
                 <div className="mx-auto flex w-full max-w-[960px] justify-center">
-                    <button onClick={() => navigate('/onboarding/size')} className="flex h-12 w-full max-w-[400px] cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#84A98C] px-8 text-base font-bold tracking-wide text-[#2C3329] shadow-sm transition-all hover:bg-[#6E9175] hover:shadow-md active:scale-[0.98]">
+                    <button onClick={() => {
+                        updateOnboardingData('soilType', selected);
+                        navigate('/onboarding/size');
+                    }} className="flex h-12 w-full max-w-[400px] cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#84A98C] px-8 text-base font-bold tracking-wide text-[#2C3329] shadow-sm transition-all hover:bg-[#6E9175] hover:shadow-md active:scale-[0.98]">
                         <span>Aage Badhein (Continue)</span>
                         <span className="material-symbols-outlined text-lg">arrow_forward</span>
                     </button>

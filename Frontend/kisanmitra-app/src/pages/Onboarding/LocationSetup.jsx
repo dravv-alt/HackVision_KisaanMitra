@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnboarding } from '../../context/OnboardingContext';
 
 const LocationSetup = () => {
     const navigate = useNavigate();
+    const { onboardingData, updateLocation } = useOnboarding();
+
+    // Mock location data - in production this would come from geolocation API
+    const [locationData] = useState({
+        state: 'Maharashtra',
+        district: 'Pune',
+        village: 'Haveli',
+        pincode: '411001',
+        lat: 18.5204,
+        lon: 73.8567
+    });
 
     return (
         <div className="bg-[#F9F7F2] dark:bg-[#1C1C1A] min-h-screen flex flex-col font-display overflow-x-hidden selection:bg-[#A3B899]/30 font-['Work_Sans']">
@@ -68,7 +80,10 @@ const LocationSetup = () => {
                         </p>
                     </div>
                     <div className="flex flex-col gap-3 mt-4">
-                        <button onClick={() => navigate('/onboarding/soil')} className="w-full h-14 bg-[#A3B899] hover:bg-[#8DA385] active:bg-[#7A9072] text-[#1F261E] rounded-lg text-lg font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
+                        <button onClick={() => {
+                            updateLocation(locationData);
+                            navigate('/onboarding/soil');
+                        }} className="w-full h-14 bg-[#A3B899] hover:bg-[#8DA385] active:bg-[#7A9072] text-[#1F261E] rounded-lg text-lg font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
                             <span className="material-symbols-outlined">check_circle</span>
                             Confirm Location
                         </button>

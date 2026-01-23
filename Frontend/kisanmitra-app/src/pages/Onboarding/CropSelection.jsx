@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnboarding } from '../../context/OnboardingContext';
 
 const CropSelection = () => {
     const navigate = useNavigate();
+    const { onboardingData, updateOnboardingData } = useOnboarding();
     const [season, setSeason] = useState('Kharif');
-    const [selectedCrops, setSelectedCrops] = useState(['wheat']); // Default Wheat selected per snippet
+    const [selectedCrops, setSelectedCrops] = useState(onboardingData.selectedCrops || ['wheat']); // Default Wheat selected per snippet
 
     const toggleCrop = (id) => {
         if (selectedCrops.includes(id)) {
@@ -106,7 +108,10 @@ const CropSelection = () => {
                         <button className="hidden sm:flex px-6 py-3 rounded-xl text-[#6B7C6E] dark:text-gray-300 font-bold hover:bg-black/5 dark:hover:bg-gray-800 transition-colors">
                             Skip
                         </button>
-                        <button onClick={() => navigate('/onboarding/summary')} className="flex-1 sm:flex-none w-full sm:w-auto px-10 py-3 rounded-xl bg-[#84A98C] hover:bg-[#6B8F73] text-white font-bold text-base shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                        <button onClick={() => {
+                            updateOnboardingData('selectedCrops', selectedCrops);
+                            navigate('/onboarding/summary');
+                        }} className="flex-1 sm:flex-none w-full sm:w-auto px-10 py-3 rounded-xl bg-[#84A98C] hover:bg-[#6B8F73] text-white font-bold text-base shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
                             Continue
                             <span className="material-symbols-outlined text-xl">arrow_forward</span>
                         </button>

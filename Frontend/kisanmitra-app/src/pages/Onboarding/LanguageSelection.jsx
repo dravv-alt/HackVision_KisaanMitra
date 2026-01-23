@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnboarding } from '../../context/OnboardingContext';
 
 const LanguageSelection = () => {
     const navigate = useNavigate();
-    const [selected, setSelected] = useState('hi'); // Default Hindi selection per design? Or 'en' per snippet?
+    const { onboardingData, updateOnboardingData } = useOnboarding();
+    const [selected, setSelected] = useState(onboardingData.language || 'hi');
     // Snippet shows Hindi checked, Marathi unchecked.
 
     // Helper to get classes for selected vs unselected
@@ -88,7 +90,10 @@ const LanguageSelection = () => {
                         </p>
                     </div>
                     <div className="pt-4">
-                        <button onClick={() => navigate('/onboarding/location')} className="w-full flex items-center justify-center gap-2 h-14 rounded-xl bg-[#9CAF88] hover:bg-[#8B9D78] text-[#333333] text-lg font-bold tracking-[0.015em] transition-colors shadow-lg shadow-[#9CAF88]/20">
+                        <button onClick={() => {
+                            updateOnboardingData('language', selected);
+                            navigate('/onboarding/location');
+                        }} className="w-full flex items-center justify-center gap-2 h-14 rounded-xl bg-[#9CAF88] hover:bg-[#8B9D78] text-[#333333] text-lg font-bold tracking-[0.015em] transition-colors shadow-lg shadow-[#9CAF88]/20">
                             <span>Aage Badhein</span>
                             <span className="opacity-80 text-sm font-normal">(Continue)</span>
                             <span className="material-symbols-outlined ml-1 text-xl">arrow_forward</span>

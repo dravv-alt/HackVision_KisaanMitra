@@ -26,6 +26,11 @@ import FarmSizeInput from './pages/Onboarding/FarmSizeInput';
 import CropSelection from './pages/Onboarding/CropSelection';
 import OnboardingSummary from './pages/Onboarding/OnboardingSummary';
 
+// Context
+import { OnboardingProvider } from './context/OnboardingContext';
+import { LanguageProvider } from './context/LanguageContext';
+import OnboardingGuard from './components/OnboardingGuard';
+
 // Placeholder components for other routes
 const Placeholder = ({ title }) => (
   <div className="card">
@@ -36,39 +41,43 @@ const Placeholder = ({ title }) => (
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public & Onboarding Routes (No Layout) */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+    <LanguageProvider>
+      <OnboardingProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public & Onboarding Routes (No Layout) */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
 
-        <Route path="/onboarding/language" element={<LanguageSelection />} />
-        <Route path="/onboarding/location" element={<LocationSetup />} />
-        <Route path="/onboarding/soil" element={<SoilTypeSelection />} />
-        <Route path="/onboarding/size" element={<FarmSizeInput />} />
-        <Route path="/onboarding/crops" element={<CropSelection />} />
-        <Route path="/onboarding/summary" element={<OnboardingSummary />} />
+            <Route path="/onboarding/language" element={<OnboardingGuard><LanguageSelection /></OnboardingGuard>} />
+            <Route path="/onboarding/location" element={<OnboardingGuard><LocationSetup /></OnboardingGuard>} />
+            <Route path="/onboarding/soil" element={<OnboardingGuard><SoilTypeSelection /></OnboardingGuard>} />
+            <Route path="/onboarding/size" element={<OnboardingGuard><FarmSizeInput /></OnboardingGuard>} />
+            <Route path="/onboarding/crops" element={<OnboardingGuard><CropSelection /></OnboardingGuard>} />
+            <Route path="/onboarding/summary" element={<OnboardingGuard><OnboardingSummary /></OnboardingGuard>} />
 
-        {/* Protected App Routes (With Layout) */}
-        <Route path="/" element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="active-crops" element={<ActiveCrops />} />
-          <Route path="alerts" element={<PriorityAlerts />} />
-          <Route path="farm-management" element={<FarmManagement />} />
-          <Route path="farm-management/planning" element={<PlanningStage />} />
-          <Route path="farm-management/farming" element={<FarmingStage />} />
-          <Route path="farm-management/post-harvest" element={<PostHarvestStage />} />
-          <Route path="collaborative" element={<CollaborativeFarming />} />
-          <Route path="inventory" element={<Inventory />} />
-          <Route path="finance" element={<Finance />} />
-          <Route path="schemes" element={<GovernmentSchemes />} />
-          <Route path="farm-management/calendar" element={<FarmingCalendarPage />} />
-        </Route>
+            {/* Protected App Routes (With Layout) */}
+            <Route path="/" element={<Layout />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="active-crops" element={<ActiveCrops />} />
+              <Route path="alerts" element={<PriorityAlerts />} />
+              <Route path="farm-management" element={<FarmManagement />} />
+              <Route path="farm-management/planning" element={<PlanningStage />} />
+              <Route path="farm-management/farming" element={<FarmingStage />} />
+              <Route path="farm-management/post-harvest" element={<PostHarvestStage />} />
+              <Route path="collaborative" element={<CollaborativeFarming />} />
+              <Route path="inventory" element={<Inventory />} />
+              <Route path="finance" element={<Finance />} />
+              <Route path="schemes" element={<GovernmentSchemes />} />
+              <Route path="farm-management/calendar" element={<FarmingCalendarPage />} />
+            </Route>
 
-        {/* Catch-all */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </OnboardingProvider>
+    </LanguageProvider>
   );
 }
 

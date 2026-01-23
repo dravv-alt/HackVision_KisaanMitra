@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Mic, X, MoreHorizontal, User } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mic, X, User, Send } from 'lucide-react';
 import './styles/voice-interface.css';
 import IdleHome from './IdleHome';
 import ListeningState from './ListeningState';
 import ConversationView from './ConversationView';
 
-// Sample Context for demo
-const DEMO_CONTEXT = {
-    location: 'Pune, MH',
-    crop: 'Wheat',
-    soil: 'Black Soil'
-};
-
 const VoiceInterface = ({ isOpen, onClose }) => {
     const [viewState, setViewState] = useState('idle'); // idle, listening, conversation
     const [messages, setMessages] = useState([]);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [textInput, setTextInput] = useState('');
+    const mediaRecorderRef = useRef(null);
+    const audioChunksRef = useRef([]);
 
     // Reset state when opened
     useEffect(() => {
@@ -24,111 +21,157 @@ const VoiceInterface = ({ isOpen, onClose }) => {
         }
     }, [isOpen]);
 
-    const startListening = () => {
+    const startListening = async () => {
         setViewState('listening');
-        // Simulate listening delay then go to conversation
-        setTimeout(() => {
-            handleDemoConversation();
-        }, 2000);
+
+        try {
+            // Request microphone permission
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            // Create MediaRecorder
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunksRef.current = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    audioChunksRef.current.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = async () => {
+                // Stop all tracks
+                stream.getTracks().forEach(track => track.stop());
+
+                // Create audio blob
+                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+
+                // Send to backend
+                await processAudioInput(audioBlob);
+            };
+
+            // Start recording
+            mediaRecorder.start();
+
+            // Auto-stop after 10 seconds (optional)
+            setTimeout(() => {
+                if (mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                }
+            }, 10000);
+
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+            alert('Could not access microphone. Please check permissions.');
+            setViewState('idle');
+        }
+    };
+
+    const stopListening = () => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
+        }
     };
 
     const cancelListening = () => {
-        setViewState('idle');
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
+            audioChunksRef.current = [];
+        }
+        setViewState(messages.length > 0 ? 'conversation' : 'idle');
     };
 
-    // Orchestrates a demo conversation flow
-    const handleDemoConversation = () => {
+    const processAudioInput = async (audioBlob) => {
+        setIsProcessing(true);
         setViewState('conversation');
 
-        // Step 1: User asks about price
-        addMessage('user', "Mandi mein Gehu ka kya bhav hai? (What is wheat price?)");
+        try {
+            // Create FormData
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recording.webm');
+            formData.append('farmer_id', 'F001'); // TODO: Get from auth context
 
-        // Step 2: AI Response with Market Price Card
-        setTimeout(() => {
-            addMessage('ai', "Pune mandi mein aaj ka updated bhav ₹2,850 hai.", {
-                type: 'marketPrice',
-                data: {
-                    crop: 'Wheat (Sharbati)',
-                    price: '₹2,850',
-                    trend: 'Rising',
-                    trendValue: '+2.4%',
-                    trendDir: 'up',
-                    lastUpdated: '2 hours ago'
-                }
-            }, {
-                duration: 8,
-                transcript: "Pune mandi mein aaj ka updated bhav ₹2,850 hai. Ye pichle hafte se thoda badha hai."
-            }, ['Location: Pune', 'Crop: Wheat']);
+            // Send to backend
+            const response = await fetch('http://localhost:8000/api/v1/voice/process-audio', {
+                method: 'POST',
+                body: formData,
+            });
 
-            // Step 3: User asks about schemes (Auto-trigger for demo)
-            setTimeout(() => {
-                addMessage('user', "Kya iske liye koi scheme hai?");
+            if (!response.ok) {
+                throw new Error('Failed to process audio');
+            }
 
-                // Step 4: AI Response with Scheme Card
-                // Step 4: AI Response with Scheme Card
-                setTimeout(() => {
-                    addMessage('ai', "Ji haan, Pradhan Mantri Fasal Bima Yojana available hai.", {
-                        type: 'governmentScheme',
-                        data: {
-                            title: 'Pradhan Mantri Fasal Bima Yojana',
-                            isTopRecommendation: true,
-                            benefitAmount: 'Up to ₹50,000/ha',
-                            description: 'This scheme provides comprehensive insurance coverage to farmers against failure of crops due to non-preventable natural risks, pests, and diseases. It aims to stabilize farmer income and ensure credit flow.'
-                        }
-                    }, {
-                        duration: 6,
-                        transcript: "Ji haan, Pradhan Mantri Fasal Bima Yojana available hai. Isme aapko ₹50,000 tak ka insurance mil sakta hai."
-                    });
+            const data = await response.json();
 
-                    // Step 5: Agentic Action (Tractor)
-                    setTimeout(() => {
-                        addMessage('ai', "Kya main local dealer se tractor rental ke liye baat kar lun?", {
-                            type: 'confirmation',
-                            data: {
-                                question: "Main tractor rental ke liye apply kar doon?",
-                                details: [
-                                    { icon: '🚜', text: 'Mahindra 575' },
-                                    { icon: '💰', text: '₹800 per day' },
-                                    { icon: '📅', text: 'Available: Tomorrow' }
-                                ],
-                                onConfirm: () => alert('Action Confirmed!'),
-                                onCancel: () => alert('Action Cancelled')
-                            }
-                        }, {
-                            duration: 4,
-                            transcript: "Kya main local dealer se tractor rental ke liye baat kar lun? Kal subah available hai."
-                        });
-                    }, 5000);
+            // Add user message (transcribed text)
+            if (data.user_input) {
+                addMessage('user', data.user_input);
+            }
 
-                    // Step 6: Finance Query
-                    setTimeout(() => {
-                        addMessage('user', "Pichle mahine ka kharcha kitna hua?");
+            // Add AI response
+            if (data.response_text) {
+                addMessage('ai', data.response_text, data.card_data, {
+                    duration: data.audio_duration || 5,
+                    transcript: data.response_text
+                }, data.context_used);
+            }
 
-                        setTimeout(() => {
-                            addMessage('ai', "October mahine mein kul kharcha ₹14,250 tha.", {
-                                type: 'financialInsight',
-                                data: {
-                                    month: 'October',
-                                    totalExpense: '₹14,250',
-                                    categories: [
-                                        { name: 'Fertilizers', amount: '₹5,400' },
-                                        { name: 'Labor', amount: '₹4,000' },
-                                        { name: 'Seeds', amount: '₹3,200' }
-                                    ]
-                                }
-                            }, {
-                                duration: 5,
-                                transcript: "October mahine mein kul kharcha ₹14,250 tha. Sabse zyada kharcha fertilizers aur labor par hua."
-                            });
-                        }, 1500);
+        } catch (error) {
+            console.error('Error processing audio:', error);
+            addMessage('ai', 'माफ़ करें, मुझे आपकी बात समझने में समस्या हुई। कृपया फिर से कोशिश करें।');
+        } finally {
+            setIsProcessing(false);
+        }
+    };
 
-                    }, 12000); // Extended delay after tractor step
+    const processTextInput = async (text) => {
+        if (!text.trim()) return;
 
-                }, 1500);
+        setIsProcessing(true);
+        setTextInput('');
 
-            }, 4000);
+        // Add user message immediately
+        addMessage('user', text);
 
-        }, 1500);
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/voice/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    hindi_text: text,
+                    farmer_id: 'F001', // TODO: Get from auth context
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to process text');
+            }
+
+            const data = await response.json();
+
+            // Add AI response
+            if (data.response_text) {
+                addMessage('ai', data.response_text, data.card_data, {
+                    duration: data.audio_duration || 5,
+                    transcript: data.response_text
+                }, data.context_used);
+            }
+
+        } catch (error) {
+            console.error('Error processing text:', error);
+            addMessage('ai', 'माफ़ करें, मुझे आपकी बात समझने में समस्या हुई। कृपया फिर से कोशिश करें।');
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
+    const handleTextSubmit = (e) => {
+        e.preventDefault();
+        if (textInput.trim() && !isProcessing) {
+            processTextInput(textInput);
+        }
     };
 
     const addMessage = (type, text, cardData = null, audio = null, context = null) => {
@@ -137,7 +180,7 @@ const VoiceInterface = ({ isOpen, onClose }) => {
             text,
             cardData,
             audio,
-            transcript: audio?.transcript, // For text transcript box
+            transcript: audio?.transcript,
             context,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }]);
@@ -147,7 +190,6 @@ const VoiceInterface = ({ isOpen, onClose }) => {
 
     return (
         <div className="voice-interface-overlay" onClick={(e) => {
-            // Close if clicked outside container
             if (e.target.className === 'voice-interface-overlay') onClose();
         }}>
             <div className="voice-interface-container" onClick={e => e.stopPropagation()}>
@@ -168,11 +210,73 @@ const VoiceInterface = ({ isOpen, onClose }) => {
                 )}
 
                 {viewState === 'listening' && (
-                    <ListeningState onCancel={cancelListening} />
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+                        <ListeningState onCancel={cancelListening} />
+                        <button
+                            onClick={stopListening}
+                            style={{
+                                padding: '12px 24px',
+                                backgroundColor: '#4CAF50',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontSize: '16px',
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            बोलना बंद करें (Stop Speaking)
+                        </button>
+                    </div>
                 )}
 
                 {viewState === 'conversation' && (
-                    <ConversationView messages={messages} onMicClick={startListening} />
+                    <>
+                        <ConversationView messages={messages} onMicClick={startListening} />
+
+                        {/* Text Input Area */}
+                        <div style={{
+                            padding: '16px',
+                            borderTop: '1px solid #e0e0e0',
+                            backgroundColor: 'white'
+                        }}>
+                            <form onSubmit={handleTextSubmit} style={{ display: 'flex', gap: '8px' }}>
+                                <input
+                                    type="text"
+                                    value={textInput}
+                                    onChange={(e) => setTextInput(e.target.value)}
+                                    placeholder="अपना सवाल टाइप करें... (Type your question...)"
+                                    disabled={isProcessing}
+                                    style={{
+                                        flex: 1,
+                                        padding: '12px 16px',
+                                        border: '1px solid #ddd',
+                                        borderRadius: '24px',
+                                        fontSize: '14px',
+                                        outline: 'none'
+                                    }}
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={isProcessing || !textInput.trim()}
+                                    style={{
+                                        padding: '12px 20px',
+                                        backgroundColor: isProcessing || !textInput.trim() ? '#ccc' : '#4CAF50',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '24px',
+                                        cursor: isProcessing || !textInput.trim() ? 'not-allowed' : 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}
+                                >
+                                    <Send size={18} />
+                                    {isProcessing ? 'भेज रहे हैं...' : 'भेजें'}
+                                </button>
+                            </form>
+                        </div>
+                    </>
                 )}
             </div>
         </div>

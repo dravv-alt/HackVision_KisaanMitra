@@ -3,7 +3,7 @@ from typing import Optional, Dict
 from datetime import datetime
 from pydantic import BaseModel
 
-from Backend.api.dependencies import get_current_user
+from Backend.api.dependencies import get_current_user, get_db_client
 from Backend.Collaborative_Farming.service import CollaborativeFarmingService
 from Backend.Collaborative_Farming.models import CollaborativeOutput, EquipmentListing, RentalRequest, LandPoolRequest
 from Backend.Collaborative_Farming.constants import EquipmentType, PaymentMethod, PoolRequestType
@@ -36,13 +36,14 @@ class LandPoolCreate(BaseModel):
 async def get_marketplace(
     district: Optional[str] = None,
     equipment_type: Optional[str] = None,
+    db_client = Depends(get_db_client),
     current_user = Depends(get_current_user)
 ):
     """
     Get marketplace dashboard with rentals, pools, and reminders.
     """
     try:
-        service = CollaborativeFarmingService()
+        service = CollaborativeFarmingService(db_client=db_client)
         filters = {}
         if district: filters["district"] = district
         if equipment_type: filters["equipmentType"] = equipment_type
@@ -57,13 +58,14 @@ async def get_marketplace(
 @router.post("/collaborative/equipment", response_model=EquipmentListing)
 async def list_equipment(
     data: EquipmentCreate,
+    db_client = Depends(get_db_client),
     current_user = Depends(get_current_user)
 ):
     """
     List equipment for rent.
     """
     try:
-        service = CollaborativeFarmingService()
+        service = CollaborativeFarmingService(db_client=db_client)
         return service.create_equipment_listing(
             owner_id=current_user["id"],
             **data.dict()
@@ -74,13 +76,14 @@ async def list_equipment(
 @router.post("/collaborative/rental", response_model=RentalRequest)
 async def request_rental(
     data: RentalCreate,
+    db_client = Depends(get_db_client),
     current_user = Depends(get_current_user)
 ):
     """
     Request to rent equipment.
     """
     try:
-        service = CollaborativeFarmingService()
+        service = CollaborativeFarmingService(db_client=db_client)
         return service.request_equipment_rental(
             renter_id=current_user["id"],
             listing_id=data.listing_id,
@@ -94,13 +97,14 @@ async def request_rental(
 @router.post("/collaborative/land-pool", response_model=LandPoolRequest)
 async def create_land_pool(
     data: LandPoolCreate,
+    db_client = Depends(get_db_client),
     current_user = Depends(get_current_user)
 ):
     """
     Create a land pooling request.
     """
     try:
-        service = CollaborativeFarmingService()
+        service = CollaborativeFarmingService(db_client=db_client)
         return service.create_land_pool_request(
             farmer_id=current_user["id"],
             req_type=data.req_type,

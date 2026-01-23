@@ -10,7 +10,13 @@ from .routers import (
     gov_schemes,
     financial,
     collaborative,
-    dashboard
+    dashboard,
+    onboarding,
+    auth,
+    inventory,
+    crops,
+    calendar,
+    alerts
 )
 
 app = FastAPI(
@@ -30,6 +36,12 @@ app.add_middleware(
 )
 
 # Include Routers
+app.include_router(auth.router, prefix=settings.API_V1_STR, tags=["Authentication"])
+app.include_router(onboarding.router, prefix=settings.API_V1_STR, tags=["Onboarding"])
+app.include_router(inventory.router, prefix=settings.API_V1_STR, tags=["Inventory"])
+app.include_router(crops.router, prefix=settings.API_V1_STR, tags=["Active Crops"])
+app.include_router(calendar.router, prefix=settings.API_V1_STR, tags=["Calendar"])
+app.include_router(alerts.router, prefix=settings.API_V1_STR, tags=["Alerts"])
 app.include_router(farm_management.router, prefix=settings.API_V1_STR, tags=["Farm Management"])
 app.include_router(voice_agent.router, prefix=settings.API_V1_STR, tags=["Voice Agent"])
 app.include_router(gov_schemes.router, prefix=settings.API_V1_STR, tags=["Government Schemes"])
